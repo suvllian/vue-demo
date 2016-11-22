@@ -6,19 +6,14 @@
     <input type="text" v-model="newItem" v-on:keyup.enter="addNew">
     <ul>
       <li v-for="(item,index) in items" v-bind:class="{finished:item.isFinished}" v-on:click="toggleFinish(item)">
-        {{ index + 1 }} -- {{item.label}}  <input type="radio" v-model="picked">
+        {{ index + 1 }} -- {{item.label}}  
       </li>
     </ul>
-<!-- 
-    <p>Child tells me:{{childWords}}</p>
-    <msg msgfromfather='hello son' v-on:child-msg='listenToMyChild'></msg> 
--->
-
+    <p class="delBtn" v-on:click="deleteAll">全部删除</p>
   </div>
 </template>
 
 <script>
-import msg from './msg'
 import Store from './../localstorage'
 
 export default {
@@ -34,10 +29,6 @@ export default {
     }
   },
 
-  components: {
-    msg
-  },
-
   watch: {
     //观察items的变化，自动触发更新
     items: {
@@ -49,13 +40,6 @@ export default {
     }
   },
 
-  // 使用$dispatch需要使用events监听
-  events: {
-    'child-msg': function (msg) {
-      // 事件回调内的 `this` 自动绑定到注册它的实例上
-      this.childWords = msg
-    }
-  },
   //方法放在methods
   methods: {
     toggleFinish: function(item) {
@@ -69,12 +53,22 @@ export default {
         isFinished: false
       })
       this.newItem = ''
-      this.$broadcast('onAddnew', this.items) //向子级广播
+      this.broadcast('onAddnew', this.items) //向子级广播
     },
-    //监听子级传来的参数msg
-    listenToMyChild: function(msg){
-      console.log(msg)
-      this.childWords = msg
+
+    deleteItem:function(item){
+      var changeItem = this.items;
+      for(var obj in changeItem){
+        if (changeItem[obj].label===item.label) {
+          changeItem.splice(obj,1);
+        }
+      }
+      Store.save(changeItem);
+    },
+
+    deleteAll:function(){
+      this.items = [ ];
+      Store.save(this.items);
     }
   }
 }
@@ -136,5 +130,13 @@ li{
 
 .finished{
   text-decoration: line-through;
+}
+
+.delBtn{
+  text-align: right;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  text-shadow: 1px 1px 6px #333;
 }
 </style>
