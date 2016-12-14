@@ -53,9 +53,11 @@
 </template>
 
 <script>
-export default {
-	
-}
+	import { mapState } from 'vuex'
+
+	export default {
+		computed: mapState({ user: state => state.user }),
+	}
 </script>
 
 <style lang="scss" scoped>

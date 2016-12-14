@@ -132,16 +132,11 @@
 </template>
 
 <script>
-export default {
-	data(){
-		return{
-			
-		}
-	},
-	methods:{
-		
+	import { mapState } from 'vuex'
+	
+	export default {
+		computed: mapState({ user: state => state.user }),
 	}
-}
 </script>
 
 <style lang="scss" scoped>

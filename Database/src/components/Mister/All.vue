@@ -13,102 +13,33 @@
 						<th>等级</th>
 						<th>迟到次数</th>
 						<th>缺勤次数</th>
-						<th>应扣工资</th>
-						<th>加班类别</th>
-						<th>加班时间</th>
-						<th>津贴</th>
 						<th>基本工资</th>		
 						<th>总津贴</th>
-						<th>扣除</th>
+						<th>应扣工资</th>
 						<th>总工资</th>
 						<th>月份</th>
 						<th>操作</th>
 					</tr>
 				</thead>
 
-				<tbody>
-					<tr>
-						<td>0102</td>
-						<td>彭晗</td>
-						<td>男</td>
-						<td>19</td>
-						<td>18292007712</td>
-						<td>01</td>
-						<td>6次</td>
-						<td>5次</td>
-						<td>500元</td>
-						<td>01</td>
-						<td>10小时</td>
-						<td>500</td>
-						<td>10000</td>
-						<td>500</td>
-						<td>500</td>
-						<td>10000</td>
-						<td>12</td>
+				<tbody v-for="(item,index) in data">
+					<h1>&nbsp;</h1>
+					<h3>{{index}}月</h3>	
+					<tr v-for="single in item">
+						<td>{{single.E_No}}</td>
+						<td>{{single.E_Name}}</td>
+						<td>{{single.E_Sex}}</td>
+						<td>{{single.E_Age}}</td>
+						<td>{{single.E_Tel}}</td>
+						<td>{{single.R_No}}</td>
+						<td>{{single.At_LateTimes}}</td>
+						<td>{{single.At_AbsentTimes}}</td>
+						<td>{{single.R_BaseSalary}}</td>
+						<td></td>
+						<td>{{single.At_DeductMoney}}</td>
+						<td>{{parseInt(single.R_BaseSalary) - parseInt(single.At_DeductMoney)}}</td>
+						<td>{{single.S_Month}}</td>
 						<td><a @click.prevent="callback" href="" title="修改">修改</a>/<a @click.prevent="callback" href="" title="删除">删除</a></td>
-					</tr>
-
-					<tr>
-						<td>0102</td>
-						<td>彭晗</td>
-						<td>男</td>
-						<td>19</td>
-						<td>18292007712</td>
-						<td>01</td>
-						<td>6次</td>
-						<td>5次</td>
-						<td>500元</td>
-						<td>01</td>
-						<td>10小时</td>
-						<td>500</td>
-						<td>10000</td>
-						<td>500</td>
-						<td>500</td>
-						<td>10000</td>
-						<td>12</td>
-						<td><a href="" title="">修改</a>/<a href="" title="">删除</a></td>
-					</tr>
-
-					<tr>
-						<td>0102</td>
-						<td>彭晗</td>
-						<td>男</td>
-						<td>19</td>
-						<td>18292007712</td>
-						<td>01</td>
-						<td>6次</td>
-						<td>5次</td>
-						<td>500元</td>
-						<td>01</td>
-						<td>10小时</td>
-						<td>500</td>
-						<td>10000</td>
-						<td>500</td>
-						<td>500</td>
-						<td>10000</td>
-						<td>12</td>
-						<td><a href="" title="">修改</a>/<a href="" title="">删除</a></td>
-					</tr>
-
-					<tr>
-						<td>0102</td>
-						<td>彭晗</td>
-						<td>男</td>
-						<td>19</td>
-						<td>18292007712</td>
-						<td>01</td>
-						<td>6次</td>
-						<td>5次</td>
-						<td>500元</td>
-						<td>01</td>
-						<td>10小时</td>
-						<td>500</td>
-						<td>10000</td>
-						<td>500</td>
-						<td>500</td>
-						<td>10000</td>
-						<td>12</td>
-						<td><a href="" title="">修改</a>/<a href="" title="">删除</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -118,16 +49,52 @@
 </template>
 
 <script>
-export default {
-	data(){
-		return{
-			
+	import { mapState } from 'vuex'
+	
+	export default {
+		data(){
+			return{
+				data:[]
+			}
+		},
+
+		computed: mapState({ user: state => state.user }),
+
+		methods:{
+			getAllData:function(){
+				var url = "http://127.0.0.1/api/allData.php";
+				var xhr = new XMLHttpRequest();
+	            xhr.open('POST',url);
+				var postData = "id=" + this.user.id ;
+				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
+	            var that = this; 
+	            xhr.onload = function(e){
+	            	var data = JSON.parse(this.response);
+
+	            	for(var each in data){
+		        		for(var item in data[each]){
+			        		if(data[each][item].R_No=="1"){
+			        			data[each][item].R_No = "经理";
+			        		}else if(data[each][item].R_No=="2"){
+			        			data[each][item].R_No = "副经理";
+			        		}else if(data[each][item].R_No=="3"){
+			        			data[each][item].R_No = "组长";
+			        		}else if(data[each][item].R_No=="4"){
+			        			data[each][item].R_No = "员工";
+			        		}
+			        	}	
+		        	}	
+		        	
+	                that.data = data;
+	            }
+	            xhr.send(postData);
+			}
+		},
+
+		created(){
+			this.getAllData();
 		}
-	},
-	methods:{
-		
 	}
-}
 </script>
 
 <style lang="scss" scoped>
@@ -147,17 +114,30 @@ export default {
     	text-align:center;
     }
 
-    table {
+    h3{
+    	font-size:24px;
+    	font-weight:400;
+    	position:absolute;
+    	left:-100px;
+    	text-align:center;
+    	width:100px;
+    	background-color:#eee;
+    	color:#333;
+    	margin:10px 0;
+    	padding:10px;
+    }
+
+   table {
 		border: 2px solid #42b983;
 		border-radius: 3px;
 		background-color: #fff;
 		margin:0 auto;
+		position:relative;
 
-
-		th, td {
-		  
-		   padding: 10px 6px;
+		th, td {  
+		   padding: 10px;
 		   font-size:18px;
+		   min-width:80px;
 		}
 
 		th{

@@ -5,6 +5,16 @@ import VueRouter from 'vue-router'
 import App from './App'
 import router from './routes'
 
+import user from './vuex/user'
+
 Vue.use(VueRouter);
 Vue.use(Vuex);
-new Vue(Vue.util.extend({ router }, App)).$mount('#app');
+
+const store = new Vuex.Store({
+    modules: {
+        user
+    }
+})
+
+
+new Vue(Vue.util.extend({ store,router }, App)).$mount('#app');

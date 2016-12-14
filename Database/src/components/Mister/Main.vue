@@ -5,6 +5,7 @@
 			<table border="1">
 				<thead>
 					<tr>
+						<th>月份</th>
 						<th>部门号</th>
 						<th>部门经理</th>
 						<th>部门人数</th>
@@ -15,6 +16,7 @@
 
 				<tbody>
 					<tr>
+						<td>01</td>
 						<td>0102</td>
 						<td>彭晗</td>
 						<td>30</td>
@@ -26,10 +28,11 @@
 		</section>
 
 		<section>
-			<h2>市场部</h2>
+			<h2>财务部</h2>
 			<table border="1">
 				<thead>
 					<tr>
+						<th>月份</th>
 						<th>部门号</th>
 						<th>部门经理</th>
 						<th>部门人数</th>
@@ -40,6 +43,7 @@
 
 				<tbody>
 					<tr>
+						<td>01</td>
 						<td>0102</td>
 						<td>彭晗</td>
 						<td>30</td>
@@ -51,10 +55,11 @@
 		</section>
 
 		<section>
-			<h2>公关部</h2>
+			<h2>财务部</h2>
 			<table border="1">
 				<thead>
 					<tr>
+						<th>月份</th>
 						<th>部门号</th>
 						<th>部门经理</th>
 						<th>部门人数</th>
@@ -65,6 +70,7 @@
 
 				<tbody>
 					<tr>
+						<td>01</td>
 						<td>0102</td>
 						<td>彭晗</td>
 						<td>30</td>
@@ -76,10 +82,11 @@
 		</section>
 
 		<section>
-			<h2>人力资源部</h2>
+			<h2>财务部</h2>
 			<table border="1">
 				<thead>
 					<tr>
+						<th>月份</th>
 						<th>部门号</th>
 						<th>部门经理</th>
 						<th>部门人数</th>
@@ -90,6 +97,7 @@
 
 				<tbody>
 					<tr>
+						<td>01</td>
 						<td>0102</td>
 						<td>彭晗</td>
 						<td>30</td>
@@ -105,21 +113,37 @@
 </template>
 
 <script>
-export default {
-	data(){
-		return{
-			
+	import { mapState } from 'vuex'
+	
+	export default {
+		computed: mapState({ user: state => state.user }),
+
+		data(){
+			return{
+				data:[]
+			}
+		},
+
+		methods:{
+			getDepartData:function(){
+	            var xhr = new XMLHttpRequest();
+	            xhr.open('POST',this.url);
+				var postData = "id=" + this.user.id + "&type=depart";
+				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
+	            var that = this; 
+	            xhr.onload = function(e){
+	                var data = JSON.parse(this.response);
+	                that.data = data;
+	            }
+	            xhr.send(postData);
+			},
 		}
-	},
-	methods:{
-		
 	}
-}
 </script>
 
 <style lang="scss" scoped>
     .container{
-    	width:780px;
+    	width:930px;
     	padding:10px;
     	position:relative;
     	margin:1em auto 3em;
@@ -136,7 +160,7 @@ export default {
 		border: 2px solid #42b983;
 		border-radius: 3px;
 		background-color: #fff;
-		min-width:780px;
+		min-width:930px;
 
 
 		th, td {

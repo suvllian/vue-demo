@@ -3,11 +3,16 @@
 		<div class="container">
 			<div class="nav-header">
 				<h1 id="logo"><router-link v-bind:to="logo.src">{{logo.title}}</router-link></h1>
-
 				<nav>
-					<ul>
+					<ul v-if="liItems[0].isA">
 						<li v-for="item in liItems">
 							<router-link v-bind:to="item.src">{{item.title}}</router-link>
+						</li>
+					</ul>
+
+					<ul v-else>
+						<li>
+							<a href="/">首页</a>
 						</li >
 					</ul>
 				</nav>
@@ -19,17 +24,13 @@
 <script>
 
 export default{
+	props:['liItems'],
 	data(){
 		return{
 			logo:{
 				title:"Database",
 				src:"/"
-			},
-			liItems:[
-				{title:"我的主页",src:'/manager/home'},
-				{title:"部门员工",src:'/manager/all'},
-				{title:"添加员工",src:'/manager/add'}
-			]
+			}
 		}
 	},
 	methods:{

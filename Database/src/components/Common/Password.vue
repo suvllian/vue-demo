@@ -1,15 +1,15 @@
 <template>
 	<div class="container">
 		<section>
-			<h2>修改基本信息</h2>
+			<h2>{{title}}</h2>
 			
-			<p>姓名：</p>
-			<input type="text" v-model="form.name" placeholder="请输入姓名">
-			<p>年龄：</p>
-			<input type="text" v-model="form.age" placeholder="请输入年龄">
-			<p>电话：</p>
-			<input type="text" v-model="form.tel" placeholder="请输入电话">
-			<input @click="updateInfor()" type="submit" value="确认修改">
+			<p>原密码：</p>
+			<input type="password" v-model="form.original" placeholder="请输入原密码">
+			<p>新密码：</p>
+			<input type="password" v-model="form.new" placeholder="请输入新密码">
+			<p>再次输入新密码：</p>
+			<input type="password" v-model="form.rePost" placeholder="请再次输入新密码">
+			<input @click="cPassword()" type="submit" value="确认修改">
 			
 		</section>
 	</div>
@@ -22,25 +22,37 @@
 		computed: mapState({ user: state => state.user }),
 		data(){
 			return{
+				title:"修改密码",
 				form:{
-					name:"",
-					age: null ,
-					tel: null
+					original:"",
+					new: null ,
+					rePost: null
 				}
 			}
 		},
 		methods:{
-			updateInfor:function(){
-				if(!this.form.name||!this.form.age||!this.form.tel||!this.user.id){ return; };
+			cPassword:function(){
+
+				if(!this.form.original||!this.form.new||!this.form.rePost||!this.user.id){ return; };
+				if(this.form.new!=this.form.rePost){
+					this.title = "两次输入的新密码不一致！";
+					return;
+				}
 				var url = "http://127.0.0.1/api/deal.php";
 				var xhr = new XMLHttpRequest();
 	            xhr.open('POST',url);
-				var postData = "id=" + this.user.id + "&name=" + this.form.name +
-								"&age=" + this.form.age + "&tel=" + this.form.tel + "&type=update";
+				var postData = "id=" + this.user.id + "&original=" + this.form.original +
+								"&new=" + this.form.new + "&type=cpass";
 				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
 	            var that = this; 
 	            xhr.onload = function(e){
-	                
+	                if(this.response === "1"){
+	                	that.title = "初始密码错误！";
+	                }else if(this.response === "2"){
+	                    that.title = "修改成功！";
+	                }else{
+	                    that.title = "修改失败，请重试";
+	                }
 	            }
 	            xhr.send(postData);
 			}
@@ -82,7 +94,7 @@
 	    margin-top:1em;
     }
 
-    input[type="text"]{
+    input[type="password"]{
 	    background: #fff none repeat scroll 0 0;
 	    border: 1px solid #dadada;
 	    border-radius: 30px;

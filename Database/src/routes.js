@@ -5,12 +5,14 @@ import Staff from './components/Staff/index.vue';
 import Manager from './components/Manager/index.vue';
 import Mister from './components/Mister/index.vue';
 
+import Add from './components/Common/Add.vue';
+import CPass from './components/Common/Password.vue';
+
 import Smain from './components/Staff/Main.vue';
 import Schange from './components/Staff/Change.vue';
 
-import Mmain from './components/Manager/Main.vue';
+import Mmain from './components/Staff/Main.vue';
 import Mall from './components/Manager/All.vue';
-import Madd from './components/Manager/Add.vue';
 
 import MImain from './components/Mister/Main.vue';
 import MIall from './components/Mister/All.vue';
@@ -27,6 +29,7 @@ const router = new VueRouter({
 	  	{path: '', component: Smain},
 	  	{path: 'home', component: Smain},
 	  	{path: 'change', component: Schange},	 
+	  	{path: 'cpass', component: CPass},	 
 	  ]
 	},
 
@@ -35,7 +38,8 @@ const router = new VueRouter({
 	  	{path: '', component: MImain},
 	  	{path: 'home', component: MImain},
 	  	{path: 'all', component: MIall},
-	  	{path: 'add', component: Madd},	 	 
+	  	{path: 'add', component: Add},
+	  	{path: 'cpass', component: CPass}	 	 
 	  ]
 	},
 
@@ -44,7 +48,8 @@ const router = new VueRouter({
 	  	{path: '', component: Mmain},
 	  	{path: 'home', component: Mmain},	 
 	  	{path: 'all', component: Mall},	 
-	  	{path: 'add', component: Madd},	 
+	  	{path: 'add', component: Add},
+	  	{path: 'cpass', component: CPass},	 	 
 	  ]
 	},
 
