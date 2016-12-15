@@ -18,10 +18,11 @@ export default {
   data(){
   	return{
 		liItems:[
-			{title:"所有部门",src:'/mister/home',isA:true},
-			{title:"所有员工",src:'/mister/all'},
-			{title:"添加员工",src:'/mister/add'},
-      {title:"修改密码",src:'/manager/cpass'}
+			{title:"所有部门",src:'/mister/home',isActive:true,isA:true},
+			{title:"所有员工",src:'/mister/all',isActive:false},
+      {title:"添加员工",src:'/mister/add',isActive:false},
+			{title:"年终奖金",src:'/mister/reward',isActive:false},
+      {title:"修改密码",src:'/mister/cpass',isActive:false}
 		]
   	}
   }

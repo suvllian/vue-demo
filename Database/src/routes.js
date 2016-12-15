@@ -7,15 +7,15 @@ import Mister from './components/Mister/index.vue';
 
 import Add from './components/Common/Add.vue';
 import CPass from './components/Common/Password.vue';
+import Mmain from './components/Common/Main.vue';
 
-import Smain from './components/Staff/Main.vue';
 import Schange from './components/Staff/Change.vue';
 
-import Mmain from './components/Staff/Main.vue';
 import Mall from './components/Manager/All.vue';
 
 import MImain from './components/Mister/Main.vue';
 import MIall from './components/Mister/All.vue';
+import MIreward from './components/Mister/Reward.vue';
 
 
 const router = new VueRouter({
@@ -26,8 +26,8 @@ const router = new VueRouter({
 
     { path: '/staff/', component: Staff ,
 	  children:[
-	  	{path: '', component: Smain},
-	  	{path: 'home', component: Smain},
+	  	{path: '', component: Mmain},
+	  	{path: 'home', component: Mmain},
 	  	{path: 'change', component: Schange},	 
 	  	{path: 'cpass', component: CPass},	 
 	  ]
@@ -39,7 +39,8 @@ const router = new VueRouter({
 	  	{path: 'home', component: MImain},
 	  	{path: 'all', component: MIall},
 	  	{path: 'add', component: Add},
-	  	{path: 'cpass', component: CPass}	 	 
+	  	{path: 'cpass', component: CPass},	 	 
+	  	{path: 'reward', component: MIreward},	 	 
 	  ]
 	},
 

@@ -10,6 +10,12 @@ export default {
   name: 'app',
   components: {
    
+  },
+
+  data(){
+    return{
+     url:"http://192.168.1.106/api/",
+    }
   }
 }
 </script>

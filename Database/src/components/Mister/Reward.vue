@@ -5,23 +5,24 @@
 			<table border="1">
 				<thead>
 					<tr>
-						<th>部门号</th>
-						<th>月份</th>
-						<th>部门工资</th>
-						<th>部门经理</th>
-						<th>部门人数</th>
-						<th>部门电话</th>
+						<th>工号</th>
+						<th>姓名</th>
+						<th>职位</th>
+						<th>电话</th>
+						<th>年度工资</th>
+						<th>年度津贴</th>
+						<th>年终奖金</th>	
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="(list,title) in item" v-if="list.S_Month">
-						<td>{{10 + item[0].E_RPartNo}}</td>
-						<td>{{list.S_Month}}</td>
-						<td>{{list["SUM(R_BaseSalary)"] + list["SUM(Al_Reward)"] - list["SUM(At_DeductMoney)"]}}</td>						
-						
-						<td>{{item[0].E_Name}}</td>
-						<td>{{item[0]["COUNT(second.E_Name)"]}}</td>
-						<td>{{item[0].E_Tel}}</td>
+					<tr v-for="single in item">
+						<td>{{single.E_No}}</td>
+						<td>{{single.E_Name}}</td>
+						<td>{{single.R_Name}}</td>
+						<td>{{single.E_Tel}}</td>						
+						<td>{{single["SUM(R_BaseSalary)"]}}</td>
+						<td>{{single["SUM(Al_Reward)"]}}</td>
+						<td>{{single["SUM(R_BaseSalary)"] + single["SUM(Al_Reward)"]}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -53,7 +54,7 @@
 	            var xhr = new XMLHttpRequest();
 	            var url = this.$root.url + "data.php";
 	            xhr.open('POST',url);
-				var postData = "id=" + this.user.id + "&type=depart";
+				var postData = "id=" + this.user.id + "&type=year";
 				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
 	            var that = this; 
 	            xhr.onload = function(e){
@@ -72,7 +73,7 @@
 
 <style lang="scss" scoped>
     .container{
-    	width:930px;
+    	width:1080px;
     	padding:10px;
     	position:relative;
     	margin:1em auto 3em;

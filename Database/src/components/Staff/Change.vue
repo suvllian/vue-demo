@@ -32,7 +32,7 @@
 		methods:{
 			updateInfor:function(){
 				if(!this.form.name||!this.form.age||!this.form.tel||!this.user.id){ return; };
-				var url = "http://127.0.0.1/api/deal.php";
+				var url = this.$root.url + "deal.php";
 				var xhr = new XMLHttpRequest();
 	            xhr.open('POST',url);
 				var postData = "id=" + this.user.id + "&name=" + this.form.name +

@@ -1,52 +1,51 @@
 <template>
 	<section>
-		<h2>添加员工</h2>
+		<h2>{{title}}</h2>
 		<form>
 	        <div>
 	            <span>姓名</span>
-	            <input type="text" placeholder="请输入姓名" name="">
+	            <input type="text" placeholder="请输入姓名" v-model="form.name">
 	        </div>
 
 	        <div>
 	            <span>性别</span>
-	            <select name="">
-	                <option selected="selected">男</option>
-	                <option>女</option>
+	             <select v-model="form.sex">
+	                <option v-for="option in sex" :value="option.value">
+	                	{{ option.text }}
+	                </option>
 	            </select>
 	        </div>
 
 	        <div>
 	            <span>年龄</span>
-	            <input type="text" placeholder="年龄" name="">
+	            <input type="text" placeholder="年龄" v-model="form.age">
 	        </div>
 	        
 	        <div>
 	            <span>电话</span>
-	            <input type="text" placeholder="电话" name="">
+	            <input type="text" placeholder="电话" v-model="form.tel">
 	        </div>
 	        
 	        <div>
 	            <span>部门</span>
-	            <select name="">
-	                <option selected="selected">市场部</option>
-	                <option>人力资源部</option>
-	                <option>财务部</option>
-	                <option>公关部</option>
+	            <select v-model="form.depart">
+	                <option v-for="option in department" :value="option.value">
+	                	{{ option.text }}
+	                </option>
 	            </select>
 	        </div>
 	       
 	        <div>
 	            <span>职位</span>
-	            <select name="">
-	                <option selected="selected">职位1</option>
-	                <option>职位2</option>
-	                <option>职位3</option>
-	                <option>职位4</option>
+	            <select v-model="form.rank">
+	                <option v-for="option in rank" :value="option.value">
+	                	{{ option.text }}
+	                </option>
 	            </select>
 	        </div>
-	        
+
 	        <div>
-	            <input @click.prevent="callback" type="submit" value="提交">
+	            <input @click.prevent="addPerson" type="submit" value="提交">
 	        </div>
     	</form>
 	</section>
@@ -57,6 +56,78 @@
 
 	export default {
 		computed: mapState({ user: state => state.user }),
+
+		data(){
+			return{
+				title:"添加员工",
+				form:{
+					name:"",
+					sex: "" ,
+					age: "",
+					tel: "",
+					depart:"",
+					rank:""
+				},
+				sex:[
+					{text:"男",value:"1"},
+					{text:"女",value:"2"}
+				],
+				rank:[
+					{text:"经理",value:"1"},
+					{text:"副经理",value:"2"},
+					{text:"组长",value:"3"},
+					{text:"员工",value:"4"},
+				],
+				department:[
+					{text:"财务部",value:"1"},
+					{text:"人事部",value:"2"},
+					{text:"销售部",value:"3"},
+					{text:"后勤部",value:"4"},
+				],
+			}
+		},
+
+		methods:{
+			addPerson:function(){
+				if(!this.form.name||!this.form.sex||!this.form.age||!this.form.tel||!this.form.depart||!this.form.rank){ 
+					console.log(this.form);
+					this.title = "请输入完整信息！";
+					return; 
+				};
+				var url = this.$root.url + "deal.php";
+				var xhr = new XMLHttpRequest();
+	            xhr.open('POST',url);
+				var postData = "id=" + this.user.id + "&name=" + this.form.name + "&sex=" + this.form.sex +
+								"&age=" + this.form.age + "&tel=" + this.form.tel + 
+								"&depart=" + this.form.depart + "&rank=" + this.form.rank + "&type=add";
+				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
+	            var that = this; 
+	            xhr.onload = function(e){
+	                if(this.response === "1"){
+	                	that.title = "添加成功！";
+	                	that.clearData();
+	                }else{
+	                    that.title = "添加失败，请重试！";
+	                	that.clearData();
+	                }
+	            }
+	            xhr.send(postData);
+			},
+			clearData:function(){
+				this.form.name = "";
+				this.form.sex = "";
+				this.form.age = "";
+				this.form.tel = "";
+				this.form.depart = "";
+				this.form.rank = "";
+			}
+		},
+
+		created(){
+			if(!this.user.id){
+				this.$router.replace({ path: '/' });
+			}
+		}
 	}
 </script>
 
@@ -73,7 +144,7 @@
     		font-weight:400;
     		text-align:center;
     		font-size:28px;
-    		background: #337ab7;
+    		background: #00adb5;
 		    color: #fff;
 		    border-top-left-radius: 10px;
 		    border-top-right-radius: 10px;
@@ -117,7 +188,7 @@
     			border:0px;
     			color: #555;
 			    font-size: 14px;
-			    padding:0 16px;
+			    padding:12px 16px;
 			    outline:none;
     		}
 

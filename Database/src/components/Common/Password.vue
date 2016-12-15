@@ -33,12 +33,15 @@
 		methods:{
 			cPassword:function(){
 
-				if(!this.form.original||!this.form.new||!this.form.rePost||!this.user.id){ return; };
+				if(!this.form.original||!this.form.new||!this.form.rePost||!this.user.id){ 
+					this.title = "请输入完整信息！";
+					return; 
+				};
 				if(this.form.new!=this.form.rePost){
 					this.title = "两次输入的新密码不一致！";
 					return;
 				}
-				var url = "http://127.0.0.1/api/deal.php";
+				var url = this.$root.url + "deal.php";
 				var xhr = new XMLHttpRequest();
 	            xhr.open('POST',url);
 				var postData = "id=" + this.user.id + "&original=" + this.form.original +

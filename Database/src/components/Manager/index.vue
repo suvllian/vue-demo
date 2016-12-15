@@ -18,10 +18,10 @@ export default {
   data(){
   	return{
     		liItems:[
-  			{title:"我的主页",src:'/manager/home',isA:true},
-  			{title:"部门员工",src:'/manager/all'},
-        {title:"添加员工",src:'/manager/add'},
-  			{title:"修改密码",src:'/manager/cpass'}
+  			{title:"我的主页",src:'/manager/home',isActive:true,isA:true},
+  			{title:"部门员工",src:'/manager/all',isActive:false},
+        {title:"添加员工",src:'/manager/add',isActive:false},
+  			{title:"修改密码",src:'/manager/cpass',isActive:false}
   		]
   	}
   }

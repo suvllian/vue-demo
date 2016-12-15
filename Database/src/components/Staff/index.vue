@@ -17,11 +17,11 @@ export default {
 
   data(){
   	return{
-		liItems:[
-			{title:"我的主页",src:'/staff/home',isA:true},
-			{title:"修改信息",src:'/staff/change'},
-      {title:"修改密码",src:'/manager/cpass'}
-		]
+  		liItems:[
+  			{title:"我的主页",src:'/staff/home',isActive:true,isA:true},
+  			{title:"修改信息",src:'/staff/change',isActive:false},
+        {title:"修改密码",src:'/staff/cpass',isActive:false}
+  		]
   	}
   }
 }

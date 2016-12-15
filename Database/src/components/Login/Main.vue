@@ -38,10 +38,13 @@ export default{
        },
        ...mapActions([USER_SIGNIN]),
         submit:function(){
-           if(!this.form.id || !this.form.password) return
+           if(!this.form.id || !this.form.password){
+                this.title = "请填写完整的信息！";
+                return ;
+           }
             this.USER_SIGNIN(this.form)
 
-            var url = "http://127.0.0.1/api/deal.php";
+            var url = this.$root.url + "deal.php";
             var postData = "id=" + this.form.id + "&password=" + this.form.password + "&type=login";
             var xhr = new XMLHttpRequest();
             xhr.open('POST',url);
@@ -89,6 +92,7 @@ export default{
     	margin:0 auto;
     	padding:28px;
     	min-height:82vh;
+        min-width: 600px;
 
     	h2{
     		font-weight:400;
@@ -103,8 +107,22 @@ export default{
     		transition:1s all ease;
             background-color:#7fdbff;
 
+            p{
+                line-height:200px;
+                position:relative;
+                width:148px;
+                left:50%;
+                margin-left:-48px;
+                letter-spacing:12px;
+                color:#fff;
+                font-size:48px;
+                outline: none;
+            }
+
     		&:hover{
     			opacity:1;
+                width: 46%;
+                min-width: 460px;
     		}
     	}
 
@@ -113,6 +131,7 @@ export default{
             height:200px;
             margin:60px auto 32px;
             border-radius:10px;
+            min-width: 500px;
         }
  
         .form{
@@ -161,17 +180,6 @@ export default{
             }
         }
 
-    	p{
-    		line-height:200px;
-    		position:relative;
-    		width:148px;
-    		left:50%;
-    		margin-left:-48px;
-    		letter-spacing:12px;
-    		color:#fff;
-    		font-size:48px;
-    		outline: none;
-    	}
 
     	a{
     		outline: none;

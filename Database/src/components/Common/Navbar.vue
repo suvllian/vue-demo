@@ -5,9 +5,14 @@
 				<h1 id="logo"><router-link v-bind:to="logo.src">{{logo.title}}</router-link></h1>
 				<nav>
 					<ul v-if="liItems[0].isA">
-						<li v-for="item in liItems">
+						<li v-for="item in liItems" v-bind:class="{active:item.isActive}" @click="changeActive(item)">
 							<router-link v-bind:to="item.src">{{item.title}}</router-link>
 						</li>
+
+						<li>
+							<a @click.prevent="print">打印此页</a>
+						</li>
+
 					</ul>
 
 					<ul v-else>
@@ -34,7 +39,17 @@ export default{
 		}
 	},
 	methods:{
-	
+		print:function(){
+			window.print();
+		},
+
+		changeActive:function(item){
+			var length = this.liItems.length;
+			for(var i = 0;i<length;i++){
+				this.liItems[i].isActive = false;
+			}
+			item.isActive = true;
+		}
 	}
 }
 </script>
@@ -97,6 +112,7 @@ export default{
 		    &:focus{
 		    	color: rgba(0, 0,0 , 0.9);
 		    }
+
 		}
 	}
 
@@ -134,11 +150,12 @@ export default{
 
 		    li{
 				float: left;
-				height: $height;
+				height: 0;
 			    padding-top: 0.25rem;
 				position: relative;
 				list-style: none;
 				transition: 1s all ease;
+				cursor: pointer;
 
 				a{
 					display: block;
@@ -155,10 +172,20 @@ export default{
 
 				&:hover{
 					background-color: #00adb5;
+					height: $height;
 
 					a{
 						color: #fff;
 					}
+				}	
+			}
+
+			.active{
+				background-color: #00adb5;
+				color: #fff;
+				height: $height;
+				a{
+					color: #fff;
 				}
 			}
 		}

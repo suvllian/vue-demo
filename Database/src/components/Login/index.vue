@@ -18,9 +18,9 @@ export default {
 
   data(){
   	return{
-		liItems:[
-			{title:"关于我们",src:'/'}
-		]
+  		liItems:[
+  			{title:"关于我们",src:'/'}
+  		]
   	}
   }
 }

@@ -2,7 +2,7 @@
 	<div class="container">
 		<div>
 		<section>
-			<h2>基本信息</h2>
+			<h2 @click="print">基本信息</h2>
 			<table border="1">
 				<thead>
 					<tr>
@@ -159,7 +159,6 @@
 					S_Month:"1",
 					S_TotalSalary:	null
 				}],
-				url:"http://127.0.0.1/api/data.php",
 				moreData:[]
 			}
 		},
@@ -167,7 +166,8 @@
 		methods:{
 			getBaseData:function(){
 	            var xhr = new XMLHttpRequest();
-	            xhr.open('POST',this.url);
+	            var url = this.$root.url + "data.php";
+	            xhr.open('POST',url);
 				var postData = "id=" + this.user.id + "&type=base";
 				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
 	            var that = this; 
@@ -179,7 +179,8 @@
 			},
 			getMoreData:function(){
 				var xhr = new XMLHttpRequest();
-	            xhr.open('POST',this.url);
+				var url = this.$root.url + "data.php";
+	            xhr.open('POST',url);
 				var postData = "id=" + this.user.id + "&type=more";
 				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
 	            var that = this; 
@@ -188,6 +189,9 @@
 	                that.moreData = data;
 	            }
 	            xhr.send(postData);
+			},
+			print:function(){
+				window.print();
 			}
 		},
 		created(){
