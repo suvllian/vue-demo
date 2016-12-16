@@ -72,35 +72,8 @@
 </script>
 
 <style lang="scss" scoped>
+    @import './../../assets/style/main.scss';
     .container{
-    	width:1080px;
-    	padding:10px;
-    	position:relative;
-    	margin:1em auto 3em;
+    	width: 1080px;
     }
-
-    h2{
-    	font-size:26px;
-    	font-weight:400;
-    	margin:16px 0;
-    	color:#333;
-    }
-
-    table {
-		border: 2px solid #42b983;
-		border-radius: 3px;
-		background-color: #fff;
-		min-width:930px;
-
-
-		th, td {
-		   min-width: 150px;
-		   padding: 10px 20px;
-		   font-size:22px;
-		}
-
-		td{
-			text-align:center;
-		}
-	}
 </style>

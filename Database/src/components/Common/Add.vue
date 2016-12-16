@@ -26,13 +26,18 @@
 	            <input type="text" placeholder="电话" v-model="form.tel">
 	        </div>
 	        
-	        <div>
+	        <div v-if="isMister">
 	            <span>部门</span>
 	            <select v-model="form.depart">
 	                <option v-for="option in department" :value="option.value">
 	                	{{ option.text }}
 	                </option>
 	            </select>
+	        </div>
+
+	        <div v-else>
+	        	<span>部门</span>
+	        	<input type="text" :value="department.text" disabled="true">
 	        </div>
 	       
 	        <div>
@@ -84,6 +89,7 @@
 					{text:"销售部",value:"3"},
 					{text:"后勤部",value:"4"},
 				],
+				isMister:true,
 			}
 		},
 
@@ -120,6 +126,19 @@
 				this.form.tel = "";
 				this.form.depart = "";
 				this.form.rank = "";
+			},
+			getDifferent:function(){
+				var rank = parseInt(this.user.rank);
+				var department = parseInt(this.user.department);
+
+				if(rank===3||rank===4){
+					this.$router.replace({ path: '/' });
+				}else if(rank===2){
+					this.rank.splice(0,2);
+					this.form.depart = department;
+					this.department = this.department[department-1];
+					this.isMister = false;
+				}
 			}
 		},
 
@@ -127,6 +146,8 @@
 			if(!this.user.id){
 				this.$router.replace({ path: '/' });
 			}
+
+			this.getDifferent();
 		}
 	}
 </script>

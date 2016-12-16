@@ -27,7 +27,9 @@ export default{
 			isLoginOut:false,
             form:{
                 id:'',
-                password:''
+                password:'',
+                department:1,
+                rank:1
             },
             rank:Number
 		}
@@ -42,7 +44,9 @@ export default{
                 this.title = "请填写完整的信息！";
                 return ;
            }
-            this.USER_SIGNIN(this.form)
+            this.form.department = this.form.id[0];
+            this.form.rank = this.form.id[2];
+            this.USER_SIGNIN(this.form);
 
             var url = this.$root.url + "deal.php";
             var postData = "id=" + this.form.id + "&password=" + this.form.password + "&type=login";

@@ -205,35 +205,5 @@
 </script>
 
 <style lang="scss" scoped>
-    .container{
-    	width:780px;
-    	padding:10px;
-    	position:relative;
-    	margin:1em auto 3em;
-    }
-
-    h2{
-    	font-size:26px;
-    	font-weight:400;
-    	margin:16px 0;
-    	color:#333;
-    }
-
-    table {
-		border: 2px solid #42b983;
-		border-radius: 3px;
-		background-color: #fff;
-		min-width:780px;
-
-
-		th, td {
-		   min-width: 150px;
-		   padding: 10px 20px;
-		   font-size:22px;
-		}
-
-		td{
-			text-align:center;
-		}
-	}
+    @import './../../assets/style/main.scss';
 </style>
