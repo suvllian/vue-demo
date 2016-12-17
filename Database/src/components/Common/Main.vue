@@ -166,7 +166,7 @@
 		methods:{
 			getBaseData:function(){
 	            var xhr = new XMLHttpRequest();
-	            var url = this.$root.url + "data.php";
+	            var url = this.$root.apiPath + "data.php";
 	            xhr.open('POST',url);
 				var postData = "id=" + this.user.id + "&type=base";
 				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
@@ -179,7 +179,7 @@
 			},
 			getMoreData:function(){
 				var xhr = new XMLHttpRequest();
-				var url = this.$root.url + "data.php";
+				var url = this.$root.apiPath + "data.php";
 	            xhr.open('POST',url);
 				var postData = "id=" + this.user.id + "&type=more";
 				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 

@@ -5,6 +5,7 @@
 		<div v-if="!isLoginOut" class="login">
 			<a @click="showLogin"><p>登录</p></a>
 		</div>
+
         <div v-else>
             <div class="form">
                 <h2>登录</h2>
@@ -13,6 +14,7 @@
                 <input type="submit" value="Submit" @click="submit()">
             </div>
         </div>
+
 	</section>
 </template>
 
@@ -48,34 +50,37 @@ export default{
             this.form.rank = this.form.id[2];
             this.USER_SIGNIN(this.form);
 
-            var url = this.$root.url + "deal.php";
-            var postData = "id=" + this.form.id + "&password=" + this.form.password + "&type=login";
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST',url);
-            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
-            
-            var that = this; 
-            xhr.onload = function(e){
-                if(this.response === "1"){
+            var jsonData = {
+                id : this.form.id,
+                type : "login",
+                password : this.form.password
+            }
+
+            var url = "deal.php";
+            var that = this;
+            this.$root.getPostData(jsonData,url).then(function (res) {
+                var response = res.data;
+
+                if(response === "1"){
 
                     // 员工
                     that.rank = 1;
                     that.$router.replace({ path: '/staff/home' });
-                }else if(this.response === "2"){
+                }else if(response === "2"){
 
                     // 经理
                     that.rank = 2;
                     that.$router.replace({ path: '/manager/home' });
-                }else if(this.response === "3"){
+                }else if(response === "3"){
 
                     // 老总
                     that.rank = 3;                    
                     that.$router.replace({ path: '/mister/home' });
-                }else if(this.response === "4"){
+                }else if(response === "4"){
 
                     // 密码错误
                     that.title = "密码错误！";
-                }else if(this.response === "5"){
+                }else if(response === "5"){
 
                     // 工号错误
                     that.title = "工号不存在！";
@@ -83,8 +88,9 @@ export default{
 
                     that.title = "请填写正确的工号和密码！";
                 }
-            }
-            xhr.send(postData);
+            },function (res) {
+                console.log(res.data);
+            });
         }
 	}
 }
@@ -94,8 +100,8 @@ export default{
     section{
     	width:50%;
     	margin:0 auto;
-    	padding:28px;
-    	min-height:82vh;
+    	padding-top: 88px;
+    	min-height:85vh;
         min-width: 600px;
 
     	h2{
@@ -105,6 +111,14 @@ export default{
     		font-size:28px;
     		padding:12px 0;
     	}
+
+        .login,.form{
+            width:50%;
+            height:200px;
+            margin:60px auto 32px;
+            border-radius:10px;
+            min-width: 500px;
+        }
 
     	.login{
     		opacity:0.6;
@@ -130,14 +144,6 @@ export default{
     		}
     	}
 
-        .login,.form{
-            width:50%;
-            height:200px;
-            margin:60px auto 32px;
-            border-radius:10px;
-            min-width: 500px;
-        }
- 
         .form{
             padding:12px 18px 0px;
             box-shadow: 0 0 5px 5px #a7a7a7;
@@ -184,10 +190,27 @@ export default{
             }
         }
 
-
     	a{
     		outline: none;
             cursor:pointer;
     	}
+    }
+
+    @media screen and (max-width:840px){
+        section{
+            width: 82%;
+            margin: 0 auto;
+            min-width: 82%;
+
+            .login,.form{
+                min-width: 100%;
+            }
+
+            .login{
+                &:hover{
+                    min-width: 80%;
+                }
+            }
+        }
     }
 </style>

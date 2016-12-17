@@ -16,8 +16,6 @@ export default {
     data(){
         return{
             apiPath:"http://192.168.1.106/api/",
-            url:"http://192.168.1.106/api/",
-
         }
     },
 
@@ -38,8 +36,16 @@ export default {
     padding: 0;
     outline: none;
   }
+
+  #app{
+    transition: 1s all ease-out;
+  }
+
+  .slide{
+    transform: translateX(-220px);
+  }
   
   body{
-    min-width: 900px;
+    overflow-x: hidden !important;
   }
 </style>
