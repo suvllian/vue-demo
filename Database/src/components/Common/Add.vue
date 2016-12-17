@@ -96,30 +96,36 @@
 		methods:{
 			addPerson:function(){
 				if(!this.form.name||!this.form.sex||!this.form.age||!this.form.tel||!this.form.depart||!this.form.rank){ 
-					console.log(this.form);
 					this.title = "请输入完整信息！";
 					return; 
 				};
-				var url = this.$root.url + "deal.php";
-				var xhr = new XMLHttpRequest();
-	            xhr.open('POST',url);
-				var postData = "id=" + this.user.id + "&name=" + this.form.name + "&sex=" + this.form.sex +
-								"&age=" + this.form.age + "&tel=" + this.form.tel + 
-								"&depart=" + this.form.depart + "&rank=" + this.form.rank + "&type=add";
-				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
-	            var that = this; 
-	            xhr.onload = function(e){
-	                if(this.response === "1"){
+
+				var jsonData = {
+					id : this.user.id,
+					type : "add",
+                    name : this.form.name,
+                    sex : this.form.sex,
+                    age : this.form.age,
+                    tel : this.form.tel,
+                    depart : this.form.depart,
+                    rank : this.form.rank,
+				}
+
+				var url = "deal.php";
+				var that = this;
+                this.$root.getPostData(jsonData,url).then(function (res) {
+	               if(res.data === "1"){
 	                	that.title = "添加成功！";
-	                	that.clearData();
+	                	that.clearForm();
 	                }else{
 	                    that.title = "添加失败，请重试！";
-	                	that.clearData();
 	                }
-	            }
-	            xhr.send(postData);
+                },function (res) {
+                    console.log(res.data);
+                });
 			},
-			clearData:function(){
+
+			clearForm:function(){
 				this.form.name = "";
 				this.form.sex = "";
 				this.form.age = "";
@@ -127,6 +133,7 @@
 				this.form.depart = "";
 				this.form.rank = "";
 			},
+			
 			getDifferent:function(){
 				var rank = parseInt(this.user.rank);
 				var department = parseInt(this.user.department);
@@ -201,7 +208,7 @@
 			    color: #555;
 			    font-size: 14px;
 			    padding:0 16px;
-			    outline:none;
+			    outline:0 none;
     		}
 
     		option{
@@ -210,7 +217,7 @@
     			color: #555;
 			    font-size: 14px;
 			    padding:12px 16px;
-			    outline:none;
+			    outline:0 none;
     		}
 
     		input[type="submit"]{

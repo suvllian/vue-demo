@@ -67,15 +67,14 @@
 
 		methods:{
 			getAllData:function(){
-				var url = this.$root.url + "allData.php";
-				var xhr = new XMLHttpRequest();
-	            xhr.open('POST',url);
-				var postData = "id=" + this.user.id ;
-				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
-	            var that = this; 
-	            xhr.onload = function(e){
-	            	var data = JSON.parse(this.response);
-	            	
+				var jsonData = {
+					id : this.user.id
+				}
+				var url = "allData.php";
+				var that = this;
+                this.$root.getPostData(jsonData,url).then(function (res) {
+	               var data = res.data;
+
 	            	for(var each in data){
 		        		for(var item in data[each]){
 			        		if(data[each][item].R_No=="1"){
@@ -89,27 +88,28 @@
 			        		}
 			        	}	
 		        	}	
-
 	                that.data = data;
-	            }
-	            xhr.send(postData);
+                },function (res) {
+                    console.log(res.data);
+                });
 			},
 			serachData:function(){
-				var url = this.$root.url + "data.php";
-				var xhr = new XMLHttpRequest();
-	            xhr.open('POST',url);
-				var postData = "id=" + this.user.id + "&value=" + this.serach  + "&type=serach" ;
-				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
-	            var that = this; 
-	            xhr.onload = function(e){
-	            	var data = JSON.parse(this.response);
+				var jsonData = {
+					id : this.user.id,
+					value : this.serach,
+					type : "serach"
+				}
+				var url = "data.php";
+				var that = this;
+                this.$root.getPostData(jsonData,url).then(function (res) {
+	                var data = res.data;
 
-	            	var responseLength = data.length;
+	                var responseLength = data.length;
 		        	if(responseLength===0){
 			        	that.title = "没有你要搜索的内容";
 			        	return ;
 			        }
-	            	
+
 	            	for(var each in data){
 		        		for(var item in data[each]){
 			        		if(data[each][item].R_No=="1"){
@@ -123,10 +123,10 @@
 			        		}
 			        	}	
 		        	}	
-
 	                that.data = data;
-	            }
-	            xhr.send(postData);
+                },function (res) {
+                    console.log(res.data);
+                });
 			},
 		},
 

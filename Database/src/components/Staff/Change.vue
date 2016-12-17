@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<section>
-			<h2>修改基本信息</h2>
+			<h2>{{title}}</h2>
 			
 			<p>姓名：</p>
 			<input type="text" v-model="form.name" placeholder="请输入姓名">
@@ -22,6 +22,7 @@
 		computed: mapState({ user: state => state.user }),
 		data(){
 			return{
+				title:"修改基本信息",
 				form:{
 					name:"",
 					age: null ,
@@ -31,18 +32,37 @@
 		},
 		methods:{
 			updateInfor:function(){
-				if(!this.form.name||!this.form.age||!this.form.tel||!this.user.id){ return; };
-				var url = this.$root.url + "deal.php";
-				var xhr = new XMLHttpRequest();
-	            xhr.open('POST',url);
-				var postData = "id=" + this.user.id + "&name=" + this.form.name +
-								"&age=" + this.form.age + "&tel=" + this.form.tel + "&type=update";
-				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
-	            var that = this; 
-	            xhr.onload = function(e){
-	                
-	            }
-	            xhr.send(postData);
+				if(!this.form.name||!this.form.age||!this.form.tel||!this.user.id){ 
+					this.title = "请输入完整信息！";
+					return; 
+				};
+
+				var jsonData = {
+					id : this.user.id,
+					type : "update",
+                    name : this.form.name,
+                    age : this.form.age,
+                    tel : this.form.tel
+				}
+
+				var url = "deal.php";
+				var that = this;
+                this.$root.getPostData(jsonData,url).then(function (res) {
+	               if(res.data === "1"){
+	                	that.title = "修改成功！";
+	                	that.clearForm();
+	                }else{
+	                    that.title = "修改失败，请重试！";
+	                }
+                },function (res) {
+                    console.log(res.data);
+                });
+			},
+
+			clearForm:function(){
+				this.form.name = "";
+				this.form.age = "";
+				this.form.tel = "";
 			}
 		},
 		created(){

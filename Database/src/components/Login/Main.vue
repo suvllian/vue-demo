@@ -125,8 +125,8 @@ export default{
 
     		&:hover{
     			opacity:1;
-                width: 46%;
-                min-width: 460px;
+                width: 40%;
+                min-width: 400px;
     		}
     	}
 
@@ -157,7 +157,7 @@ export default{
                 color: #555;
                 font-size: 14px;
                 padding:0 16px;
-                outline:none;
+                outline:0 none;
                 margin:28px 0;
                 background-color:#eee;
                 border-radius:5px;
@@ -178,8 +178,8 @@ export default{
 
                 &:hover{
                     opacity:1;
-                    width:40%;
-                    margin:28px 30%;
+                    width:30%;
+                    margin:28px 35%;
                 }
             }
         }

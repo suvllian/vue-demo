@@ -7,16 +7,28 @@
 <script>
 
 export default {
-  name: 'app',
-  components: {
-   
-  },
+    name: 'app',
 
-  data(){
-    return{
-     url:"http://192.168.1.106/api/",
+    components: {
+     
+    },
+
+    data(){
+        return{
+            apiPath:"http://192.168.1.106/api/",
+            url:"http://192.168.1.106/api/",
+
+        }
+    },
+
+    methods:{
+      getPostData:function(data,url){
+          return this.$http.post(
+              this.apiPath + url,
+              data
+          )
+      }
     }
-  }
 }
 </script>
 

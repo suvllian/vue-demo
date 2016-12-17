@@ -50,17 +50,17 @@
 
 		methods:{
 			getDepartData:function(){
-	            var xhr = new XMLHttpRequest();
-	            var url = this.$root.url + "data.php";
-	            xhr.open('POST',url);
-				var postData = "id=" + this.user.id + "&type=depart";
-				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
-	            var that = this; 
-	            xhr.onload = function(e){
-	                var data = JSON.parse(this.response);
-	                that.data = data;
-	            }
-	            xhr.send(postData);
+				var jsonData = {
+					id : this.user.id,
+                    type : "depart"
+				}
+				var url = "data.php";
+				var that = this;
+                this.$root.getPostData(jsonData,url).then(function (res) {
+	                that.data = res.data;
+                },function (res) {
+                    console.log(res.data);
+                });
 			}
 		},
 

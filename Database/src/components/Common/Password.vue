@@ -41,23 +41,28 @@
 					this.title = "两次输入的新密码不一致！";
 					return;
 				}
-				var url = this.$root.url + "deal.php";
-				var xhr = new XMLHttpRequest();
-	            xhr.open('POST',url);
-				var postData = "id=" + this.user.id + "&original=" + this.form.original +
-								"&new=" + this.form.new + "&type=cpass";
-				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
-	            var that = this; 
-	            xhr.onload = function(e){
-	                if(this.response === "1"){
+
+				var jsonData = {
+					id : this.user.id,
+					type : "cpass",
+                    original : this.form.original,
+                    new : this.form.new
+				}
+
+				var url = "deal.php";
+				var that = this;
+                this.$root.getPostData(jsonData,url).then(function (res) {
+                	var response  = res.data;
+	               if(response === "1"){
 	                	that.title = "初始密码错误！";
-	                }else if(this.response === "2"){
+	                }else if(response === "2"){
 	                    that.title = "修改成功！";
 	                }else{
 	                    that.title = "修改失败，请重试";
 	                }
-	            }
-	            xhr.send(postData);
+                },function (res) {
+                    console.log(res.data);
+                });
 			}
 		},
 		created(){

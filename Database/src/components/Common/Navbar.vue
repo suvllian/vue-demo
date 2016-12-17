@@ -116,23 +116,6 @@ export default{
 		}
 	}
 
-	input{
-    	font-size: 22px;
-    	letter-spacing: 1px;
-
-    	margin-top: 1.6rem;
-    	margin-left: 16px;
-    	height: 2.4rem;
-    	width: 180px;
-    	border:0;
-    	border-bottom:1px solid #aaa;
-    	padding:0.06rem 0.54rem;
-    }
-
-    input[name=small]{
-    	display: none;
-    }
-
 	nav{
 	    display: block;
 	    float: right;
@@ -203,18 +186,7 @@ export default{
 			width: 136px;
 			margin-left: -24px;
 			overflow: hidden;
-
-			input{
-				display: none;
-			}
 		}
-
-		input[name=small]{
-	    	width: 136px;
-			margin-top: 1.3rem;
-			display: inline-block;
-			margin-left: 28px;
-	    }
 	}
 </style>
 
