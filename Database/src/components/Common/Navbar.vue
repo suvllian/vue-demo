@@ -1,5 +1,4 @@
 <template>
-	<div>
 		<header>
 			<div class="container">
 				<div class="nav-header">
@@ -35,21 +34,20 @@
 					
 				</div>
 			</div>
+
+			<nav :class="{slide:true,show:isShow}">
+				<ul>
+					<li v-for="item in liItems" >
+						<router-link v-bind:to="item.src">{{item.title}}</router-link>
+					</li>
+
+					<li>
+						<a @click.prevent="print">打印此页</a>
+					</li>
+				</ul>
+			</nav>
+
 		</header>
-
-		<nav id="slide-menu">
-			<ul>
-				<li v-for="item in liItems" >
-					<router-link v-bind:to="item.src">{{item.title}}</router-link>
-				</li>
-
-				<li>
-					<a @click.prevent="print">打印此页</a>
-				</li>
-			</ul>
-		</nav>
-	</div>
-	
 </template>
 
 <script>
@@ -61,7 +59,8 @@ export default{
 			logo:{
 				title:"Database",
 				src:"/"
-			}
+			},
+			isShow:false
 		}
 	},
 	methods:{
@@ -78,37 +77,13 @@ export default{
 		},
 
 		slide:function(){ 
-			var rootEle = document.getElementById("app"); 
-  			var slideEle = document.getElementById("slide-menu");
-  			var more = document.getElementById("more"); 
-
-  			document.addEventListener("click",function( e ){
-			  if( e.target !== slideEle && e.target!==more){
-			    if(rootEle.className==="slide"){
-			    	rootEle.className = "";
-			    	slideEle.style.display = "none";
-			    }
-			  }else if(e.target === more || e.target === more.childNodes[0] || e.target === more.parentNode.parentNode){
-			  	if(rootEle.className===""){
-			  		rootEle.className = "slide";
-			    	slideEle.style.display = "block";
-
-			  	}else{
-			  		rootEle.className = "";
-			    	slideEle.style.display = "none";
-
-			  	}
-			  }	  
-			},false)
+  			this.isShow = !this.isShow;
 		}
 	},
 
 	created(){
 		window.onresize = function(){
-			var rootEle = document.getElementById("app");
-			if(rootEle.className==="slide"){
-		    	rootEle.className = "";
-		    }
+			this.isShow = false;
 		}
 	}
 }
@@ -116,6 +91,54 @@ export default{
 
 <style lang="scss" scoped>
 	$height:6rem;
+
+	.slide{
+		display: none;
+		margin-bottom: 50px;
+		background-color:#fff;
+		position:relative;
+		width:100%;
+		height: auto;
+		padding:12px 28px;
+		border-top:2px solid #eee;
+		transition: 2s all ease;
+		ul{
+			width: 100%;
+			position:relative;	
+
+			li{
+				width: 100%;
+				background-color:#fff;
+				margin: 2px auto;
+				border-radius:30px;
+				height: 52px;
+				padding:16px 0px;
+				border-bottom:2px dotted #eee;
+
+				&:hover{
+					background-color:#00adb5;
+					height: 60px;
+					width: 92%;
+
+					a{
+						color: #333;
+					}
+				}
+
+
+				a{
+					display: inline;
+					font-size: 20px;
+				}
+			}
+		}
+	}
+
+	.show{
+		height:auto;
+		display: block;
+	}
+
 
 	header{
 		height: $height;
@@ -173,7 +196,7 @@ export default{
 	    display: block;
 	    float: right;
 	    position: relative;
-	    z-index: 2;
+	    z-index: 100;
 
 	    ul{
 		    color: #848484;
@@ -224,53 +247,8 @@ export default{
 		}
 	}
 
-	ul:last-child{
-		display: none;
-	}
-
-	#slide-menu{
-		position:absolute;
-		background-color:#aaa;
-		overflow-y: scroll !important;
-
-		display: none;
-
-		width:220px;
-		top: 0;
-		right:-220px;
-		height: 100vh;
-		padding:12px 28px;
-		transition: 2s all ease;
-
-		ul{
-			width: 100%;
-
-			li{
-				width: 100%;
-				text-align: center;
-				padding:0.86rem;
-				background-color:#fff;
-				margin: 1vh auto;
-				height: auto;
-				border-radius:30px;
-
-				&:hover{
-					background-color:#00adb5;
-					color: #fff;
-					width: 92%;
-				}
 
 
-				a{
-					display: inline;
-					height:22px;
-					padding:0;
-					font-size: 22px;
-				}
-			}
-		}
-
-	}
 
 	// 响应式布局
 	@media screen and (max-width:1200px){
@@ -300,7 +278,6 @@ export default{
 			display: block;
 
 			li{
-				height: $height;
 				&:hover{
 					background-color:#fff;
 				}

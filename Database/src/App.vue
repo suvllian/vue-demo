@@ -37,14 +37,6 @@ export default {
     outline: none;
   }
 
-  #app{
-    transition: 1s all ease-out;
-  }
-
-  .slide{
-    transform: translateX(-220px);
-  }
-  
   body{
     overflow-x: hidden !important;
   }

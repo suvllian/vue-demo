@@ -2,7 +2,31 @@
 
 ------  
 
-## 使用说明  
+## 目录结构
+
+```
+.
+├── README.md         
+├── build                    // 项目build配置
+├── config                   // 项目配置 
+├── dist                     // 项目build目录
+├── logs                     // 生产环境日志目录
+├── src                      // 生产目录
+│   ├── api                  // API 请求
+│   ├── assets               // css 和图片资源
+│   ├── components           // 组件
+│   └── vuex                 // vuex相关文件, user
+│   └── App.vue              // 根组件
+│   └── routes.js            // 路由配置
+│   └── main.js              // 入口文件
+├── .babelrc                 // babel配置
+|——  index.html              // 主页html
+|——  package.json            // 配置文件
+.
+```
+
+
+## 功能说明  
 
 >     员工输入工号登录之后，根据工号进行判断进入不同的界面。   
     一共有三个等级，不同的等级的权限不同。  
@@ -33,9 +57,10 @@
 5.修改登录密码  
 
 ##  开发说明  
-使用PHP从数据库读取数据并返回JSON数据至前端。
 
-## Build Setup
+后台使用PHP从数据库读取数据并返回JSON数据至前端。api代码参见
+
+## 安装步骤
 
 ``` bash
 # install dependencies
