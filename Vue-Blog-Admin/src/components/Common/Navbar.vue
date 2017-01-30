@@ -42,6 +42,13 @@ export default{
 						{title:"添加书籍",src:'/bIndex'},
 						{title:"图书管理",src:'/bView'}
 					]
+				},
+				{
+					father:"文章管理",isShow:false,
+					items:[
+						{title:"添加文章",src:'/aIndex'},
+						{title:"文章管理",src:'/aView'}
+					]
 				}
 			
 			]
@@ -50,7 +57,6 @@ export default{
 	methods:{
 		showItem:function(item){
 			item.isShow = !item.isShow;
-
 		}
 	}
 }

@@ -1,12 +1,13 @@
 import VueRouter from 'vue-router';
 
-
-
 import TImage from './components/Travel/Image';
 import TView from './components/Travel/View';
 
 import Book from './components/Book/Index';
 import BView from './components/Book/View';
+
+import Article from './components/Article/Index';
+import AView from './components/Article/View';
 
 const router = new VueRouter({
   mode: 'history',
@@ -18,7 +19,10 @@ const router = new VueRouter({
     { path: '/tView', component: TView },
 
     { path: '/bIndex', component: Book },
-    { path: '/bView', component: BView },	
+    { path: '/bView', component: BView },
+
+    { path: '/aIndex', component: Article },
+    { path: '/aView', component: AView },	
 
 	{ path: '*', component: TImage }
   ]

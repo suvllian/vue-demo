@@ -19,7 +19,7 @@
          </thead>
 
          <tbody>
-           <tr v-for="(item,index) in data">
+           <tr v-for="(item,index) in bookList">
              <td>{{index + 1 + (page-1)*8}}</td>
              <td>{{item.cClass}}</td>
              <td>{{item.iName}}</td>
@@ -48,7 +48,7 @@
              </td>
              <td>
                 <span class="submit" @click="submit()">确认</span>
-                <span class="submit" @click="cancle()">取消</span>
+                <span class="submit" @click="isChange = false">取消</span>
               </td>
            </tr>
          </tbody>
@@ -58,8 +58,8 @@
     <section>
       <div class="item">
         <span @click="next(1)" class="submit">首页</span>
-        <span @click="prev" class="submit">上一页</span>
-        <span @click="next(page+1)" class="submit">下一页</span>
+        <span @click="next(page - 1)" class="submit">上一页</span>
+        <span @click="next(page + 1)" class="submit">下一页</span>
         <span @click="" class="submit">尾页</span>
       </div>
     </section>
@@ -67,13 +67,12 @@
 </template>
 
 <script>
+import api from '../../api'
 
 export default{
   data(){
     return{
-      title:"添加图片",
-      data:[],
-      apiPath:"http://127.0.0.1/admin/",
+      bookList:[],
       isChange:false,
       page:1,
       changeForm:{
@@ -83,32 +82,24 @@ export default{
   },
   methods:{
     getData:function(){
-      this.$http.post(
-        this.apiPath,
-        {do:"book",concrete:"allBook",page:this.page}
-      ).then(function (res) {
+      var page = this.page;
+      api.getAllBook( page ).then(res => {
         var response = res.data;
-        if(response.length>0){
-          this.data = response;
+        if(response.length > 0){
+          this.bookList = response;
         }else{
           this.page = this.page - 1;
         }
-        console.log(res.data);
-      },function (res) {
+      },res => {
           console.log(res.data);
       });
     },
 
-    prev:function(){
-      if(this.page>1){
-        this.page = this.page - 1;
+    next:function(page){
+      if(page >= 0){
+        this.page = page;
         this.getData();
       }
-    },
-
-    next:function(page){
-      this.page = page;
-      this.getData();
     },
 
     change:function(item,index){
@@ -117,41 +108,25 @@ export default{
       this.changeForm.index = index;
     },
 
-    cancle:function(){
-      this.isChange = false;
-    },
-
     deleteItem:function(item,index){
       if(confirm("确认删除？")){
-        this.$http.post(
-          this.apiPath,
-          {do:"book",concrete:"deleteBook",iId:item.iId}
-        ).then(function (res) {
-          console.log(res.data);
-
-          if(res.data=="1"){
-
+        api.deleteBook(item.id).then(res => {
+          if(res.data == "1"){
             // 数据库删除成功，删除前端中的该项。
-            this.data.splice(index,1);
+            this.bookList.splice(index,1);
           }
-        },function (res) {
+        },res => {
           console.log(res.data);
         });
-      }else{
-
       }
     },
 
     submit:function(){
-      this.$http.post(
-        this.apiPath,
-        {do:"book",concrete:"changeBook",content:this.changeForm}
-      ).then(function (res) {
-        console.log(res.data);
-        if(res.data=="1"){
+      api.changeBook(this.changeForm).then(res =>{
+        if(res.data == "1"){
           this.isChange = false;
         }
-      },function (res) {
+      },res => {
         console.log(res.data);
       });
     },

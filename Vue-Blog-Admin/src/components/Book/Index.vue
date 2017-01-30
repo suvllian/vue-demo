@@ -1,7 +1,7 @@
 <template>
   <div class="right">
     <section>
-        <h3>{{title}}</h3>
+        <h3>添加书籍</h3>
 
         <form @submit.prevent="submit">
            <div v-for="item in formItem">
@@ -38,6 +38,7 @@
 
 <script>
 import add from './Add.vue'
+import api from '../../api'
 
 export default{
   components: {
@@ -45,7 +46,6 @@ export default{
   },
   data(){
     return{
-      title:"添加书籍",
       formItem:[
         {title:"书名：",name:"name",isText:true},
         {title:"书籍图片链接：",name:"imageName",isText:true},
@@ -59,26 +59,18 @@ export default{
         bgLink:"",
         class:"",
         content:"",
-        do:"book",
-        concrete:"addbook"
       },
       options:[],
-      apiPath:"http://127.0.0.1/admin/"
     }
   },
   methods:{
     submit:function(){
-      console.dir(this.formValue);
-      this.$http.post(
-        this.apiPath,
-        this.formValue
-      ).then(function (res) {
+      api.addBook(this.formValue).then(res => {
         var response = res.data;
         if(response==="1"){
           this.clearForm();
         }
-        console.log(res.data);
-      },function (res) {
+      },res => {
           console.log(res.data);
       });
     },
@@ -92,14 +84,9 @@ export default{
     },
 
     getOptions:function(){
-      this.$http.post(
-        this.apiPath,
-        {do:"book",concrete:"getClass"}
-      ).then(function (res) {
-        var response = res.data;
-        this.options = response;
-        console.log(response);
-      },function (res) {
+      api.getBookClass().then(res=>{
+        this.options = res.data;
+      },res => {
           console.log(res.data);
       });
     }

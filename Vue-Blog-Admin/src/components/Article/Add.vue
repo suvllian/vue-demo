@@ -1,13 +1,13 @@
 <template>
   <section>
-      <h3>添加书籍分类</h3>
+      <h3>添加文章分类</h3>
       <form @submit.prevent="submit">
-         <div>
+         <div v-for="item in formItem">
             <div class="label">
-              <label><span>书籍分类：</span></label>
+              <label><span>{{item.title}}</span></label>
             </div>
             <div class="input">
-              <input type="text" v-model="className">    
+              <input type="text" v-model="formValue[item.name]">    
             </div>
          </div> 
          <button type="submit">提交</button>
@@ -16,24 +16,39 @@
 </template>
 
 <script>
-import api from '../../api'
 
 export default{
   data(){
     return{
-      className:'',
+      formItem:[
+        {title:"文章分类：",name:"class"}  
+      ],
+      formValue:{
+        class:"",
+        do:"book",
+        concrete:"addClass"
+      },
+      apiPath:"http://127.0.0.1/admin/"
     }
   },
   methods:{
     submit:function(){
-      api.addBookClass(this.className).then(res => {
+      this.$http.post(
+        this.apiPath,
+        this.formValue
+      ).then(function (res) {
         var response = res.data;
-        if(response == "1"){
-          this.className = '';
+        if(response==="1"){
+          this.clearForm();
         }
-      },res => {
+        console.log(res.data);
+      },function (res) {
           console.log(res.data);
       });
+    },
+
+    clearForm:function(){
+      this.formValue.class = "";
     },
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="right">
     <section>
-        <h3>添加图片</h3>
+        <h3>{{title}}</h3>
 
         <form @submit.prevent="submit">
            <div v-for="item in formItem">
@@ -16,8 +16,8 @@
 
               <div class="input" v-if="item.isSelect">
                 <select v-model="formValue[item.name]">
-                  <option v-for="option in options" :value="option.cId">
-                    {{option.cName}}
+                  <option v-for="option in options" :value="option.aId">
+                    {{option.aClassName}}
                   </option>
                 </select>    
               </div>
@@ -25,11 +25,12 @@
               <div class="input" v-if="item.isTextarea">
                 <textarea v-model="formValue[item.name]"></textarea>  
               </div>
-
            </div> 
 
            <button type="submit">提交</button>
         </form>
+
+        <div class="edit" v-html="formValue.content"></div>
     </section>
 
     <add></add>
@@ -44,46 +45,55 @@ export default{
   components: {
       add
   },
-
   data(){
     return{
+      title:"添加文章",
       formItem:[
-        {title:"名称：",name:"topic",isText:true},
-        {title:"图片名：",name:"imageName",isText:true},
-        {title:"分类：",name:"city",isSelect:true},
-        {title:"简介：",name:"content",isTextarea:true},     
+        {title:"标题：",name:"name",isText:true},
+        {title:"配图：",name:"image",isText:true},
+        {title:"简介：",name:"intrudction",isText:true},
+        {title:"分类：",name:"class",isSelect:true},
+        {title:"内容：",name:"content",isTextarea:true},     
       ],
       formValue:{
-        topic:"",
-        imageName:"",
-        city:"",
+        name:"",
+        image:"",
+        class:"",
         content:"",
+        do:"book",
+        concrete:"addbook"
       },
       options:[],
+      apiPath:"http://127.0.0.1/admin/"
     }
   },
   methods:{
     submit:function(){
-      api.addImage(this.formValue).then(res => {
+      this.$http.post(
+        this.apiPath,
+        this.formValue
+      ).then(function (res) {
         var response = res.data;
         if(response==="1"){
           this.clearForm();
         }
-      },res => {
+        console.log(res.data);
+      },function (res) {
           console.log(res.data);
       });
     },
 
     clearForm:function(){
-      this.formValue.topic = "";
+      this.formValue.name = "";
       this.formValue.imageName = "";
-      this.formValue.city = "";
+      this.formValue.class = "";
       this.formValue.content = "";
+      this.formValue.bgLink = "";
     },
 
     getOptions:function(){
-      api.getImageClass().then(res => {
-        this.options = res.data;
+      api.getArticleClass().then(res => {
+        this.options = res.data;   
       },res => {
           console.log(res.data);
       });
@@ -111,6 +121,7 @@ export default{
       margin:6px;
       padding-bottom:16px;
       border-radius:5px;
+      position:relative;
     }
 
     form{
@@ -145,11 +156,22 @@ export default{
       .label{
         width: 248px;
         display: inline-block;
+
         text-align: right;
       }
 
       .input{
         display: inline-block;
       }
+    }
+
+    .edit{
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      overflow-y: scroll;
+      background-color:#eee;
     }
 </style>
