@@ -10,7 +10,7 @@
               <input type="text" v-model="className">    
             </div>
          </div> 
-         <button type="submit">提交</button>
+         <button type="submit" class="submit">提交</button>
       </form>
   </section>
 </template>
@@ -38,58 +38,3 @@ export default{
   }
 }
 </script>
-
-
-<style lang="scss" scoped>
-    h3{
-      font-weight: bold;
-      padding:12px 16px;
-      background-color: #eee;
-      font-size: 16px;
-      border-bottom: 1px solid #ddd;
-    }
-
-    section{
-      border:2px solid #eee;
-      margin:6px;
-      padding-bottom:16px;
-      border-radius:5px;
-    }
-
-    form{
-      >div{
-        margin:30px 0px;
-      }
-
-      input{
-        border:1px solid #ddd;
-        font-size: 14px;
-        line-height: 20px;
-        padding: 10px;
-        border-radius:3px;
-        width: 280px;
-      }
-
-      button{
-        padding:10px 20px;
-        font-size: 18px;
-        background-color: #00adb5;
-        border:0px;
-        color: #fff;
-        letter-spacing: 2px;
-        border-radius:6px;
-        margin-left: 248px;
-      }
-
-      .label{
-        width: 248px;
-        display: inline-block;
-
-        text-align: right;
-      }
-
-      .input{
-        display: inline-block;
-      }
-    }
-</style>

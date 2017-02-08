@@ -24,7 +24,7 @@
              <td>{{item.cName}}</td>
              <td>{{new Date(parseInt(item.iDate) * 1000).toLocaleString().slice(0,11)}}</td>
              <td>{{item.iImage}}</td>
-             <td><img v-bind:src=" 'http://suvllian.com/V/images/travel/' + item.iImage + '.jpg' "></td>
+             <td><img v-bind:src=" 'http://suvllian.com/static/images/travel/' + item.iImage + '.jpg' "></td>
              <td>{{item.iTopic}}</td>
              <td>{{item.iContent}}</td>
              <td>{{item.iLike}}</td>
@@ -135,7 +135,7 @@ export default{
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
     h3{
       font-weight: bold;
       padding:12px 16px;

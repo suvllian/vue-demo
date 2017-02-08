@@ -1,7 +1,7 @@
 <template>
   <div class="right">
     <section>
-        <h3>添加书籍</h3>
+        <h3>{{ infor }}</h3>
 
         <form @submit.prevent="submit">
            <div v-for="item in formItem">
@@ -10,9 +10,18 @@
                 <label><span>{{item.title}}</span></label>
               </div>
 
-              <div class="input" v-if="item.isText">
-                <input type="text" v-model="formValue[item.name]">    
+              <div class="input" v-if="item.isText && item.disabled">
+                <input type="text" v-model="formValue[item.name]" disabled="true">       
               </div>
+
+              <div class="input" v-if="item.isText && !item.disabled">
+                <input type="text" v-model="formValue[item.name]">       
+              </div>
+
+              <div class="input" v-if="item.isFile">
+                <input type="file" @change="selectImage" ref="file">  
+              </div>
+              <button @click.prevent="uploadImage" v-if="item.isFile">上传</button>
 
               <div class="input" v-if="item.isSelect">
                 <select v-model="formValue[item.name]">
@@ -28,8 +37,12 @@
 
            </div> 
 
-           <button type="submit">提交</button>
+           <button type="submit" class="submit">提交</button>
         </form>
+
+        <div class="view">
+          <img src="#" alt="上传预览" ref="imageView">
+        </div>
     </section>
 
     <add></add>
@@ -41,21 +54,21 @@ import add from './Add.vue'
 import api from '../../api'
 
 export default{
-  components: {
-      add
-  },
+  components: { add },
   data(){
     return{
+      infor:"添加书籍",
       formItem:[
         {title:"书名：",name:"name",isText:true},
-        {title:"书籍图片链接：",name:"imageName",isText:true},
+        {title:"书籍图片：",name:"file",isFile:true},
+        {title:"书籍图片链接：",name:"imageLink",isText:true,disabled:true},
         {title:"背景图片链接：",name:"bgLink",isText:true},
         {title:"分类：",name:"class",isSelect:true},
         {title:"简介：",name:"content",isTextarea:true},     
       ],
       formValue:{
         name:"",
-        imageName:"",
+        imageLink:"",
         bgLink:"",
         class:"",
         content:"",
@@ -67,20 +80,49 @@ export default{
     submit:function(){
       api.addBook(this.formValue).then(res => {
         var response = res.data;
-        if(response==="1"){
-          this.clearForm();
+        if(response == "1"){
+          this.infor = "添加成功";
         }
       },res => {
+          this.infor = "添加失败";
           console.log(res.data);
       });
     },
 
-    clearForm:function(){
-      this.formValue.name = "";
-      this.formValue.imageName = "";
-      this.formValue.class = "";
-      this.formValue.content = "";
-      this.formValue.bgLink = "";
+    selectImage:function(){
+      var image = this.$refs.file[0].files[0];
+      var fileReader = new FileReader();
+      fileReader.readAsDataURL(image);
+      var $this = this;
+      fileReader.onload = function(oFREvent){
+        $this.$refs.imageView.src = oFREvent.target.result;
+      };
+    },
+
+    uploadImage:function(){
+      var file = this.$refs.file[0];
+      var imageData = file.files[0];
+      var fileReader = new FileReader();
+      fileReader.readAsDataURL(imageData);
+      
+      var imagePath = file.value.split('\\');
+      var imageName = imagePath[imagePath.length - 1];
+      // 自动填充文件名
+      var url = "http://www.suvllian.com/static/images/books/";
+      this.formValue.imageLink = url + imageName;
+      var $this = this;
+
+      fileReader.onload = function(e){
+        api.uploadBookImage(e.target.result, imageName).then(res => {
+          var response = res.data;
+          if(response == "1"){
+            $this.infor = "上传成功";
+          }
+        },res => {
+            $this.infor = "上传失败";
+            console.log(res.data);
+        });
+      }
     },
 
     getOptions:function(){
@@ -97,62 +139,3 @@ export default{
   }
 }
 </script>
-
-
-<style lang="scss" scoped>
-    h3{
-      font-weight: bold;
-      padding:12px 16px;
-      background-color: #eee;
-      font-size: 16px;
-      border-bottom: 1px solid #ddd;
-    }
-
-    section{
-      border:2px solid #eee;
-      margin:6px;
-      padding-bottom:16px;
-      border-radius:5px;
-    }
-
-    form{
-      >div{
-        margin:30px 0px;
-      }
-
-      input,textarea,option{
-        border:1px solid #ddd;
-        font-size: 14px;
-        line-height: 20px;
-        padding: 10px;
-        border-radius:3px;
-        width: 280px;
-      }
-
-      textarea{
-        width: 500px;
-      }
-
-      button{
-        padding:10px 20px;
-        font-size: 18px;
-        background-color: #00adb5;
-        border:0px;
-        color: #fff;
-        letter-spacing: 2px;
-        border-radius:6px;
-        margin-left: 248px;
-      }
-
-      .label{
-        width: 248px;
-        display: inline-block;
-
-        text-align: right;
-      }
-
-      .input{
-        display: inline-block;
-      }
-    }
-</style>
