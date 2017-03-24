@@ -1,0 +1,73 @@
+<template>
+	<section id="class" class="slide-new slide-box">
+		<div class="section-title">
+			<h2 class="section-title-h">
+				<span>专业设置</span>
+			</h2>
+		</div>
+
+		<div class="section-inner">
+			<div class="class-intro">
+				<h2 class="class-intro-h">明星导师亲自授课，你值得拥有！</h2>
+				<p class="class-intro-p">我们的课程模式是通过导师亲自教学，学员自主练习等等等等。</p>
+				<p class="class-intro-p">记录你想听的、在听的和听过的唱片，顺便打分，添加标签及个人附注、写评论。</p>
+				<p class="class-intro-p">根据你的口味，豆瓣会推荐合适的唱片给你。</p>
+				<p class="class-intro-more"><span>点击图标了解课程详情&nbsp;&nbsp; ></span></p>
+			</div>
+			<div class="class-list">
+				<ul>
+					<li class="class-item">
+						<a href="#"><img class="class-pic" src="./../assets/class-img-1.png"></a>
+					</li>
+
+					<li class="class-item">
+						<a href="#"><img class="class-pic" src="./../assets/class-img-2.png"></a>
+					</li>
+
+					<li class="class-item">
+						<a href="#"><img class="class-pic" src="./../assets/class-img-3.png"></a>
+					</li>
+
+					<li class="class-item">
+						<a href="#"><img class="class-pic" src="./../assets/class-img-4.png"></a>
+					</li>
+
+					<li class="class-item">
+						<a href="#"><img class="class-pic" src="./../assets/class-img-5.png"></a>
+					</li>
+				</ul>
+			</div>
+			<div class="slide-switch">
+				<a class="slide-switch-item" href="">
+					<i class="slide-switch-bg switch-active"></i>
+				</a>
+				<a class="slide-switch-item" href="">
+					<i class="slide-switch-bg"></i>
+				</a>
+				<a class="slide-switch-item" href="">
+					<i class="slide-switch-bg"></i>
+				</a>
+				<a class="slide-switch-item" href="">
+					<i class="slide-switch-bg"></i>
+				</a>
+				<a class="slide-switch-item" href="">
+					<i class="slide-switch-bg"></i>
+				</a>
+			</div>
+		</div>
+
+		<div class="slide-action">
+			<div class="slide-action-left">
+				<a class="slide-action-btn" href="javascript:;">
+					<i class="fa fa-angle-left fa-3x"></i>
+				</a>
+			</div>
+			<div class="slide-action-right">
+				<a class="slide-action-btn" href="javascript:;">
+					<i class="fa fa-angle-right fa-3x"></i>
+				</a>
+			</div>
+		</div>
+		
+	</section>
+</template>

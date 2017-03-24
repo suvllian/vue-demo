@@ -1,0 +1,74 @@
+#join .section-inner{
+	padding:50px 0;
+}
+
+.join-bg{
+	background-image:url(./assets/join-bg.png);
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-position:50% 50%;
+}
+
+.join-form{
+	width:500px;
+	padding:30px 50px;
+	float:right;
+	position:relative;
+	background-color:#fff;  
+}
+
+.input-item{
+	padding:10px 0;
+	width:100%;
+}
+
+.input-radio{
+	padding-bottom:18px;
+	font-size:18px;
+	letter-spacing:1px;
+	font-weight:bold;
+
+	label{
+		display: inline-block;
+		width: 49%;
+		cursor: pointer;
+	}
+}
+
+.radio-text{
+	margin-left:16px;
+}
+
+.input-text{
+	height:56px;
+	width:100%;
+	padding:0 16px;
+	border:none;
+	background-color:#e8e8e8;
+	border-radius:8px;
+	font-size:17px;
+	color:#333;
+}
+
+.submit{
+	height:72px;
+	background-color:#41b25d;
+	width:100%;
+	margin-top:32px;
+	border-radius:8px;
+	text-align:center;
+	color:#fff;
+	font-size:22px;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	letter-spacing:1px;
+	cursor:pointer;
+}
+
+.define{
+	padding:32px 0 0;
+	color:#000;
+	font-size:17px;
+	font-weight:bold;
+}

@@ -1,0 +1,50 @@
+#class{
+	position: relative;
+	background-color:#ffffff;
+	padding-bottom: 50px;
+
+	.slide-switch .slide-switch-bg{
+		background-color:rgba(0, 0, 0, 0.3);
+	}
+
+	.slide-switch .switch-active{
+		background-color:rgba(0, 0, 0, 1);
+	}
+}
+
+.class-intro{
+	width:800px;
+	margin:0 auto;
+	text-align:center;
+}
+
+.class-intro-h{
+	font-size:36px;
+	font-weight:400;
+	margin-bottom:16px;
+}
+
+.class-intro-p{
+	font-size:18px;
+	line-height:32px;
+}
+
+.class-intro-more{
+	color:#41b35d;
+	font-size:18px;
+	margin-top:48px;
+
+	span{
+		cursor: pointer;
+	}
+}
+
+.class-list{
+	margin:66px 0;
+}
+
+.class-item{
+	display:inline-block;
+	width:19.5%;
+	text-align:center;
+}

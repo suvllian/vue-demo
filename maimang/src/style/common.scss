@@ -1,0 +1,183 @@
+body{
+	width:100%;
+	min-width:1240px;
+}
+
+/* 有背景的块的背景样式 */
+.section-bg{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background-size: cover;
+	background-position: center 50%;
+}
+
+/* 鼠标置上出现left right按钮 */
+.slide-box{
+	position:relative;
+
+	&:hover{
+		.slide-action-left .slide-action-btn{
+			transform: translateX(0);
+		}
+
+		.slide-action-right .slide-action-btn{
+			transform: translateX(0);
+		}
+	}
+}
+
+/* section主要内容块 */
+.section-inner{
+	overflow:hidden;
+	z-index:2;
+	max-width:1200px;
+	position:relative;
+	margin:0 auto;
+}
+
+/* 轮播图切换按钮 */
+.slide-switch{
+	text-align: center;
+	width: 100%;
+	bottom: 0px;
+	position:absolute;
+
+	.slide-switch-item{
+		display: inline-block;
+		height: 2px;
+		margin: 0 5px;
+		padding: 10px 0;
+		width: 30px;
+	}
+
+	.slide-switch-bg{
+		display: block;
+		background-color:rgba(255, 255, 255, 0.3);
+		height: 2px;
+		width: 100%;
+	}
+}
+
+/* section内容大标题*/
+.section-title{
+	margin:0 auto;
+	padding:50px 0;
+	position:relative;
+	width:490px;
+
+	.section-title-h{
+		font-weight:400;
+		font-size: 42px;
+		text-align: center;
+		position:relative;
+
+		span{
+			height: 48px;	
+		}
+
+		&:before, &:after{
+			content: "";
+			width: 72px;
+			height: 2px;
+			background-color:#000;
+			position:absolute;
+			top: 35.5px;
+			opacity: 0.2;
+		}
+
+		&:before{
+			left: 0;	
+		}
+
+		&:after{		
+			right: 0;
+		}
+	}
+	
+}
+
+/* 白色标题 */
+.white-title{
+	color: #fff;
+
+	.section-title-h{
+		&:before,&:after{
+			background-color:#fff;
+			opacity: 0.5;
+		}
+	}
+	
+}
+
+/* 左右按钮 */
+.slide-action{
+	height:100%;
+	width:100%;
+	overflow:hidden;
+	position:absolute;
+	top:0;
+	left:0;
+
+	%slide-action-common{
+		width: 50%;
+		height: 100%;
+		position:absolute;
+		top: 0;
+	}
+
+	.slide-action-left{
+		@extend %slide-action-common;
+		left: 0;
+
+		.slide-action-btn{
+			left: 0;
+			transform: translateX(-100%);
+		}
+
+		&:hover{
+			.slide-action-btn{
+				background-color:#41b35d;
+			}
+		}
+	}
+
+	.slide-action-right{
+		@extend %slide-action-common;
+		right: 0;
+
+		.slide-action-btn{
+			right: 0;
+			transform: translateX(100%);
+		}
+
+		&:hover{
+			.slide-action-btn{
+				background-color:#41b35d;
+			}
+		}
+	}
+
+
+
+	.slide-action-btn{
+		background: rgba(153, 153, 153, 0.66) none repeat scroll 0 0;
+	    height: 108px;
+	    margin-top: -54px;
+	    opacity: 1;
+	    position: absolute;
+	    top: 50%;
+	    transition: 0.5s all ease;
+	    width: 72px;
+	    z-index: 2;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+
+	    .fa{
+	    	color: #fff;
+	    }
+	}
+}

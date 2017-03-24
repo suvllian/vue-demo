@@ -1,0 +1,75 @@
+.teacher-bg{
+	background-image: url(./assets/teacher-bg.jpg);
+}
+
+#teacher{
+	padding:30px 0 120px;
+}
+
+.teacher-list{
+	overflow:hidden;
+	width:300%;
+	height:400px;
+	position:relative;
+	left:0;
+	transition:1s all ease;
+
+	.teacher-list-item{
+		display: inline-block;
+		color: #fff;
+		width: 300px;
+		height:400px;
+		text-align:center;
+
+		&:hover{
+			.teacher-intro{
+				background-color:#41b25d;
+			}
+		}
+	}
+
+	.teacher-img{
+		height: 250px;
+		width: 250px;
+		margin: 0 auto;
+		overflow: hidden;
+		cursor: pointer;
+			
+		.teacher-pic{
+			height: 100%;
+			width: 100%;
+			transform: scale(1);
+			transition: 0.5s all ease;
+		}
+
+		&:hover{
+			.teacher-pic{
+				transform: scale(1.07);
+				filter: brightness(0.66);
+			}
+		}
+	}
+
+	.teacher-intro{
+		height: 120px;
+		width: 250px;
+		margin: 0 auto;
+		overflow: hidden;
+		background-color:#626262;
+		padding-top: 20px;
+		transition:0.5s all ease;
+
+		.teacher-intro-h{
+			font-size: 21px;
+			font-weight: 400;
+			line-height: 38px;
+			width: 250px;
+		}
+
+		.teacher-intro-p{
+			font-size: 16px;
+			width: 250px;
+
+		}
+	}
+}
