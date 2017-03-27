@@ -8,7 +8,8 @@
     <Person></Person>
     <JoinTitle></JoinTitle>
     <Join></Join>
-    <About></About>
+    <About></About> 
+    <!-- <MaskBox></MaskBox> -->
   </div>
 </template>
 
@@ -22,11 +23,12 @@ import ClassSet from './components/class'
 import Person from './components/person'
 import Join from './components/join'
 import JoinTitle from './components/jointitle'
+import MaskBox from './components/mask'
 
 export default {
   name: 'app',
   components: {
-    Header, Album, Hot, Teacher, About, ClassSet, Person, Join, JoinTitle
+    Header, Album, Hot, Teacher, About, ClassSet, Person, Join, JoinTitle, MaskBox
   },
   data:{
     isShow:false
@@ -44,7 +46,7 @@ export default {
   @import './style/class.scss';
   @import './style/person.scss';
   @import './style/join.scss';
+  @import './style/mask.scss';
 
-  
   @import './style/common.scss';
 </style>

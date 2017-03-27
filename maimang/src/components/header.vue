@@ -8,10 +8,10 @@
 					</a>
 				</h1>
 				<ul class="top-nav">
-					<li><a class="top-nav-link top-nav-link-active" href="">关于麦芒</a></li>
-					<li><a class="top-nav-link" href="#album">活动公告</a></li>
-					<li><a class="top-nav-link" href="#teacher">明星导师</a></li>
-					<li><a class="top-nav-link" href="#join">在线报名</a></li>
+					<li><a id="item-1" class="top-nav-link top-nav-link-active" href="">关于麦芒</a></li>
+					<li><a id="item-2" class="top-nav-link" href="#album">活动公告</a></li>
+					<li><a id="item-3" class="top-nav-link" href="#teacher">明星导师</a></li>
+					<li><a id="item-4" class="top-nav-link" href="#join">在线报名</a></li>
 				</ul>
 				<div class="sub">
 					<div class="sub-input">
@@ -65,10 +65,36 @@ export default{
 					email.value = "订阅失败，请重试";
 				}
 			})
+		},
+
+		overNav(){
+			let nav = document.querySelector(".top-nav");
+			let item1 = document.querySelector("#item-1");
+			let item2 = document.querySelector("#item-2");
+			let item3 = document.querySelector("#item-3");
+			let item4 = document.querySelector("#item-4");
+
+			nav.addEventListener("mouseover", e => {
+				resetColor();
+				e.target.className = "top-nav-link top-nav-link-active";
+			});
+
+			nav.addEventListener("mouseleave", e => {
+				resetColor();
+				item1.className = "top-nav-link top-nav-link-active";
+			})
+
+			function resetColor() {
+				item1.className = "top-nav-link";
+				item2.className = "top-nav-link";
+				item3.className = "top-nav-link";
+				item4.className = "top-nav-link";
+			}
 		}
 	},
 	mounted(){
 		this.focus();
+		this.overNav();
 	}
 
 }

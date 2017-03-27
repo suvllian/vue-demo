@@ -112,6 +112,6 @@ export default {
 				    commit(UPLOAD_ALBUM_IMAGE_FAIL);
 				});
 			}
-		},
+		}
 	}
 }

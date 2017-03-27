@@ -2,8 +2,8 @@
 	<section id="album" class="slide-new slide-box">
 		<div class="section-bg album-bg">
 			<ul class="album-bg-list">
-				<li class="bg-item" v-for="item in data">
-					<img class="bg-pic" :src="item.src">
+				<li class="bg-item" v-for="(item,index) in data">
+					<img class="bg-pic" :src="'./static/album-' + (index+1) + '.jpg'">
 				</li>
 			</ul>
 		</div>
@@ -11,9 +11,9 @@
 		<div class="section-inner">
 			<div class="album-content">
 				<ul class="album-content-list">
-					<li class="content-item" v-for="item in data">
+					<li class="content-item" v-for="(item, index) in data">
 						<div>
-							<img class="content-img" src="./../assets/album-content-1.png">
+							<img class="content-img" src="./../assets/album-content-1.png" v-if="index == 0">
 							<h1 class="content-h">{{ item.intro }}</h1>
 						</div>
 					</li>

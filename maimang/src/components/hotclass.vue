@@ -9,32 +9,19 @@
 		<div class="section-inner">		
 			<div class="slide-animate">
 				<ul class="slide-list">
-					<li class="list-item current">
-						<a href="">
-							<img class="list-pic" :src="data[0].src" :alt="data[0].intro">
-						</a>
-					</li>
-					<li class="list-item next">
-						<a href="">
-							<img class="list-pic" :src="data[1].src" :alt="data[1].intro">
-						</a>
-					</li>
-					<li class="list-item">
-						<a href="">
-							<img class="list-pic" :src="data[2].src" :alt="data[2].intro">
-						</a>
-					</li>
-					<li class="list-item">
-						<a href="">
-							<img class="list-pic" :src="data[3].src" :alt="data[3].intro">
-						</a>
-					</li>
-					<li class="list-item prev">
-						<a href="">
-							<img class="list-pic" :src="data[4].src" :alt="data[4].intro">
+					<li v-for="(item, index) in data" :class="item.className">
+						<a :href="item.src">
+							<img class="list-pic" :src="'./static/hot-img-' + (index+1) + '.jpg'" :alt="item.intro">
 						</a>
 					</li>
 				</ul>
+
+				<!-- 点prev切换到上一张，next切换到下一张 -->
+				<!-- 使用两个隐藏的块布局到指定位置实现 -->
+				<div class="left-btn" @click="prev()"></div>
+				<div class="right-btn" @click="next()"></div>
+				<!-- 点prev切换到上一张，next切换到下一张 -->
+				
 			</div>
 			
 			<div class="slide-switch">
@@ -88,7 +75,6 @@ export default{
 			let liItem = document.querySelectorAll(".list-item");
 			let switchItem = document.querySelectorAll("#hotclass .slide-switch-bg");
 			let length = liItem.length;
-			let $this = this;
 
 			// 清除所有样式
 			var init = function(){
@@ -109,6 +95,7 @@ export default{
 				liItem[index+1].className = "list-item next";
 			}
 
+			// 最后一张
 			var setLast = function(){
 				init();
 				liItem[4].className = "list-item current";
@@ -118,17 +105,19 @@ export default{
 				liItem[0].className = "list-item next";
 			}
 
-			var setIndex = function(index){
-				if (0 <=  index && index < 4 ) {		
-					$this.index = index + 1;		
-				} else if (index >= 4){
-					$this.index = 0;				
-				}
-			}
+			let prev = null, next = null;
 
 			// 循环变换
-			var slide = function(index){
-				let indexValue = index || $this.index;
+			var slide = index => {
+				let indexValue = index || this.index;
+
+				if (this.index < 0){
+					this.index = 4;
+				} else if(this.index > 4){
+					this.index = 0;
+				}
+
+				indexValue = this.index;
 				if (0 <=  indexValue && indexValue < 4 ) {		
 					focus(indexValue);	
 				} else if (indexValue >= 4){
@@ -138,36 +127,26 @@ export default{
 			}
 
 			return {
-				clickBtn:function(value){	
-					slide(value);
-				},
-				slide:function(){
+				clickBtn:function(){	
 					slide();
-					setIndex($this.index);
+				},
+				slide:() => {
+					slide(this.index++);
 				}
 			}
 		},
 
+		// 下一张
 		next(){
-			clearInterval(this.handle);
-			this.index = this.index + 1;
-			if (this.index > 4){
-				this.index = 0;
-			}
-			this.slideImage().clickBtn();
-			this.handle = setInterval(this.slideImage().slide, 3000);
+			this.goIndex(++this.index);
 		},
 
+		// 上一张
 		prev(){
-			clearInterval(this.handle);
-			this.index = this.index - 1;
-			if (this.index < 0){
-				this.index = 4;
-			}
-			this.slideImage().clickBtn();
-			this.handle = setInterval(this.slideImage().slide, 3000);
+			this.goIndex(--this.index);
 		},
 
+		// 跳转到指定图片
 		goIndex(index){
 			clearInterval(this.handle);
 			this.index = index;
@@ -175,10 +154,15 @@ export default{
 			this.handle = setInterval(this.slideImage().slide, 3000);
 		},
 
+		// 获取图片数据，并初始化
 		getData(){
 			api.getHot().then(res => {	
 				this.data = res.data;
-				console.log(this.data);
+				this.data[0].className ="list-item current";
+				this.data[1].className ="list-item next";
+				this.data[2].className ="list-item";
+				this.data[3].className ="list-item";
+				this.data[4].className ="list-item prev";
 			})
 		}
 	},
@@ -186,8 +170,8 @@ export default{
 		this.getData();
 	},
 
-	mounted(){
-		
+	mounted(){		
+		// 节点挂载之后开始循环
 		this.handle = setTimeout(this.next, 3000);
 	}
 }

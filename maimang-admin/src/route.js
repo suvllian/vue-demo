@@ -1,6 +1,7 @@
 import VueRouter from 'vue-router';
 
-import Home from './components/home/index';
+import Login from './components/login/index';
+import Home from './components/home/use';
 import Album from './components/album/index';
 import Hot from './components/hot/index';
 import Email from './components/email/index';
@@ -11,7 +12,7 @@ const router = new VueRouter({
   mode: 'history',
   base: __dirname,
   routes: [
-    { path: '/', component: Home },
+    { path: '/', component: Login },
 
     { path: '/index', component: Home },
     { path: '/album', component: Album },
@@ -19,8 +20,9 @@ const router = new VueRouter({
     { path: '/email', component: Email },
     { path: '/join', component: Join },
     { path: '/teacher', component: Teachers },
+    { path: '/login', component: Login },
 
-	{ path: '*', component: Home }
+	  { path: '*', component: Login }
   ]
 });
 

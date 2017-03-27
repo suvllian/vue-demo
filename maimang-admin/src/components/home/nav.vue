@@ -46,7 +46,6 @@ export default{
 
 	.nav-item{
 		width: 100%;
-		padding:16px 0;
 		margin-bottom: 10px;
 		border-radius: 5px;
 		background-color:#41b35d;
@@ -57,6 +56,7 @@ export default{
 	.nav-item-a{
 		width: 100%;
 		height: 100%;
+		padding:16px 0;
 		display: block;
 		font-size: 18px;
 		outline: none;

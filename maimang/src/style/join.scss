@@ -31,7 +31,6 @@
 	label{
 		display: inline-block;
 		width: 49%;
-		cursor: pointer;
 	}
 }
 
@@ -46,13 +45,18 @@
 	border:none;
 	background-color:#e8e8e8;
 	border-radius:8px;
+	border:1px solid #e8e8e8;
 	font-size:17px;
 	color:#333;
+
+	&:focus{
+		background-color:#fff;
+	}
 }
 
 .submit{
 	height:72px;
-	background-color:#41b25d;
+	background-color:#bbb;
 	width:100%;
 	margin-top:32px;
 	border-radius:8px;
@@ -64,6 +68,11 @@
 	justify-content:center;
 	letter-spacing:1px;
 	cursor:pointer;
+	transition: .5s all ease;
+
+	&:hover{
+		background-color:#41b25d;
+	}
 }
 
 .define{
@@ -71,4 +80,5 @@
 	color:#000;
 	font-size:17px;
 	font-weight:bold;
+	cursor:pointer;
 }

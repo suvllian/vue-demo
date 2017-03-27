@@ -15,7 +15,7 @@
 					<li class="teacher-list-item" v-for="(item, index) in teachers">
 						<div class="teacher-item-box">
 							<div class="teacher-img">
-								<img class="teacher-pic" :src="item.src">
+								<img class="teacher-pic" :src="'./static/teacher-' + (index+1) + '.jpg'">
 							</div>
 							<div class="teacher-intro">
 								<h4 class="teacher-intro-h">{{item.name}}</h4>
@@ -50,23 +50,22 @@ export default{
 	data(){
 		return{
 			teachers:[],
-			current:1
+			current:1,
+			len:0
 		}
 	},
 
 	methods:{
-		prev(){
-			var list = this.$refs.list;
-			if (this.current == 1) {
-				this.current = 3;
+		prev(){	
+			if (this.current == 1) { 
+				this.current = this.len;
 			} else {
 				this.current--;
 			}
 			this.slideImage();
 		},
 		next(){
-			var list = this.$refs.list;
-			if (this.current == 3) {
+			if (this.current == this.len) {
 				this.current = 1;
 			} else{
 				this.current++;
@@ -80,6 +79,7 @@ export default{
 		getData(){
 			api.getTeacher().then(res => {	
 				this.teachers = res.data;
+				this.len = Math.ceil(this.teachers.length / 4);
 			})
 		}
 	},

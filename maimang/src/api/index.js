@@ -12,6 +12,6 @@ export default{
 	postEmail:(value) => { return postResource.save({ do:"post", concrete:"email", email:value})},
 
 	postJoin:(form) => { return postResource.save({ do:"post", concrete:"join", name:form.name, company:form.company,
-					teacher: form.teacher, email: form.email})},
+					teacher: form.teacher, email: form.email, allow: form.allowSend})},
 
 }

@@ -14,11 +14,39 @@
 	.section-inner{
 		padding:0px 0 50px;
 	}
+
+	.section-title{
+		width:460px;
+	}
 }
 
 .slide-animate{
 	overflow:hidden;
+	position:relative;
 }
+
+/* 两个隐藏的切换图片的点击区域 */
+
+.left-btn, .right-btn{
+	width: 224px;
+	height: 85%;
+	position: absolute;
+	top: 0;
+	opacity:0;
+	cursor: pointer;
+	z-index: 1500;
+}
+
+.left-btn{
+	left: 0;
+}
+
+.right-btn{
+	right: 0;
+}
+
+/* 两个隐藏的切换图片的点击区域 */
+
 
 .slide-list{
 	height:325px;

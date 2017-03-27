@@ -64,7 +64,6 @@ export default{
 
 		showMask(){
 			this.addListener();
-			console.log(this.$root);
 		},
 
 		addListener(){

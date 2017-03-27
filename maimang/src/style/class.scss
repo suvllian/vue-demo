@@ -41,10 +41,20 @@
 
 .class-list{
 	margin:66px 0;
+	width:100%;
+	display:flex;
+	justify-content: space-between;
+	flex-shrink: 1;
+}
+
+.class-ul{
+	width: 100%;
+	height: auto;
 }
 
 .class-item{
 	display:inline-block;
-	width:19.5%;
+	width: 19.36%;
 	text-align:center;
+	// text-align:center;
 }

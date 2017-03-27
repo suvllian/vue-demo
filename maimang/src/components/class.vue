@@ -15,7 +15,7 @@
 				<p class="class-intro-more"><span>点击图标了解课程详情&nbsp;&nbsp; ></span></p>
 			</div>
 			<div class="class-list">
-				<ul>
+				<ul class="class-ul">
 					<li class="class-item">
 						<a href="#"><img class="class-pic" src="./../assets/class-img-1.png"></a>
 					</li>
@@ -36,23 +36,6 @@
 						<a href="#"><img class="class-pic" src="./../assets/class-img-5.png"></a>
 					</li>
 				</ul>
-			</div>
-			<div class="slide-switch">
-				<a class="slide-switch-item" href="">
-					<i class="slide-switch-bg switch-active"></i>
-				</a>
-				<a class="slide-switch-item" href="">
-					<i class="slide-switch-bg"></i>
-				</a>
-				<a class="slide-switch-item" href="">
-					<i class="slide-switch-bg"></i>
-				</a>
-				<a class="slide-switch-item" href="">
-					<i class="slide-switch-bg"></i>
-				</a>
-				<a class="slide-switch-item" href="">
-					<i class="slide-switch-bg"></i>
-				</a>
 			</div>
 		</div>
 

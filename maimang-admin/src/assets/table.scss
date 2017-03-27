@@ -6,13 +6,13 @@
 table{
     border-collapse: collapse;
     border-spacing: 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     width: 100%; 
     margin:16px auto;
 
     // 设置隔行背景色
     tr{
-        text-align: center;
-
         &:nth-child(2n+1){
             background-color:#eee;
         }
@@ -35,6 +35,7 @@ table{
         padding: 12px;
         background-color:#fff;
         border-bottom: 1px solid #ccc;
+        text-align: left;
     }
 
     input, textarea{
@@ -55,5 +56,11 @@ table{
 
 // 修改栏
 .tr-change{
-    border: 1px solid #41b35d;
+    border-top: 1px solid #41b35d;
+    border-bottom: 1px solid #41b35d;
+}
+
+// 上传文件
+label[for=uploadBtn]{
+    cursor: pointer;
 }
