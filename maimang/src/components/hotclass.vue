@@ -10,7 +10,7 @@
 			<div class="slide-animate">
 				<ul class="slide-list">
 					<li v-for="(item, index) in data" :class="item.className">
-						<a :href="item.src">
+						<a :href="item.src" target="_blank">
 							<img class="list-pic" :src="'./static/hot-img-' + (index+1) + '.jpg'" :alt="item.intro">
 						</a>
 					</li>
@@ -78,7 +78,7 @@ export default{
 
 			// 清除所有样式
 			var init = function(){
-				for (let i = 0; i< length; i++) {
+				for (let i = 0; i < length; i++) {
 					liItem[i].className = "list-item";
 					switchItem[i].className = "slide-switch-bg";
 				}

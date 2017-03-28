@@ -4,35 +4,110 @@
 	height:100%;
 	top:0;
 	left:0;
-	z-index:3000;
+	z-index:1000;
+	background-color: rgba(0,0,0,0.8);
+
+	.slide-action-butn{
+	    height: 108px;
+	    margin-top: -54px;
+	    position: absolute;
+	    top: 50%;
+	    transition: 0.5s all ease;
+	    width: 72px;
+	    z-index: 2;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+
+	    .fa{
+	    	color: #fff;
+	    }
+	}
+
+	.slide-action-left{
+		left: 0;
+
+		.slide-action-butn{
+			left: 0;
+		}
+	}
+
+	.slide-action-right{
+		right: 0;
+
+		.slide-action-butn{
+			right: 0;
+		}
+	}
 }
 
 .mask-contain{
 	width:100%;
 	height:100%;
 	position:relative;
+	display :flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.mask-content{
-	position: absolute;
-	width: 300px;
-	height: 150px;
-	padding:40px 50px;
-	top: 150%;
-	left: 50%;
-	margin-left: -150px;
-	margin-top: -75px;
-	background-color: #41b35d;
-	border: 10px solid #fff;
-	opacity: 0.92;
-	border-radius:10px;
+
+.mask-image, .mask-alert {
+	border-radius: 6px;
 	z-index: 3000;
 	text-align: center;
 	transition: .5s all ease-out;
+	overflow: hidden;
+}
+
+// 表单提示弹出层
+.mask-alert{
+	position: absolute;
+	top: 150%;
+	left: 50%;
+	width: 300px;
+	height: 150px;
+	padding:50px 50px;	
+	margin-left: -150px;
+	margin-top: -75px;
+	background-color: #41b35d;
+	opacity: 0.92;	
 
 	p{
 		line-height: 50px;
 		font-size: 24px;
 		color: #fff;
+	}
+}
+
+// 大图弹出层
+.mask-image{
+	width: 20%;
+	height: 10%;
+	z-index: 3000;
+
+	img{
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+// 二维码弹出层
+.mask-news {
+	position: relative;
+	top: -150%;
+	transition: 0.66s all ease;
+}
+
+.erweima{
+	color: #fff;
+	font-size: 15px;
+	display: inline-block;
+	margin: 0 30px;
+	text-align: center;
+
+	img{
+		width: 120px;
+		height: 120px;
 	}
 }

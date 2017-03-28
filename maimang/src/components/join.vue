@@ -13,7 +13,7 @@
 					</div>
 
 					<div class="submit" @click="submit">
-						<p ref="submit">发送要求</p>
+						<p>发送要求</p>
 					</div>
 
 					<div class="define">
@@ -27,6 +27,8 @@
 
 <script>
 import api from './../api';
+import { escape } from './../utils/effect.js';
+import { insertNode } from './../utils/createMask.js';
 
 export default{
 	data(){
@@ -51,7 +53,6 @@ export default{
 
 	methods:{
 		submit(){
-			var submitBtn = this.$refs.submit;
 			var form = this.form;
 			if (!(form.name && form.company && form.teacher && form.email)) {
 				this.showMask("请填写完整内容")
@@ -62,6 +63,13 @@ export default{
 			} else {
 				form.allowSend = 0;
 			}
+
+			/* 字符串过滤处理，防止XSS */
+			["name", "company", "teacher", "email"].forEach((item) => {
+				form[item] = escape(form[item]);
+			});
+			/* 字符串过滤处理，防止XSS */
+			
 			api.postJoin(form).then(res => {
 				if (res.data == 1){
 					this.showMask("发送成功")
@@ -72,30 +80,23 @@ export default{
 			});
 
 			function resetForm(){
-				form.name = "";
-				form.company = "";
-				form.teacher = "";
-				form.email = "";
+				["name", "company", "teacher", "email"].forEach((item) => {
+					form[item] = ""
+				});
 			}
 		},
 
 		showMask(infor){
-			let body = document.body;
-
-			// 创建节点，插入<body>中。
-			let div = document.createElement("div");
-			div.id = "mask";
-			div.innerHTML = '<div class="mask-contain">\
-								<div class="mask-content">\
-								</div>\
-							</div>';
-			body.appendChild(div);
+			let html = '<div class="mask-contain">\
+							<div class="mask-alert"><p>' +
+								   infor + 
+							'</p></div>\
+						</div>';
+			let removeNode = insertNode(html);
 
 			// 获取弹出层重点的节点
-			let maskContent = document.querySelector(".mask-content");
+			let maskContent = document.querySelector(".mask-alert");
 			let mask = document.querySelector("#mask");
-
-			maskContent.innerHTML = "<p>" + infor + "</p>"
 
 			// 直接写并不会出现动画效果，需要使用定时器。
 			// 目测是弹出层还没有渲染top就被修改为50%，所以无法出现动画效果。
@@ -103,23 +104,7 @@ export default{
 				maskContent.style.top = "50%";
 			}, 0);
 
-			// 如果只设置一个点击事件，则弹出层一出现就隐藏
-			mask.addEventListener("click", addListener);
-
-			function addListener(){
-
-				// 添加监听事件，再点击则移除弹出层
-				mask.addEventListener("click", hideMask(div));
-
-				// 删除刚才的监听事件
-				mask.removeEventListener("click", addListener);
-
-				// 隐藏弹出层
-				function hideMask(node) {
-					body.removeChild(node);
-				}
-			}
-	
+			mask.addEventListener("click", removeNode);
 		}
 	}
 }

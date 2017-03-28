@@ -1,4 +1,4 @@
-exports.toTop = function (position){
+exports.toTop = (position) => {
     window.scrollTo(Math.floor(x / speeding), Math.floor(y / speeding));
     if(x > 0 || y != position) {
         setTimeout(function(){
@@ -7,7 +7,7 @@ exports.toTop = function (position){
     }
 }
 
-exports.escape = function htmlEscape(text){
+exports.escape = (text) => {
 	return text.replace(/[<>"&"]/g,function(match,pos,originalText){
 		switch(match){
 			case "<":
@@ -21,3 +21,15 @@ exports.escape = function htmlEscape(text){
 		}
 	});
 }
+
+exports.getScreenScale = () => {
+	let height = document.documentElement.clientHeight;
+	let width = document.documentElement.clientWidth;
+	let scale = width / height;
+
+	return {
+		height: height,
+		width: width, 
+		scale: scale
+	}
+} 

@@ -12,10 +12,11 @@
 			<div class="album-content">
 				<ul class="album-content-list">
 					<li class="content-item" v-for="(item, index) in data">
-						<div>
-							<img class="content-img" src="./../assets/album-content-1.png" v-if="index == 0">
-							<h1 class="content-h">{{ item.intro }}</h1>
-						</div>
+						<a href="http://suvllian.com" target="_blank" class="album-link">
+							<div>
+								<h1 class="content-h">{{ item.intro }}</h1>
+							</div>
+						</a>
 					</li>
 				</ul>
 			</div>
@@ -50,6 +51,7 @@
 
 <script>
 import api from './../api/';
+import { getScreenScale } from './../utils/effect.js';
 
 export default{
 	data(){
@@ -117,9 +119,19 @@ export default{
 		this.contentHandle = document.querySelector(".album-content-list");
 		this.switchHandle = document.querySelectorAll(".slide-switch-bg");
 		setTimeout(this.next, 5000);
-		var album  = document.getElementById("album");
-		var albumInner = document.querySelector("#album .section-inner");
-		var height = document.documentElement.clientHeight - 141;
+
+		let album  = document.getElementById("album");
+		let albumInner = document.querySelector("#album .section-inner");
+
+		let screenInfo = getScreenScale();
+		let height = 0;
+		// 判断是长屏还是宽屏，即电脑屏幕和手机屏幕的区别
+		if (screenInfo.scale > 1) {
+			height = screenInfo.height - 141;
+		} else {
+			height = screenInfo.width * 2 / 3;
+		}
+		
 		album.style.height = height + 'px';
 		albumInner.style.height = height - 70 + 'px';
 

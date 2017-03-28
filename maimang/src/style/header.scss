@@ -129,6 +129,12 @@ header{
 		font-size: 15px;
 		margin-right: 26px;
 
+		a{
+			width: 100%;
+			height: 100%;
+			display: inline-block;
+		}
+
 		&:hover{
 			a { color:#41b35d; }
 		}

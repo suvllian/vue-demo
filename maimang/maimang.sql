@@ -38,10 +38,10 @@ CREATE TABLE IF NOT EXISTS person (
  src VARCHAR(128) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS personpic(
+CREATE TABLE IF NOT EXISTS admin(
  id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
- src VARCHAR(128) NOT NULL,
- personid INT(11) NOT NULL
+ name VARCHAR(128) NOT NULL,
+ pass VARCHAR(128) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 ALTER TABLE personpic
@@ -49,6 +49,8 @@ ALTER TABLE personpic
 
 ALTER TABLE content
   ADD CONSTRAINT `article_ibfk_1` FOREIGN KEY (class) REFERENCES class (`id`);
+
+INSERT INTO admin(name, pass) VALUES('maimusic','mai147mang')
 
 
 INSERT INTO content(intro,src,class) VALUES('无畏成长，展露锋芒','/static/album-1.jpg',1);

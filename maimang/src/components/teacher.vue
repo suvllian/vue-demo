@@ -14,7 +14,7 @@
 				<ul>
 					<li class="teacher-list-item" v-for="(item, index) in teachers">
 						<div class="teacher-item-box">
-							<div class="teacher-img">
+							<div class="teacher-img" @click="showMask(item.id)">
 								<img class="teacher-pic" :src="'./static/teacher-' + (index+1) + '.jpg'">
 							</div>
 							<div class="teacher-intro">
@@ -45,6 +45,7 @@
 
 <script>
 import api from './../api/';
+import { createMask } from './../utils/createMask.js';
 
 export default{
 	data(){
@@ -64,6 +65,7 @@ export default{
 			}
 			this.slideImage();
 		},
+
 		next(){
 			if (this.current == this.len) {
 				this.current = 1;
@@ -72,15 +74,26 @@ export default{
 			}
 			this.slideImage();
 		},
+
 		slideImage(){	
 			var list = this.$refs.list;	
 			list.style.left = (-100 * this.current + 100) + "%";
 		},
+
 		getData(){
 			api.getTeacher().then(res => {	
 				this.teachers = res.data;
 				this.len = Math.ceil(this.teachers.length / 4);
 			})
+		},
+
+		showMask(index) {
+			let html = '<div class="mask-contain">\
+							<div class="mask-image" id="mask-image">\
+								<img src="./static/hot-img-'+ index + '.jpg">\
+							</div>\
+						</div>';
+			createMask(html);
 		}
 	},
 
