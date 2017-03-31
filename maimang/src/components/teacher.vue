@@ -84,22 +84,63 @@ export default{
 			api.getTeacher().then(res => {	
 				this.teachers = res.data;
 				this.len = Math.ceil(this.teachers.length / 4);
-			})
+				let teacherList = this.$refs.list;
+				teacherList.style.width = this.len * 100 + "%";
+			});
 		},
 
-		showMask(index) {
+		showMask(imgIndex) {
+			let index = parseInt(imgIndex);
 			let html = '<div class="mask-contain">\
 							<div class="mask-image" id="mask-image">\
-								<img src="./static/hot-img-'+ index + '.jpg">\
+								<img src="./static/teacher-content-'+ index + '.jpg">\
+							</div>\
+							<div class="slide-action">\
+								<div class="slide-action-left">\
+									<a class="slide-action-butn" id="left" href="javascript:;">\
+										<i class="fa fa-angle-left fa-3x"></i>\
+									</a>\
+								</div>\
+								<div class="slide-action-right">\
+									<a class="slide-action-butn" id="right" href="javascript:;">\
+										<i class="fa fa-angle-right fa-3x"></i>\
+									</a>\
+								</div>\
 							</div>\
 						</div>';
 			createMask(html);
+
+			let leftBtn = document.querySelector("#left");
+			let rightBtn = document.querySelector("#right");
+			let img = document.querySelector("#mask-image img");
+			let length = this.teachers.length;
+
+			function prev(){
+				if (index == 1) {
+					index = length;
+				} else {
+					index = index - 1;
+				}
+				img.src = './static/teacher-content-'+ index + '.jpg';
+			}
+
+			function next() {
+				if (index == length) {
+					index = 1;
+				} else {
+					index = index + 1;
+				}
+				img.src = './static/teacher-content-'+ index + '.jpg';
+			}
+
+			leftBtn.addEventListener("click", prev);
+			rightBtn.addEventListener("click", next);
 		}
 	},
 
 	created(){
 		this.getData();
-	}
+	},
 }
 
 </script>

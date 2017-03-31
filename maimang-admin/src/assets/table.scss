@@ -13,6 +13,12 @@ table{
 
     // 设置隔行背景色
     tr{
+        border-bottom: 1px solid #eee;
+        
+        &:nth-child(2n){
+            background-color:#fff;
+        }
+
         &:nth-child(2n+1){
             background-color:#eee;
         }
@@ -21,7 +27,7 @@ table{
     td{
         padding: 6px;
         max-width: 300px;
-        min-width: 88px;
+        min-width: 82px;
         max-height: 100px;
         position:relative;
 
@@ -50,14 +56,30 @@ table{
     }
 
     textarea{
-        height: 32px;
+        height: 120px;
     } 
+
+    table {
+        margin: 0;
+        border: 0;
+    }
 }
 
 // 修改栏
 .tr-change{
     border-top: 1px solid #41b35d;
     border-bottom: 1px solid #41b35d;
+}
+
+// tr中包含表格清除内边距
+.tr-contain-table{
+    padding: 0;
+}
+
+// td中的图片应该比较大
+.td-big-img{
+    max-height: 250px;
+    width: 100%;
 }
 
 // 上传文件

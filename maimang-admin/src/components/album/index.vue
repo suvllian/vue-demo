@@ -12,6 +12,7 @@
 							<th>序号</th>
 							<th>图片</th>
 							<th>详情</th>
+							<th>链接</th>
 							<th>操作</th>
 						</tr>
 					</thead>
@@ -20,17 +21,22 @@
 							<td>{{ index + 1 }}</td>
 							<td @click="SET_ALBUM_IMAGE_INDEX(index+1)"><label for="uploadBtn"><img :src="'./static/album-' + (index+1) + '.jpg'"></label></td>
 							<td>{{ item.intro }}</td>
-							<td><span class="submit" @click="CHANGE_ALBUM_INFO({index:index, isChange:true})">修改</span></td>
+							<td>{{ item.src }}</td>
+							<td><span class="change" @click="CHANGE_ALBUM_INFO({index:index, isChange:true})">修改</span></td>
 						</tr>
 
 						<!-- 修改栏 -->
 						<tr v-if="isChange" class="tr-change">
 							<td>{{ item.cId }}</td>
-							<td><img :src="item.src"></td>
-							<td><input type="text" v-model="item.intro"></td>
+							<td><img :src="'./static/album-' + item.cId + '.jpg'"></td>
 							<td>
-								<span class="submit" @click="SUBMIT_ALBUM_INFO(item)">确定</span>
-								<span class="submit" @click="CHANGE_ALBUM_INFO({index:0, isChange:false})">取消</span>
+								<input type="text" v-model="item.intro" v-if="item.cId==1">
+								<input type="text" v-model="item.intro" disabled="true" v-else>
+							</td>
+							<td><input type="text" v-model="item.src"></td>
+							<td>
+								<span class="change" @click="SUBMIT_ALBUM_INFO(item)">确定</span>
+								<span class="change" @click="CHANGE_ALBUM_INFO({index:0, isChange:false})">取消</span>
 							</td>
 						</tr>
 						<h3 class="container-h" v-if="!changeSuccess"><span>修改失败，请重试</span></h3>

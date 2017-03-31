@@ -9,31 +9,33 @@
 		</div>
 
 		<div class="section-inner">	
-			<div class="person-intro" v-for="(item, index) in data">
-				<div class="person-left">
-					<img :src="'./static/person-' + item.id + '-big.jpg'">
-				</div>
+			<div class="person-list" ref="list">
+				<div class="person-intro" v-for="(item, index) in data">
+					<div class="person-left">
+						<img :src="'./static/person-' + item.id + '-big.jpg'">
+					</div>
 
-				<div class="person-right">
-					<h3 class="person-h">{{ item.name }}</h3>
-					<p class="person-p" v-html='item.intro'></p>
-					<ul class="person-img-list">
-						<li class="person-item" v-for="single in 6" @click="showMask(index, single)">
-							<img class="person-pic" :src="'./static/person-' + item.id + '-' + single + '.jpg'">
-						</li>
-					</ul>
+					<div class="person-right">
+						<h3 class="person-h">{{ item.name }}</h3>
+						<p class="person-p" v-html='item.intro'></p>
+						<ul class="person-img-list">
+							<li class="person-item" v-for="single in 6" @click="showMask(index, single)">
+								<img class="person-pic" :src="'./static/person-' + item.id + '-' + single + '.jpg'">
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="slide-action">
 			<div class="slide-action-left">
-				<a class="slide-action-btn" href="javascript:;">
+				<a class="slide-action-btn" href="javascript:;" @click="prev()">
 					<i class="fa fa-angle-left fa-3x"></i>
 				</a>
 			</div>
 			<div class="slide-action-right">
-				<a class="slide-action-btn" href="javascript:;">
+				<a class="slide-action-btn" href="javascript:;" @click="next()">
 					<i class="fa fa-angle-right fa-3x"></i>
 				</a>
 			</div>
@@ -49,13 +51,41 @@ import { createMask } from './../utils/createMask.js';
 export default{
 	data(){
 		return{
-			data:[]
+			data:[],
+			current:1,
+			len:0
 		}
 	},
 	methods:{
+		prev(){	
+			if (this.current == 1) { 
+				this.current = this.len;
+			} else {
+				this.current--;
+			}
+			this.slideImage();
+		},
+
+		next(){
+			if (this.current == this.len) {
+				this.current = 1;
+			} else{
+				this.current++;
+			}
+			this.slideImage();
+		},
+
+		slideImage(){	
+			var list = this.$refs.list;	
+			list.style.left = (-1000 * this.current + 1000) + "px";
+		},
+
 		getData(){
 			api.getPerson().then(res => {	
 				this.data = res.data;
+				this.len = this.data.length;
+				let personList = this.$refs.list;
+				personList.style.width = this.len * 1000 + "px";
 			})
 		},
 

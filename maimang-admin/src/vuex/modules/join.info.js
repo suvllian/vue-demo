@@ -28,7 +28,7 @@ export default {
 			})
 		},
 		[DELETE_JOIN_PERSON]({ commit }, condition) {
-			api.deletePerson(condition.id).then(res => {	
+			api.deleteJoin(condition.id).then(res => {	
 				commit(DELETE_JOIN_PERSON,{
 					data: res.data,
 					index: condition.index

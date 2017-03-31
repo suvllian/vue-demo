@@ -5,14 +5,25 @@
 #person{
 	padding:30px 0 120px;
 	z-index:1;
+
+	.section-inner{
+		width: 1000px;
+	}
 }
 
-.person-intro{
-	height:auto;
-	width:1000px;
-	margin:0 auto;
-	color:#fff;
+.person-list{
+	width:2000px;
+	overflow: hidden;
+	position:relative;
+	left:0;
+	transition:1s all ease;
 	height:500px;
+
+	.person-intro{
+		display: inline-block;
+		color: #fff;
+		width: 1000px;
+	}
 }
 
 .person-left{

@@ -7,6 +7,8 @@ import TeachersInfo from './modules/teachers.info.js';
 import EmailInfo from './modules/email.info.js';
 import JoinInfo from './modules/join.info.js';
 import Login from './modules/login.js';
+import ClassInfo from './modules/class.info.js';
+import PersonInfo from './modules/person.info.js';
 
 Vue.use(Vuex);
 
@@ -17,6 +19,8 @@ export default new Vuex.Store({
 		TeachersInfo,
 		EmailInfo,
 		JoinInfo,
-		Login
+		Login,
+		ClassInfo,
+		PersonInfo
 	}
 })

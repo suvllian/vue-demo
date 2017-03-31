@@ -16,27 +16,34 @@
 			</div>
 			<div class="class-list">
 				<ul class="class-ul">
-					<li class="class-item">
-						<a href="#"><img class="class-pic" src="./../assets/class-img-1.png"></a>
-					</li>
-
-					<li class="class-item">
-						<a href="#"><img class="class-pic" src="./../assets/class-img-2.png"></a>
-					</li>
-
-					<li class="class-item">
-						<a href="#"><img class="class-pic" src="./../assets/class-img-3.png"></a>
-					</li>
-
-					<li class="class-item">
-						<a href="#"><img class="class-pic" src="./../assets/class-img-4.png"></a>
-					</li>
-
-					<li class="class-item">
-						<a href="#"><img class="class-pic" src="./../assets/class-img-5.png"></a>
+					<li class="class-item" v-for="item in data">
+						<a :href="item.src" target="_blank"><img class="class-pic" :src="'./static/class-img-' + item.id + '.png'"></a>
 					</li>
 				</ul>
 			</div>
 		</div>		
 	</section>
 </template>
+
+<script>
+import api from './../api/';
+
+export default{
+	data(){
+		return{
+			data:[]
+		}
+	},
+	methods:{
+		getData(){
+			api.getClass().then(res => {	
+				this.data = res.data;
+			})
+		}
+	},
+
+	created(){
+		this.getData();
+	}
+}
+</script>

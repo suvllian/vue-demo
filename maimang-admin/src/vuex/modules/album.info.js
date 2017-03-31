@@ -41,6 +41,7 @@ export default {
 		[CHANGE_ALBUM_INFO](state, action) {
 			state.isChange = action.isChange;
 			state.item = state.albums[action.index];
+			state.item.index = action.index;
 		},
 
 		// 修改成功
@@ -85,7 +86,7 @@ export default {
 
 		// 提交修改的内容
 		[SUBMIT_ALBUM_INFO]({ commit }, item) {
-			api.changeAlbum(item.cId, item.intro).then(res => {
+			api.changeAlbum(item.cId, item.intro, item.src).then(res => {
 				if (res.data == 1){
 					commit(CHANGE_ALBUM_INFO_SUCCESS);
 				} else{

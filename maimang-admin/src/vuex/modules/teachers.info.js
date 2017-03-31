@@ -9,13 +9,15 @@ export default {
 	state: {
 		teachers:[],
 		index:0,
+		className: "teacher",
 		success: true,
 		isChange: false,
 		changeSuccess:true,
 		item: {},
 		isAdd: false,
 		addSuccess:true,
-		addItem: {}
+		addItem: {},
+		newId:0
 	},
 
 	mutations: {
@@ -25,7 +27,8 @@ export default {
 
 		// 设置被点击图片索引, 然后根据索引替换相应的图片
 		[SET_TEACHERS_INDEX](state, action) {
-			state.index = action.index;
+			state.index = action.index || state.index;
+			state.className = action.className;
 		},
 
 		// 上传图片成功
@@ -70,6 +73,7 @@ export default {
 			state.isAdd = action.isAdd;
 			state.addItem.id = action.index;
 			state.index = action.index;
+			state.newId = action.index;
 		},
 
 		// 添加成功
@@ -100,9 +104,10 @@ export default {
 		},
 
 		// 点击图片，设置被点击图片的索引，显示或隐藏
-		[SET_TEACHERS_INDEX]({ commit }, index) {
+		[SET_TEACHERS_INDEX]({ commit }, info) {
 			commit(SET_TEACHERS_INDEX,{
-				index: index
+				index: info.index,
+				className: info.className
 			})
 		},
 
@@ -141,14 +146,22 @@ export default {
 
 		// 点击添加按钮，出现添加栏
 		[ADD_TEACHERS_INFO]({ commit }, add) {
-			api.getTeacherId().then(res => {
+			if (add.isAdd) {
+				api.getNumber("teachers").then(res => {
+					commit(ADD_TEACHERS_INFO, {
+						isAdd: add.isAdd,
+						index:(parseInt(res.data[0].id) + 1)
+					})
+				}).catch(err => {
+					commit(ADD_TEACHERS_INFO_FAIL);
+				});
+			} else{
 				commit(ADD_TEACHERS_INFO, {
 					isAdd: add.isAdd,
-					index:(parseInt(res.data[0].id) + 1)
+					index:0
 				})
-			}).catch(err => {
-				commit(ADD_TEACHERS_INFO_FAIL);
-			});
+			}
+			
 		},
 
 		// 增加内容
@@ -169,7 +182,15 @@ export default {
 		[UPLOAD_TEACHERS_IAMGE]({ commit }, file) {
 			let fileReader = new FileReader();
 			fileReader.readAsDataURL(file.data);
-			let fileName = 'teacher-' + file.index;
+	
+			let className = file.className;
+			let fileName = "teacher";
+			if (className == "teacher") {
+				fileName = 'teacher-' + file.index;
+			} else {
+				fileName = 'teacher-content-' + file.index;
+			}
+			 
 			fileReader.onload = e => {
 				api.uploadImage(e.target.result, fileName).then(res => {
 					if (res.data == 1){

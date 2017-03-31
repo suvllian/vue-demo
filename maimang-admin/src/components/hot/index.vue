@@ -19,18 +19,18 @@
 						<tr v-for="(item, index) in hots">
 							<td>{{ index + 1 }}</td>
 							<td @click="SET_HOT_IMAGE_INDEX(index+1)"><label for="uploadBtn"><img :src="'./static/hot-img-' + (index+1) + '.jpg'"></label></td>
-							<td>{{ item.intro }}</td>
-							<td><span class="submit" @click="CHANGE_HOT_INFO({index:index, isChange:true})">修改</span></td>
+							<td>{{ item.src }}</td>
+							<td><span class="change" @click="CHANGE_HOT_INFO({index:index, isChange:true})">修改</span></td>
 						</tr>
 
 						<!-- 修改栏 -->
 						<tr v-if="isChange" class="tr-change">
 							<td>{{ item.cId }}</td>
-							<td><img :src="item.src"></td>
-							<td><input type="text" v-model="item.intro"></td>
+							<td><img :src="'./static/hot-img-' + (item.index+1) + '.jpg'"></td>
+							<td><input type="text" v-model="item.src"></td>
 							<td>
-								<span class="submit" @click="SUBMIT_HOT_INFO(item)">确定</span>
-								<span class="submit" @click="CHANGE_HOT_INFO({index:0, isChange:false})">取消</span>
+								<span class="change" @click="SUBMIT_HOT_INFO(item)">确定</span>
+								<span class="change" @click="CHANGE_HOT_INFO({index:0, isChange:false})">取消</span>
 							</td>
 						</tr>
 						<h3 class="container-h" v-if="!changeSuccess"><span>修改失败，请重试</span></h3>

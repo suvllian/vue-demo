@@ -1,6 +1,5 @@
 <template>
-	<div>
-	<!-- <div v-if="userInfo.admin"> -->
+	<div v-if="userInfo.admin">
 		<Nav></Nav>
 		<div class="container">
 			<section>
@@ -14,7 +13,8 @@
 							<th>序号</th>
 							<th>姓名</th>
 							<th>简介</th>
-							<th>图片</th>
+							<th>导师照片</th>
+							<th>导师详情图</th>
 							<th>操作</th>
 						</tr>
 					</thead>
@@ -23,8 +23,9 @@
 							<td>{{ index + 1 }}</td>
 							<td>{{ item.name }}</td>
 							<td>{{ item.intro }}</td>
-							<td @click="SET_TEACHERS_INDEX(item.id)"><label for="uploadBtn"><img :src="item.src"></label></td>
-							<td><span class="change" @click="CHANGE_TEACHERS_INFO({index:index, isChange:true})">修改</span><span class="delete" @click="deteteItem({id:item.id, index:index})">删除</span></td>
+							<td @click="SET_TEACHERS_INDEX({index:item.id, className:'teacher'})"><label for="uploadBtn"><img :src="'./static/teacher-' + item.id + '.jpg'"></label></td>
+							<td @click="SET_TEACHERS_INDEX({index:item.id, className:'content'})"><label for="uploadBtn"><img :src="'./static/teacher-content-' + item.id + '.jpg'"></label></td>
+							<td><span class="change-left" @click="CHANGE_TEACHERS_INFO({index:index, isChange:true})">修改</span><span class="delete-right" @click="deteteItem({id:item.id, index:index})">删除</span></td>
 						</tr>
 
 						<!-- 修改栏 -->
@@ -32,10 +33,11 @@
 							<td>{{ item.id }}</td>
 							<td><input type="text" v-model="item.name"></td>
 							<td><input type="text" v-model="item.intro"></td>
-							<td><img :src="item.src"></td>
+							<td><img :src="'./static/teacher-' + item.id + '.jpg'"></td>
+							<td><img :src="'./static/teacher-content-' + item.id + '.jpg'"></td>
 							<td>
-								<span class="submit" @click="SUBMIT_TEACHERS_INFO(item)">确定</span>
-								<span class="submit" @click="CHANGE_TEACHERS_INFO({index:0, isChange:false})">取消</span>
+								<span class="change" @click="SUBMIT_TEACHERS_INFO(item)">确定</span>
+								<span class="change" @click="CHANGE_TEACHERS_INFO({index:0, isChange:false})">取消</span>
 							</td>
 						</tr>
 						<h3 class="container-h" v-if="!changeSuccess"><span>修改失败，请重试</span></h3>
@@ -46,10 +48,11 @@
 							<td>添加</td>
 							<td><input type="text" v-model="addItem.name"></td>
 							<td><input type="text" v-model="addItem.intro"></td>
-							<td><label for="uploadBtn">上传图片</label></td>
+							<td @click="SET_TEACHERS_INDEX({index:newId, className:'teacher'})"><label for="uploadBtn">上传图片</label></td>
+							<td @click="SET_TEACHERS_INDEX({index:newId, className:'content'})"><label for="uploadBtn">上传图片</label></td>
 							<td>
-								<span class="submit" @click="SUBMIT_ADD_TEACHERS_INFO(addItem)">确定</span>
-								<span class="submit" @click="ADD_TEACHERS_INFO({isAdd:false})">取消</span>
+								<span class="change" @click="SUBMIT_ADD_TEACHERS_INFO(addItem)">确定</span>
+								<span class="change" @click="ADD_TEACHERS_INFO({isAdd:false})">取消</span>
 							</td>
 						</tr>
 						<h3 class="container-h" v-if="!addSuccess"><span>添加失败，请重试</span></h3>
@@ -85,6 +88,7 @@ export default{
 	computed: mapState({ 
 		teachers: store => store.TeachersInfo.teachers,
 		index: store => store.TeachersInfo.index,
+		className: store => store.TeachersInfo.className,
 		success: store => store.TeachersInfo.success,
 		isChange: store => store.TeachersInfo.isChange,
 		item: store => store.TeachersInfo.item,
@@ -92,6 +96,7 @@ export default{
 		isAdd: store => store.TeachersInfo.isAdd,
 		addSuccess: store => store.TeachersInfo.addSuccess,
 		addItem: store => store.TeachersInfo.addItem,
+		newId: store => store.TeachersInfo.newId,
 		userInfo: store => store.Login.userInfo
 	}),
 	methods:{
@@ -102,7 +107,7 @@ export default{
 		    preViewImg(this.$refs.file.files[0], this.$refs.imageView);
 		},
 		uploadImage(){
-			this.UPLOAD_TEACHERS_IAMGE({data: this.$refs.file.files[0], index: this.index});
+			this.UPLOAD_TEACHERS_IAMGE({data: this.$refs.file.files[0], index: this.index, className: this.className});
 		},
 		deteteItem(data){
 			if (confirm("确认删除？")) {
@@ -111,10 +116,10 @@ export default{
 		}
 	},
 	created(){
-		// if (!this.userInfo.admin) {
-		// 	this.$router.replace("login");
-		// 	return;
-		// }
+		if (!this.userInfo.admin) {
+			this.$router.replace("login");
+			return;
+		}
 		this.GET_TEACHERS_INFO();
 	}
 }

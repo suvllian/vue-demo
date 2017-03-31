@@ -114,6 +114,10 @@ export default{
 		}
 	},
 
+	created(){
+		this.getData();
+	},
+
 	mounted(){
 		this.albumHandle = document.querySelector(".album-bg-list");
 		this.contentHandle = document.querySelector(".album-content-list");
@@ -134,8 +138,6 @@ export default{
 		
 		album.style.height = height + 'px';
 		albumInner.style.height = height - 70 + 'px';
-
-		this.getData();
 	}
 }
 </script>

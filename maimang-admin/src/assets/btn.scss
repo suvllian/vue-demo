@@ -15,22 +15,8 @@
  * 鼠标置上后颜色改变
  */
 
-// 提交按钮
-
-.submit{
-    border:1px solid #00adb5;
-    border-radius:5px;
-    @extend %btnStyle;
-
-    &:hover{
-        background-color:#00adb5;
-        color: #fff;
-    }
-} 
-
-// 修改按钮
-
-.change{
+// 左半边修改按钮
+.change-left {
     border:1px solid #00adb5;
     border-right:0;
     border-top-left-radius:5px;
@@ -43,12 +29,35 @@
     }
 }
 
-// 删除按钮
+// 修改按钮
+.change {
+    border:1px solid #00adb5;
+    border-radius:5px;
+    @extend %btnStyle;
 
-.delete{
+    &:hover{
+        background-color:#00adb5;
+        color: #fff;
+    }
+}
+
+// 右半边删除按钮
+.delete-right{
     border:1px solid red;
     border-top-right-radius:5px;
     border-bottom-right-radius:5px;
+    @extend %btnStyle;
+
+    &:hover{
+        background-color:red;
+        color: #fff;
+    }
+}
+
+// 删除按钮
+.delete {
+    border:1px solid red;
+    border-radius:5px;
     @extend %btnStyle;
 
     &:hover{

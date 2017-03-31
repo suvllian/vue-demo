@@ -7,6 +7,8 @@ import Hot from './components/hot/index';
 import Email from './components/email/index';
 import Join from './components/join/index';
 import Teachers from './components/teachers/index';
+import ClassBlock from './components/class/index';
+import Person from './components/person/index';
 
 const router = new VueRouter({
   mode: 'history',
@@ -21,6 +23,8 @@ const router = new VueRouter({
     { path: '/join', component: Join },
     { path: '/teacher', component: Teachers },
     { path: '/login', component: Login },
+    { path: '/class', component: ClassBlock },
+    { path: '/person', component: Person },
 
 	  { path: '*', component: Login }
   ]
