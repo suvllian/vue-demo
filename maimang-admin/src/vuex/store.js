@@ -9,6 +9,8 @@ import JoinInfo from './modules/join.info.js';
 import Login from './modules/login.js';
 import ClassInfo from './modules/class.info.js';
 import PersonInfo from './modules/person.info.js';
+import Page from './modules/add.page.js';
+import PageInfo from './modules/page.info.js';
 
 Vue.use(Vuex);
 
@@ -21,6 +23,8 @@ export default new Vuex.Store({
 		JoinInfo,
 		Login,
 		ClassInfo,
-		PersonInfo
+		PersonInfo,
+		Page,
+		PageInfo
 	}
 })

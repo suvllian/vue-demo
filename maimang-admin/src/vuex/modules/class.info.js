@@ -39,7 +39,7 @@ export default {
 	actions: {
 		// 得到首屏所有图片信息
 		[GET_CLASS_INFO]({ commit }) {
-			api.getClasses().then(res => {	
+			api.getInfor("classlink").then(res => {	
 				commit(GET_CLASS_INFO,{
 					data: res.data
 				})

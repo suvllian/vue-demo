@@ -26,7 +26,7 @@
 							<td>{{ item.teacher }}</td>
 							<td>{{ item.connect }}</td>
 							<td>{{parseInt(item.class) ? "允许":"不允许" }}</td>
-							<td><span class="delete" @click="deteteItem({id:item.jId, index:index})">删除</span></td>
+							<td><span class="delete" @click="deteteItem({id:item.id, index:index})">删除</span></td>
 						</tr>
 					</tbody>
 				</table>

@@ -27,7 +27,7 @@ export default {
 
 		// 设置被点击图片索引, 然后根据索引替换相应的图片
 		[SET_TEACHERS_INDEX](state, action) {
-			state.index = action.index || state.index;
+			state.index = action.index;
 			state.className = action.className;
 		},
 
@@ -94,7 +94,7 @@ export default {
 
 	actions: {
 		[GET_TEACHERS_INFO]({ commit }) {
-			api.getTeacher().then(res => {	
+			api.getInfor("teachers").then(res => {	
 				commit(GET_TEACHERS_INFO,{
 					data: res.data
 				})
@@ -134,7 +134,7 @@ export default {
 
 		// 删除
 		[DELETE_TEACHERS_INTO]({ commit }, condition) {
-			api.deleteTeacher(condition.id).then(res => {	
+			api.deleteItem(condition.id, "teachers").then(res => {	
 				commit(DELETE_TEACHERS_INTO,{
 					data: res.data,
 					index: condition.index

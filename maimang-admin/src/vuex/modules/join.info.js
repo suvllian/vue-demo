@@ -19,7 +19,7 @@ export default {
 
 	actions: {
 		[GET_JOIN_INFO]({ commit }) {
-			api.getJoin().then(res => {	
+			api.getInfor("joinperson").then(res => {	
 				commit(GET_JOIN_INFO,{
 					data: res.data
 				})
@@ -28,7 +28,7 @@ export default {
 			})
 		},
 		[DELETE_JOIN_PERSON]({ commit }, condition) {
-			api.deleteJoin(condition.id).then(res => {	
+			api.deleteItem(condition.id, "joinperson").then(res => {	
 				commit(DELETE_JOIN_PERSON,{
 					data: res.data,
 					index: condition.index

@@ -66,7 +66,7 @@
 					<h3 class="container-h" v-if="!success"><span>上传失败，请重试</span></h3>
 					<img src="#" alt="图片预览" class="view" ref="imageView">
 					<button class="blue-Btn" @click.prevent="uploadImage">上传</button>
-					<button class="blue-Btn" @click.prevent="SET_TEACHERS_INDEX(0)">取消</button>
+					<button class="blue-Btn" @click.prevent="SET_TEACHERS_INDEX({index:0, className:'teacher'})">取消</button>
 				</div>
 				<!-- 文件上传预览 -->
 			</section>

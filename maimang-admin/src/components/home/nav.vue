@@ -25,6 +25,8 @@ export default{
 				{ title:"旗下艺人", src:"person"},
 				{ title:"订阅邮箱", src:"/email"},
 				{ title:"咨询预约", src:"/join"},
+				{ title:"添加详情页", src:"/page"},
+				{ title:"详情页管理", src:"/pageview"},
 			]
 		}
 	}

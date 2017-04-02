@@ -1,6 +1,5 @@
 <template>
-	<!-- <div v-if="userInfo.admin"> -->
-	<div>
+	<div v-if="userInfo.admin">
 		<Nav></Nav>
 		<div class="container">
 			<section>
@@ -56,7 +55,7 @@
 									</tbody>
 								</table>
 							</td>	
-							<td><span class="change-left" @click="CHANGE_PERSON_INFO({isChange:true})">修改</span><span class="delete-right" @click="deteteItem({id:item.id, index:index})">删除</span></td>	
+							<td><span class="change-left" @click="CHANGE_PERSON_INFO({isChange:true})">修改</span><span class="delete-right" @click="deteteItem({id:people.id})">删除</span></td>	
 						</tr>
 
 						<!-- 修改栏 -->
@@ -153,13 +152,20 @@ export default{
 			if (page > 0) {
 				this.GET_PERSON_INFO(page);
 			}
+		},
+
+		deteteItem(data){
+			if (confirm("确认删除？")) {
+				this.DELETE_PERSON_INFO(data);
+				this.GET_PERSON_INFO(1);
+			}
 		}
 	},
 	created(){
-		// if (!this.userInfo.admin) {
-		// 	this.$router.replace("login");
-		// 	return;
-		// }
+		if (!this.userInfo.admin) {
+			this.$router.replace("login");
+			return;
+		}
 		this.GET_PERSON_INFO(1);
 	}
 }

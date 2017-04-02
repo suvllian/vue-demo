@@ -115,7 +115,6 @@ export default {
 		[ADD_PERSON_INFO](state, action) {
 			state.isAdd = action.isAdd;
 			state.addItem.id = action.index;
-			state.index = action.index;
 			state.newId = action.index;
 		},
 
@@ -131,7 +130,11 @@ export default {
 		[ADD_PERSON_INFO_FAIL](state, action) {
 			state.isAdd = true;
 			state.addSuccess = false;
-		}
+		},
+
+		[DELETE_PERSON_INFO](state, action) {
+			
+		},
 
 	},
 
@@ -232,6 +235,15 @@ export default {
 			});
 		},
 
+		[DELETE_PERSON_INFO]({ commit }, condition) {
+			api.deleteItem(condition.id, "person").then(res => {	
+				commit(DELETE_PERSON_INFO,{
+					data: res.data
+				})
+			}).catch(err => {
+
+			})
+		},
 
 		// 上传图片
 		[UPLOAD_PERSON_IAMGE]({ commit }, file) {

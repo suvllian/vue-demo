@@ -19,7 +19,7 @@ export default {
 
 	actions: {
 		[GET_EMAIL_INFO]({ commit }) {
-			api.getEmail().then(res => {	
+			api.getInfor("email").then(res => {	
 				commit(GET_EMAIL_INFO,{
 					data: res.data
 				})
@@ -28,7 +28,7 @@ export default {
 			})
 		},
 		[DELETE_EMAIL]({ commit }, condition) {
-			api.deleteEmail(condition.id).then(res => {	
+			api.deleteItem(condition.id, "email").then(res => {	
 				commit(DELETE_EMAIL,{
 					data: res.data,
 					index: condition.index

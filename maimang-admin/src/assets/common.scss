@@ -48,3 +48,23 @@ body{
 	margin:0 auto;
 	text-align: center;
 }
+
+#editor{
+	margin: 0 auto;
+}
+
+.article{
+	width:500px;
+	margin: 30px auto;
+
+	input{
+		width: 400px;
+        padding:12px;
+        border:1px solid #ccc;
+        border-radius:3px;
+	}
+
+	label {
+		font-size: 20px;
+	}
+}

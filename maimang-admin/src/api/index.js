@@ -18,15 +18,12 @@ export default{
 	 * 获取订阅邮箱
 	 * 删除订阅邮箱
 	 */
-	getEmail:() => { return getResource.get({ do:"get", concrete:"email"})},
-	deleteEmail:(id) => { return postResource.save({ do:"post", concrete:"deleteemail", id:id})},
 
 	/* 报名 
 	 * 获取报名信息
 	 * 删除报名信息
 	 */
-	getJoin:() => { return getResource.get({ do:"get", concrete:"join"})},
-	deleteJoin:(id) => { return postResource.save({ do:"post", concrete:"deleteperson", id:id})},
+
 
 	/* 报名 
 	 * 获取导师信息
@@ -34,10 +31,8 @@ export default{
 	 * 添加导师
 	 * 删除导师
 	 */
-	getTeacher:() => { return getResource.get({ do:"get", concrete:"teacher"})},
 	changeTeacher:(id, intro, name) => { return postResource.save({ do:"post", concrete:"changeteacher", id:id, intro:intro, name:name} )},
 	addTeacher:(id, intro, name) => { return postResource.save({ do:"post", concrete:"addteacher", id:id, intro:intro, name:name} )},
-	deleteTeacher:(id) => { return postResource.save({ do:"post", concrete:"deleteteacher", id:id})},
 
 	/* 艺人 
 	 * 获取艺人信息
@@ -49,11 +44,16 @@ export default{
 	changePersonSrc:(id, src) => { return postResource.save({ do:"post", concrete:"changepersonsrc", id:id, src:src} )},
 	addPerson:(id, intro, name) => { return postResource.save({ do:"post", concrete:"addperson", id:id, intro:intro, name:name} )},
 
+	/* 文章 
+	 * 添加文章
+	 */
+
+	addArticle: (title, content) => { return postResource.save({ do:"post", concrete:"addarticle", title:title, content:content} ) },
+
 	/* 课程
 	 * 获取课程信息
 	 * 修改课程链接
 	 */
-	getClasses:() => { return getResource.get({ do:"get", concrete:"classinfo"})},
 	changeClasses:(id, name, src) => { return postResource.save({ do:"post", concrete:"changeclass", id:id, name:name, src:src} )},
 
 	/* 上传图片
@@ -70,4 +70,16 @@ export default{
 	 * 登陆验证
 	 */
 	getNumber:(table) => { return getResource.get({ do:"get", concrete:"number", table:table})},
+
+	/*
+	 * 删除操作
+	 */
+
+	deleteItem:(id,table) => { return postResource.save({ do:"post", concrete:"delete", id:id, table:table})},
+
+	/*
+	 * 获取信息
+	 */
+
+	getInfor:(table) => { return getResource.get({ do:"get", concrete:"information", table:table})},
 }
