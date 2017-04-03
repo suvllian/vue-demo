@@ -19,7 +19,7 @@ export default {
 
 	actions: {
 		[ADD_ARTICLE]({ commit }, article) {
-			api.addArticle(article).then(res => {	
+			api.addArticle(article.title, article.content).then(res => {	
 				if (res.data == 1) {
 					commit(ADD_ARTICLE_SUCCESS,{});
 				} else {

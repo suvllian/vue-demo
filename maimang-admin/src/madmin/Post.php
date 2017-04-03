@@ -219,7 +219,7 @@ class Post extends Handler
 		$photo = $name.$extend;
 
 		// 文件路径及文件名
-		$relaPath = "./";
+		$relaPath = "./../static/img/";
 
 		// 生成文件  
 		$result = file_put_contents($relaPath.$photo, base64_decode($data), true);

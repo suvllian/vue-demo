@@ -11,7 +11,7 @@
 				<ul class="slide-list">
 					<li v-for="(item, index) in data" :class="item.className">
 						<a :href="item.src" target="_blank">
-							<img class="list-pic" :src="'./static/hot-img-' + (index+1) + '.jpg'" :alt="item.intro">
+							<img class="list-pic" :src="'./static/img/hot-img-' + (index+1) + '.jpg'" :alt="item.intro">
 						</a>
 					</li>
 				</ul>
@@ -42,25 +42,11 @@
 				</a>
 			</div>
 		</div>
-
-		<div class="slide-action">
-			<div class="slide-action-left">
-				<a class="slide-action-btn" @click="prev()" href="javascript:;">
-					<i class="fa fa-angle-left fa-3x"></i>
-				</a>
-			</div>
-			<div class="slide-action-right">
-				<a class="slide-action-btn" @click="next()" href="javascript:;">
-					<i class="fa fa-angle-right fa-3x"></i>
-				</a>
-			</div>
-		</div>
-		
 	</section>
 </template>
 
 <script>
-import api from './../api/';
+import api from './../../api/';
 
 export default{
 	data(){
@@ -148,10 +134,8 @@ export default{
 
 		// 跳转到指定图片
 		goIndex(index){
-			clearInterval(this.handle);
 			this.index = index;
 			this.slideImage().clickBtn();
-			this.handle = setInterval(this.slideImage().slide, 3000);
 		},
 
 		// 获取图片数据，并初始化
@@ -168,11 +152,6 @@ export default{
 	},
 	created(){
 		this.getData();
-	},
-
-	mounted(){		
-		// 节点挂载之后开始循环
-		this.handle = setTimeout(this.next, 3000);
 	}
 }
 </script>

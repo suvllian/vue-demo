@@ -1,34 +1,19 @@
  <template>
   <div id="app">
     <Header></Header>
-    <Album></Album>
-    <Hot></Hot>
-    <Teacher></Teacher>
-    <ClassSet></ClassSet>
-    <Person></Person>
-    <JoinTitle></JoinTitle>
-    <Join></Join>
+    <router-view></router-view> 
     <About></About> 
-    <!-- <MaskBox></MaskBox> -->
   </div>
 </template>
 
 <script>
-import Header from './components/header'
-import Album from './components/album'
-import Hot from './components/hotclass'
-import Teacher from './components/teacher'
-import About from './components/about'
-import ClassSet from './components/class'
-import Person from './components/person'
-import Join from './components/join'
-import JoinTitle from './components/jointitle'
-import MaskBox from './components/mask'
+import Header from './components/common/header'
+import About from './components/common/about'
 
 export default {
   name: 'app',
   components: {
-    Header, Album, Hot, Teacher, About, ClassSet, Person, Join, JoinTitle, MaskBox
+    Header, About
   },
   data:{
     isShow:false

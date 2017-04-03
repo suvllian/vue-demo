@@ -23,8 +23,8 @@
 							<td>{{ index + 1 }}</td>
 							<td>{{ item.name }}</td>
 							<td>{{ item.intro }}</td>
-							<td @click="SET_TEACHERS_INDEX({index:item.id, className:'teacher'})"><label for="uploadBtn"><img :src="'./static/teacher-' + item.id + '.jpg'"></label></td>
-							<td @click="SET_TEACHERS_INDEX({index:item.id, className:'content'})"><label for="uploadBtn"><img :src="'./static/teacher-content-' + item.id + '.jpg'"></label></td>
+							<td @click="SET_TEACHERS_INDEX({index:item.id, className:'teacher'})"><label for="uploadBtn"><img :src="'./static/img/teacher-' + item.id + '.jpg'"></label></td>
+							<td @click="SET_TEACHERS_INDEX({index:item.id, className:'content'})"><label for="uploadBtn"><img :src="'./static/img/teacher-content-' + item.id + '.jpg'"></label></td>
 							<td><span class="change-left" @click="CHANGE_TEACHERS_INFO({index:index, isChange:true})">修改</span><span class="delete-right" @click="deteteItem({id:item.id, index:index})">删除</span></td>
 						</tr>
 
@@ -33,8 +33,8 @@
 							<td>{{ item.id }}</td>
 							<td><input type="text" v-model="item.name"></td>
 							<td><input type="text" v-model="item.intro"></td>
-							<td><img :src="'./static/teacher-' + item.id + '.jpg'"></td>
-							<td><img :src="'./static/teacher-content-' + item.id + '.jpg'"></td>
+							<td><img :src="'./static/img/teacher-' + item.id + '.jpg'"></td>
+							<td><img :src="'./static/img/teacher-content-' + item.id + '.jpg'"></td>
 							<td>
 								<span class="change" @click="SUBMIT_TEACHERS_INFO(item)">确定</span>
 								<span class="change" @click="CHANGE_TEACHERS_INFO({index:0, isChange:false})">取消</span>

@@ -15,7 +15,7 @@
 					<li class="teacher-list-item" v-for="(item, index) in teachers">
 						<div class="teacher-item-box">
 							<div class="teacher-img" @click="showMask(item.id)">
-								<img class="teacher-pic" :src="'./static/teacher-' + (index+1) + '.jpg'">
+								<img class="teacher-pic" :src="'./static/img/teacher-' + (index+1) + '.jpg'">
 							</div>
 							<div class="teacher-intro">
 								<h4 class="teacher-intro-h">{{item.name}}</h4>
@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import api from './../api/';
-import { createMask } from './../utils/createMask.js';
+import api from './../../api/';
+import { createMask } from './../../utils/createMask.js';
 
 export default{
 	data(){
@@ -93,7 +93,7 @@ export default{
 			let index = parseInt(imgIndex);
 			let html = '<div class="mask-contain">\
 							<div class="mask-image" id="mask-image">\
-								<img src="./static/teacher-content-'+ index + '.jpg">\
+								<img src="./static/img/teacher-content-'+ index + '.jpg">\
 							</div>\
 							<div class="slide-action">\
 								<div class="slide-action-left">\
@@ -121,7 +121,7 @@ export default{
 				} else {
 					index = index - 1;
 				}
-				img.src = './static/teacher-content-'+ index + '.jpg';
+				img.src = './static/img/teacher-content-'+ index + '.jpg';
 			}
 
 			function next() {
@@ -130,7 +130,7 @@ export default{
 				} else {
 					index = index + 1;
 				}
-				img.src = './static/teacher-content-'+ index + '.jpg';
+				img.src = './static/img/teacher-content-'+ index + '.jpg';
 			}
 
 			leftBtn.addEventListener("click", prev);

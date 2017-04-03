@@ -1,6 +1,8 @@
 import {getResource,postResource} from './resource';
 
 export default{
+	getArticle:(id) => { return getResource.get({ do:"get", concrete:"article", id:id})},
+
 	getAlbum:() => { return getResource.get({ do:"get", concrete:"album"})},
 
 	getHot:() => { return getResource.get({ do:"get", concrete:"hot"})},

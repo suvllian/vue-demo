@@ -19,7 +19,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td @click="SET_PERSON_INDEX({index:people.id, className:'person'})"><label for="uploadBtn"><img class="td-big-img" :src="'./static/person-' + people.id + '-big.jpg'"></label></td>
+							<td @click="SET_PERSON_INDEX({index:people.id, className:'person'})"><label for="uploadBtn"><img class="td-big-img" :src="'./static/img/person-' + people.id + '-big.jpg'"></label></td>
 							<td>{{ people.name }}</td>
 							<td>{{ people.intro }}</td>
 							<td class="tr-contain-table">
@@ -35,7 +35,7 @@
 									<tbody>
 										<tr v-for="(single, index) in people.pic">
 											<td>{{ index + 1 }}</td>
-											<td @click="SET_PERSON_INDEX({index:(index + 1), className:'content'})"><label for="uploadBtn"><img :src="'./static/person-' + people.id + '-' + (index + 1) + '.jpg'"></label></td>
+											<td @click="SET_PERSON_INDEX({index:(index + 1), className:'content'})"><label for="uploadBtn"><img :src="'./static/img/person-' + people.id + '-' + (index + 1) + '.jpg'"></label></td>
 											<td>{{ single.src }}</td>
 											<td><span class="change" @click="CHANGE_PERSON_SRC_INFO({index:index, srcIsChange:true})">修改</span></td>
 										</tr>
@@ -43,7 +43,7 @@
 										<!-- 修改栏 -->
 										<tr v-if="srcIsChange" class="tr-change">
 											<td>{{ item.index+1 }}</td>
-											<td><img :src="'./static/person-' + people.id + '-' + (item.index + 1) + '.jpg'"></td>
+											<td><img :src="'./static/img/person-' + people.id + '-' + (item.index + 1) + '.jpg'"></td>
 											<td><input type="text" v-model="item.src"></td>
 											<td>
 												<span class="change" @click="SUBMIT_PERSON_SRC_INFO(item)">确定</span>
@@ -60,7 +60,7 @@
 
 						<!-- 修改栏 -->
 						<tr v-if="isChange" class="tr-change">
-							<td><img :src="'./static/person-' + people.id + '-big.jpg'"></td>
+							<td><img :src="'./static/img/person-' + people.id + '-big.jpg'"></td>
 							<td><input type="text" v-model="item.name"></td>
 							<td><textarea type="text" v-model="item.intro"></textarea></td>
 							<td></td>

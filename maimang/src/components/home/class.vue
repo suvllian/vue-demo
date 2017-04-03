@@ -17,7 +17,7 @@
 			<div class="class-list">
 				<ul class="class-ul">
 					<li class="class-item" v-for="item in data">
-						<a :href="item.src" target="_blank"><img class="class-pic" :src="'./static/class-img-' + item.id + '.png'"></a>
+						<a :href="item.src" target="_blank"><img class="class-pic" :src="'./static/img/class-img-' + item.id + '.png'"></a>
 					</li>
 				</ul>
 			</div>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import api from './../api/';
+import api from './../../api/';
 
 export default{
 	data(){

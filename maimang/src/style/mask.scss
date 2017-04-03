@@ -5,6 +5,7 @@
 	top:0;
 	left:0;
 	z-index:1000;
+	overflow: auto;
 	background-color: rgba(0,0,0,0.8);
 
 	.slide-action-butn{
@@ -56,7 +57,7 @@
 	z-index: 3000;
 	text-align: center;
 	transition: .5s all ease-out;
-	overflow: hidden;
+	// overflow: hidden;
 }
 
 // 表单提示弹出层

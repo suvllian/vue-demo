@@ -3,7 +3,7 @@
 		<div class="mask-contain">
 			<div class="mask-news">
 				<div class="erweima">
-					<img src="/static/erweima-1.jpg">
+					<img src="/static/img/erweima-1.jpg">
 					<p>麦芒音乐微信号(活动)</p>
 				</div>
 

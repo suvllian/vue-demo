@@ -12,7 +12,7 @@
 			<div class="person-list" ref="list">
 				<div class="person-intro" v-for="(item, index) in data">
 					<div class="person-left">
-						<img :src="'./static/person-' + item.id + '-big.jpg'">
+						<img :src="'./static/img/person-' + item.id + '-big.jpg'">
 					</div>
 
 					<div class="person-right">
@@ -20,7 +20,7 @@
 						<p class="person-p" v-html='item.intro'></p>
 						<ul class="person-img-list">
 							<li class="person-item" v-for="single in 6" @click="showMask(index, single)">
-								<img class="person-pic" :src="'./static/person-' + item.id + '-' + single + '.jpg'">
+								<img class="person-pic" :src="'./static/img/person-' + item.id + '-' + single + '.jpg'">
 							</li>
 						</ul>
 					</div>
@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import api from './../api/';
-import { createMask } from './../utils/createMask.js';
+import api from './../../api/';
+import { createMask } from './../../utils/createMask.js';
 
 export default{
 	data(){
@@ -93,7 +93,7 @@ export default{
 			big = big + 1;
 			let html = '<div class="mask-contain">\
 							<div class="mask-image" id="mask-image">\
-								<a href="http://suvllian.com" target="_blank"><img src="./static/person-' + big + '-'+ small + '.jpg"></a>\
+								<a href="http://suvllian.com" target="_blank"><img src="./static/img/person-' + big + '-'+ small + '.jpg"></a>\
 							</div>\
 							<div class="slide-action">\
 								<div class="slide-action-left">\
@@ -120,7 +120,7 @@ export default{
 				} else {
 					small = small - 1;
 				}
-				img.src = './static/person-' + big + '-' + small + '.jpg';
+				img.src = './static/img/person-' + big + '-' + small + '.jpg';
 			}
 
 			function next() {
@@ -129,7 +129,7 @@ export default{
 				} else {
 					small = small + 1;
 				}
-				img.src = './static/person-' + big + '-' + small + '.jpg';
+				img.src = './static/img/person-' + big + '-' + small + '.jpg';
 			}
 
 			leftBtn.addEventListener("click", prev);

@@ -19,7 +19,7 @@
 					<tbody>
 						<tr v-for="(item, index) in albums">
 							<td>{{ index + 1 }}</td>
-							<td @click="SET_ALBUM_IMAGE_INDEX(index+1)"><label for="uploadBtn"><img :src="'./static/album-' + (index+1) + '.jpg'"></label></td>
+							<td @click="SET_ALBUM_IMAGE_INDEX(index+1)"><label for="uploadBtn"><img :src="'./static/img/album-' + (index+1) + '.jpg'"></label></td>
 							<td>{{ item.intro }}</td>
 							<td>{{ item.src }}</td>
 							<td><span class="change" @click="CHANGE_ALBUM_INFO({index:index, isChange:true})">修改</span></td>
@@ -28,7 +28,7 @@
 						<!-- 修改栏 -->
 						<tr v-if="isChange" class="tr-change">
 							<td>{{ item.cId }}</td>
-							<td><img :src="'./static/album-' + item.cId + '.jpg'"></td>
+							<td><img :src="'./static/img/album-' + item.cId + '.jpg'"></td>
 							<td>
 								<input type="text" v-model="item.intro" v-if="item.cId==1">
 								<input type="text" v-model="item.intro" disabled="true" v-else>

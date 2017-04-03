@@ -4,7 +4,7 @@
 			<div class="header-top">
 				<h1>
 					<a href="">
-						<img src="./../assets/logo.png" alt="首页" class="logo">
+						<img src="./../../assets/logo.png" alt="首页" class="logo">
 					</a>
 				</h1>
 				<ul class="top-nav">
@@ -39,9 +39,9 @@
 </template>
 
 <script>
-import api from './../api/';
-import { escape } from './../utils/effect.js';
-import { insertNode } from './../utils/createMask.js';
+import api from './../../api/';
+import { escape } from './../../utils/effect.js';
+import { insertNode } from './../../utils/createMask.js';
 
 export default{
 	methods: {
@@ -61,6 +61,9 @@ export default{
 		submit(){
 			// 订阅邮箱表单提交
 			var email = this.$refs.email;
+			if (!email) {
+				return ;
+			}
 			// 字符转码
 			var result = escape(email.value);
 			api.postEmail(result).then(res => {
@@ -101,11 +104,11 @@ export default{
 			let html = '<div class="mask-contain">\
 								<div class="mask-news">\
 									<div class="erweima">\
-										<img src="./static/erweima-1.jpg">\
+										<img src="./static/img/erweima-1.jpg">\
 										<p>麦芒音乐微信号(活动)</p>\
 									</div>\
 									<div class="erweima">\
-										<img src="./static/erweima-2.jpg">\
+										<img src="./static/img/erweima-2.jpg">\
 										<p>麦芒音乐微博(资讯)</p>\
 									</div>\
 								</div>\

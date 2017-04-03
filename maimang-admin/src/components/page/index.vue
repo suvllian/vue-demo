@@ -36,7 +36,7 @@ export default {
 		getEditor() {
 			if (this.title && this.editor.getContent()) {
 				if (confirm("确认提交")) {
-					this.ADD_ARTICLE(this.title, this.editor.getContent());
+					this.ADD_ARTICLE({title: this.title, content:this.editor.getContent()});
 				}
 			}
 		},

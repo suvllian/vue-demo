@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import api from './../api';
-import { escape } from './../utils/effect.js';
-import { insertNode } from './../utils/createMask.js';
+import api from './../../api/';
+import { escape } from './../../utils/effect.js';
+import { insertNode } from './../../utils/createMask.js';
 
 export default{
 	data(){

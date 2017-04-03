@@ -7,17 +7,17 @@
 					<p class="connect-p">Tel：86-29-89947434</p>
 					<p class="connect-p">E-mail：info@mymovement.com</p>
 					<p class="connect-p">Add：陕西西安曲江雁南一路曼蒂广场一层北区</p>
-					<p class="connect-p">www.mymovement.com</p>
+					<p class="connect-p">www.maimangyinyue.com</p>
 				</div>
 
 				<div class="news">
 					<h4 class="about-h">麦芒新闻</h4>
 					<ul>
 						<li class="news-item">
-							<img class="news-pic" src="./../assets/erweima-1.jpg">
+							<img class="news-pic" src="./../../assets/erweima-1.jpg">
 						</li>
 						<li class="news-item">
-							<img class="news-pic" src="./../assets/erweima-2.jpg">
+							<img class="news-pic" src="./../../assets/erweima-2.jpg">
 						</li>
 					</ul>
 				</div>
@@ -27,38 +27,38 @@
 					<ul>
 						<li class="friend-item">
 							<a href="#">
-								<img class="friend-pic" src="./../assets/weixin.png">
+								<img class="friend-pic" src="./../../assets/weixin.png">
 							</a>
 						</li>
 
 						<li class="friend-item">
 							<a href="#">
-								<img class="friend-pic" src="./../assets/weibo.png">
+								<img class="friend-pic" src="./../../assets/weibo.png">
 							</a>
 						</li>
 
 						<li class="friend-item">
 							<a href="#">
-								<img class="friend-pic" src="./../assets/youku.png">
+								<img class="friend-pic" src="./../../assets/youku.png">
 							</a>
 						</li>
 
 
 						<li class="friend-item">
 							<a href="#">
-								<img class="friend-pic" src="./../assets/zhi.png">
+								<img class="friend-pic" src="./../../assets/zhi.png">
 							</a>
 						</li>
 
 						<li class="friend-item">
 							<a href="#">
-								<img class="friend-pic" src="./../assets/apple.png">
+								<img class="friend-pic" src="./../../assets/apple.png">
 							</a>
 						</li>
 
 						<li class="friend-item">
 							<a href="#">
-								<img class="friend-pic" src="./../assets/unknown.png">
+								<img class="friend-pic" src="./../../assets/unknown.png">
 							</a>
 						</li>
 

@@ -3,7 +3,7 @@
 		<div class="section-bg album-bg">
 			<ul class="album-bg-list">
 				<li class="bg-item" v-for="(item,index) in data">
-					<img class="bg-pic" :src="'./static/album-' + (index+1) + '.jpg'">
+					<img class="bg-pic" :src="'./static/img/album-' + (index+1) + '.jpg'">
 				</li>
 			</ul>
 		</div>
@@ -50,8 +50,8 @@
 </template>
 
 <script>
-import api from './../api/';
-import { getScreenScale } from './../utils/effect.js';
+import api from './../../api/';
+import { getScreenScale } from './../../utils/effect.js';
 
 export default{
 	data(){
