@@ -23,24 +23,6 @@
 				<!-- 点prev切换到上一张，next切换到下一张 -->
 				
 			</div>
-			
-			<div class="slide-switch">
-				<a class="slide-switch-item" href="" @click.prevent="goIndex(0)">
-					<i class="slide-switch-bg switch-active"></i>
-				</a>
-				<a class="slide-switch-item" href="" @click.prevent="goIndex(1)">
-					<i class="slide-switch-bg"></i>
-				</a>
-				<a class="slide-switch-item" href="" @click.prevent="goIndex(2)">
-					<i class="slide-switch-bg"></i>
-				</a>
-				<a class="slide-switch-item" href="" @click.prevent="goIndex(3)">
-					<i class="slide-switch-bg"></i>
-				</a>
-				<a class="slide-switch-item" href="" @click.prevent="goIndex(4)">
-					<i class="slide-switch-bg"></i>
-				</a>
-			</div>
 		</div>
 	</section>
 </template>
@@ -59,14 +41,12 @@ export default{
 	methods: {
 		slideImage(){
 			let liItem = document.querySelectorAll(".list-item");
-			let switchItem = document.querySelectorAll("#hotclass .slide-switch-bg");
 			let length = liItem.length;
 
 			// 清除所有样式
 			var init = function(){
 				for (let i = 0; i < length; i++) {
 					liItem[i].className = "list-item";
-					switchItem[i].className = "slide-switch-bg";
 				}
 			}
 
@@ -74,7 +54,6 @@ export default{
 			var focus = function(index) {
 				init();
 				liItem[index].className = "list-item current";
-				switchItem[index].className = "slide-switch-bg switch-active";
 
 				liItem[index-1] ? liItem[index-1].className = "list-item prev" :
 					liItem[4].className = "list-item prev";
@@ -85,7 +64,6 @@ export default{
 			var setLast = function(){
 				init();
 				liItem[4].className = "list-item current";
-				switchItem[4].className = "slide-switch-bg switch-active";
 
 				liItem[3].className = "list-item prev";
 				liItem[0].className = "list-item next";

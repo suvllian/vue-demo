@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2017 年 04 月 03 日 15:01
+-- 生成日期: 2017 年 03 月 31 日 02:56
 -- 服务器版本: 5.5.20
 -- PHP 版本: 5.3.10
 
@@ -38,28 +38,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`id`, `name`, `pass`) VALUES
-(1, 'maimang', '5f562827162524a2a8f33cb78753f345');
-
--- --------------------------------------------------------
-
---
--- 表的结构 `article`
---
-
-CREATE TABLE IF NOT EXISTS `article` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` text NOT NULL,
-  `content` text NOT NULL,
-  `isShow` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
-
---
--- 转存表中的数据 `article`
---
-
-INSERT INTO `article` (`id`, `title`, `content`, `isShow`) VALUES
-(12, '麦芒详情', '<p>详情页？<br/></p>', 1);
+(1, 'maimusic', '61e8be1e6eb38874385906bf2668efcb');
 
 -- --------------------------------------------------------
 
@@ -72,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `classlink` (
   `name` varchar(128) NOT NULL,
   `src` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `classlink`
@@ -97,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `content` (
   `src` varchar(256) NOT NULL,
   `class` int(11) NOT NULL,
   PRIMARY KEY (`cId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 --
 -- 转存表中的数据 `content`
@@ -123,14 +102,14 @@ CREATE TABLE IF NOT EXISTS `email` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `email`
 --
 
 INSERT INTO `email` (`id`, `email`) VALUES
-(3, '1448478764@qq.com');
+(2, '907052503@qq.com');
 
 -- --------------------------------------------------------
 
@@ -139,21 +118,22 @@ INSERT INTO `email` (`id`, `email`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `joinperson` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `jId` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   `company` varchar(128) NOT NULL,
   `teacher` varchar(128) NOT NULL,
   `connect` varchar(128) NOT NULL,
   `class` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  PRIMARY KEY (`jId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- 转存表中的数据 `joinperson`
 --
 
-INSERT INTO `joinperson` (`id`, `name`, `company`, `teacher`, `connect`, `class`) VALUES
-(1, '王翼龙', '短安大学', '王翼龙', '12536582569', 1);
+INSERT INTO `joinperson` (`jId`, `name`, `company`, `teacher`, `connect`, `class`) VALUES
+(1, '王翼龙', '短安大学', '王翼龙', '12536582569', 1),
+(2, '宋青松', '长安大学', '宋青松', '15619216635', 0);
 
 -- --------------------------------------------------------
 
@@ -173,34 +153,8 @@ CREATE TABLE IF NOT EXISTS `person` (
 --
 
 INSERT INTO `person` (`id`, `name`, `intro`) VALUES
-(1, '乌拉多', '1980年10月11日出生于山东省济南市，中国内地流行乐女歌手、音乐制作人，毕业于星海音乐学院作曲技术与理论系。<br/>2014年，参加CCTV-3原创音乐真人秀节目《中国好歌曲第一季》比赛，最终获得刘欢组季军。'),
-(2, '乌拉恩', '1980年10月11日出生于山东省济南市，中国内地流行乐女歌手、音乐制作人，毕业于星海音乐学院作曲技术与理论系。<br/>2014年，参加CCTV-3原创音乐真人秀节目《中国好歌曲第一季》比赛，最终获得刘欢组季军。'),
-(3, '乌拉多恩', '1980年10月11日出生于山东省济南市，中国内地流行乐女歌手、音乐制作人，毕业于星海音乐学院作曲技术与理论系。<br/>2014年，参加CCTV-3原创音乐真人秀节目《中国好歌曲第一季》比赛，最终获得刘欢组季军。');
-
---
--- 触发器 `person`
---
-DROP TRIGGER IF EXISTS `person_pic`;
-DELIMITER //
-CREATE TRIGGER `person_pic` AFTER INSERT ON `person`
- FOR EACH ROW BEGIN
-        INSERT INTO `personpic` SET src= 'http://suvllian.com', personid=NEW.id;
-		INSERT INTO `personpic` SET src= 'http://suvllian.com', personid=NEW.id;
-		INSERT INTO `personpic` SET src= 'http://suvllian.com', personid=NEW.id;
-		INSERT INTO `personpic` SET src= 'http://suvllian.com', personid=NEW.id;
-		INSERT INTO `personpic` SET src= 'http://suvllian.com', personid=NEW.id;
-		INSERT INTO `personpic` SET src= 'http://suvllian.com', personid=NEW.id;
-    END
-//
-DELIMITER ;
-DROP TRIGGER IF EXISTS `person_pic_delete`;
-DELIMITER //
-CREATE TRIGGER `person_pic_delete` BEFORE DELETE ON `person`
- FOR EACH ROW BEGIN
-        DELETE FROM personpic WHERE personid = old.id;
-    END
-//
-DELIMITER ;
+(1, '乌拉多恩', '1980年10月11日出生于山东省济南市，中国内地流行乐女歌手、音乐制作人，毕业于星海音乐学院作曲技术与理论系。<br/>2014年，参加CCTV-3原创音乐真人秀节目《中国好歌曲第一季》比赛，最终获得刘欢组季军。'),
+(2, '乌拉多恩', '1980年10月11日出生于山东省济南市，中国内地流行乐女歌手、音乐制作人，毕业于星海音乐学院作曲技术与理论系。<br/>2014年，参加CCTV-3原创音乐真人秀节目《中国好歌曲第一季》比赛，最终获得刘欢组季军。');
 
 -- --------------------------------------------------------
 
@@ -214,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `personpic` (
   `personid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `personid` (`personid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `personpic`
@@ -224,21 +178,9 @@ INSERT INTO `personpic` (`id`, `src`, `personid`) VALUES
 (1, 'http://suvllian.com', 1),
 (2, 'http://suvllian.com', 1),
 (3, 'http://suvllian.com', 1),
-(4, 'http://suvllian.co', 1),
+(4, 'http://suvllian.com', 1),
 (5, 'http://suvllian.com', 1),
-(6, 'http://suvllian.com', 1),
-(7, 'http://suvllian.com', 2),
-(8, 'http://suvllian.com', 2),
-(9, 'http://suvllian.com', 2),
-(10, 'http://suvllian.com', 2),
-(11, 'http://suvllian.com', 2),
-(12, 'http://suvllian.com', 2),
-(13, 'http://suvllian.com', 3),
-(14, 'http://suvllian.com', 3),
-(15, 'http://suvllian.com', 3),
-(16, 'http://suvllian.com', 3),
-(17, 'http://suvllian.com', 3),
-(18, 'http://suvllian.com', 3);
+(6, 'http://suvllian.com', 1);
 
 -- --------------------------------------------------------
 
@@ -251,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `teachers` (
   `name` varchar(128) NOT NULL,
   `intro` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `teachers`

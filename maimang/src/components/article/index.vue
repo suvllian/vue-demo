@@ -17,7 +17,7 @@ export default{
 	},
 	methods:{
 		getData(){
-			let id = this.$route.query.id;
+			let id = this.$route.params.id;
 			api.getArticle(id).then(res => {	
 				this.article = res.data[0];
 			})
