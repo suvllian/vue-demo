@@ -59,7 +59,8 @@ export default{
 	/* 上传图片
 	 * 上传图片
 	 */
-	uploadImage:(fileData, name) => { return postResource.save({ do:"post", concrete:"uploadimage", image:fileData, name:name} )},
+	uploadImage:(fileData, name, id, table) => { return postResource.save({ do:"post", concrete:"uploadimage", 
+			image:fileData, name:name, id:id, table:table } )},
 
 	/* 登陆
 	 * 登陆验证

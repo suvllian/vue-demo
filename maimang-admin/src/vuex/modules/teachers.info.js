@@ -7,17 +7,19 @@ import { GET_TEACHERS_INFO, SET_TEACHERS_INDEX, UPLOAD_TEACHERS_IAMGE,
 
 export default {
 	state: {
-		teachers:[],
-		index:0,
+		teachers: [],
+		index: 0,
+		id: 0,
+		isUploading: false,
 		className: "teacher",
 		success: true,
 		isChange: false,
 		changeSuccess:true,
 		item: {},
 		isAdd: false,
-		addSuccess:true,
+		addSuccess: true,
 		addItem: {},
-		newId:0
+		newId: 0
 	},
 
 	mutations: {
@@ -27,18 +29,26 @@ export default {
 
 		// 设置被点击图片索引, 然后根据索引替换相应的图片
 		[SET_TEACHERS_INDEX](state, action) {
+			state.id = action.id;
 			state.index = action.index;
+			state.isUploading = action.isUploading;
 			state.className = action.className;
 		},
 
 		// 上传图片成功
 		[UPLOAD_TEACHERS_IAMGE_SUCCESS](state, action) {
-			state.index = 0;
+			state.isUploading = false;
 			state.success = true;
+			if (state.className == "imgsrc") {
+				state.teachers[state.index].imgsrc = action.name;
+			} else {
+				state.teachers[state.index].smallsrc = action.name;
+			}
 		},
 
 		// 上传图片失败
 		[UPLOAD_TEACHERS_IAMGE_FAIL](state, action) {
+			state.isUploading = true;
 			state.success = false;
 		},
 
@@ -104,18 +114,20 @@ export default {
 		},
 
 		// 点击图片，设置被点击图片的索引，显示或隐藏
-		[SET_TEACHERS_INDEX]({ commit }, info) {
+		[SET_TEACHERS_INDEX]({ commit }, item) {
 			commit(SET_TEACHERS_INDEX,{
-				index: info.index,
-				className: info.className
+				id: item.id,
+				index: item.index,
+				isUploading: item.isUploading,
+				className: item.className
 			})
 		},
 
 		// 点击修改按钮，出现修改栏
-		[CHANGE_TEACHERS_INFO]({ commit }, change) {
+		[CHANGE_TEACHERS_INFO]({ commit }, item) {
 			commit(CHANGE_TEACHERS_INFO,{
-				index: change.index,
-				isChange: change.isChange
+				index: item.index,
+				isChange: item.isChange
 			})
 		},
 
@@ -167,8 +179,8 @@ export default {
 		// 增加内容
 		[SUBMIT_ADD_TEACHERS_INFO]({ commit }, item) {
 			api.addTeacher(item.id, item.intro, item.name).then(res => {
-				if (res.data == 1){
-					commit(ADD_TEACHERS_INFO_SUCCESS);
+				if (res.data != 0){
+					commit(ADD_TEACHERS_INFO_SUCCESS);					
 				} else{
 					commit(ADD_TEACHERS_INFO_FAIL);
 				}   
@@ -185,16 +197,19 @@ export default {
 	
 			let className = file.className;
 			let fileName = "teacher";
-			if (className == "teacher") {
-				fileName = 'teacher-' + file.index;
+			let time = Date.now();
+			if (className == "imgsrc") {
+				fileName = 'teacher-' + file.id + time;
 			} else {
-				fileName = 'teacher-content-' + file.index;
+				fileName = 'tcontent-' + file.id + time;
 			}
 			 
 			fileReader.onload = e => {
-				api.uploadImage(e.target.result, fileName).then(res => {
-					if (res.data == 1){
-						commit(UPLOAD_TEACHERS_IAMGE_SUCCESS);
+				api.uploadImage(e.target.result, fileName, file.id, "teachers").then(res => {
+					if (res.data != 0){
+						commit(UPLOAD_TEACHERS_IAMGE_SUCCESS, {
+							name: res.data
+						});
 					} else{
 						commit(UPLOAD_TEACHERS_IAMGE_FAIL);
 					}   

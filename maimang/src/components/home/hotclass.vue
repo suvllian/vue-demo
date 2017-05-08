@@ -11,7 +11,7 @@
 				<ul class="slide-list">
 					<li v-for="(item, index) in data" :class="item.className">
 						<a :href="item.src" target="_blank">
-							<img class="list-pic" :src="'./static/img/hot-img-' + (index+1) + '.jpg'" :alt="item.intro">
+							<img class="list-pic" :src="'./static/img/' + item.imgsrc " :alt="item.intro">
 						</a>
 					</li>
 				</ul>

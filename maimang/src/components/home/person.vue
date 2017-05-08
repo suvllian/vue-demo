@@ -12,15 +12,15 @@
 			<div class="person-list" ref="list">
 				<div class="person-intro" v-for="(item, index) in data">
 					<div class="person-left">
-						<img :src="'./static/img/person-' + item.id + '-big.jpg'">
+						<img :src="'./static/img/' + item.imgsrc ">
 					</div>
 
 					<div class="person-right">
 						<h3 class="person-h">{{ item.name }}</h3>
 						<p class="person-p" v-html='item.intro'></p>
 						<ul class="person-img-list">
-							<li class="person-item" v-for="single in 6" @click="showMask(index, single)">
-								<img class="person-pic" :src="'./static/img/person-' + item.id + '-' + single + '.jpg'">
+							<li class="person-item" v-for="(sItem, sIndex) in item.pic" @click="showMask(sIndex, index)">
+								<img class="person-pic" :src="'./static/img/' + sItem.imgsrc ">
 							</li>
 						</ul>
 					</div>
@@ -89,11 +89,12 @@ export default{
 			})
 		},
 
-		showMask(big, small){
-			big = big + 1;
+		showMask(sIndex, bIndex){
+			let imageArray = this.data[bIndex].pic;
+
 			let html = '<div class="mask-contain">\
 							<div class="mask-image" id="mask-image">\
-								<a href="http://suvllian.com" target="_blank"><img src="./static/img/person-' + big + '-'+ small + '.jpg"></a>\
+								<a href="http://suvllian.com" target="_blank"><img src="./static/img/' + imageArray[sIndex].imgsrc + '"></a>\
 							</div>\
 							<div class="slide-action">\
 								<div class="slide-action-left">\
@@ -113,23 +114,24 @@ export default{
 			let leftBtn = document.querySelector("#left");
 			let rightBtn = document.querySelector("#right");
 			let img = document.querySelector("#mask-image img");
+			let $that = this;
 
 			function prev(){
-				if (small == 1) {
-					small = 6;
+				if (sIndex == 0) {
+					sIndex = 5;
 				} else {
-					small = small - 1;
+					sIndex = sIndex - 1;
 				}
-				img.src = './static/img/person-' + big + '-' + small + '.jpg';
+				img.src = './static/img/' + imageArray[sIndex].imgsrc;
 			}
 
 			function next() {
-				if (small == 6) {
-					small = 1;
+				if (sIndex == 5) {
+					sIndex = 0;
 				} else {
-					small = small + 1;
+					sIndex = sIndex + 1;
 				}
-				img.src = './static/img/person-' + big + '-' + small + '.jpg';
+				img.src = './static/img/' + imageArray[sIndex].imgsrc;
 			}
 
 			leftBtn.addEventListener("click", prev);

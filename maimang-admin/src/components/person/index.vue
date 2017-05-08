@@ -19,7 +19,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td @click="SET_PERSON_INDEX({index:people.id, className:'person'})"><label for="uploadBtn"><img class="td-big-img" :src="'./static/img/person-' + people.id + '-big.jpg'"></label></td>
+							<td @click="SET_PERSON_INDEX({ index:0, id:people.id, className:'person', isUploading:true })"><label for="uploadBtn"><img class="td-big-img" :src="'./static/img/' + people.imgsrc "></label></td>
 							<td>{{ people.name }}</td>
 							<td>{{ people.intro }}</td>
 							<td class="tr-contain-table">
@@ -35,15 +35,15 @@
 									<tbody>
 										<tr v-for="(single, index) in people.pic">
 											<td>{{ index + 1 }}</td>
-											<td @click="SET_PERSON_INDEX({index:(index + 1), className:'content'})"><label for="uploadBtn"><img :src="'./static/img/person-' + people.id + '-' + (index + 1) + '.jpg'"></label></td>
+											<td @click="SET_PERSON_INDEX({ index:index, id:single.id, className:'personpic', isUploading:true })"><label for="uploadBtn"><img :src="'./static/img/' + single.imgsrc "></label></td>
 											<td>{{ single.src }}</td>
-											<td><span class="change" @click="CHANGE_PERSON_SRC_INFO({index:index, srcIsChange:true})">修改</span></td>
+											<td><span class="change" @click="CHANGE_PERSON_SRC_INFO({ index:index, id:single.id, srcIsChange:true })">修改</span></td>
 										</tr>
 
 										<!-- 修改栏 -->
 										<tr v-if="srcIsChange" class="tr-change">
 											<td>{{ item.index+1 }}</td>
-											<td><img :src="'./static/img/person-' + people.id + '-' + (item.index + 1) + '.jpg'"></td>
+											<td><img :src="'./static/img/' + item.imgsrc "></td>
 											<td><input type="text" v-model="item.src"></td>
 											<td>
 												<span class="change" @click="SUBMIT_PERSON_SRC_INFO(item)">确定</span>
@@ -60,7 +60,7 @@
 
 						<!-- 修改栏 -->
 						<tr v-if="isChange" class="tr-change">
-							<td><img :src="'./static/img/person-' + people.id + '-big.jpg'"></td>
+							<td><img :src="'./static/img/' + item.imgsrc "></td>
 							<td><input type="text" v-model="item.name"></td>
 							<td><textarea type="text" v-model="item.intro"></textarea></td>
 							<td></td>
@@ -74,7 +74,7 @@
 
 						<!-- 添加栏 -->
 						<tr v-if="isAdd" class="tr-change">
-							<td><label for="uploadBtn">上传图片</label></td>
+							<td>先添加上传图片</td>
 							<td><input type="text" v-model="addItem.name"></td>
 							<td><textarea type="text" v-model="addItem.intro"></textarea></td>
 							<td></td>
@@ -89,11 +89,11 @@
 				</table>
 
 				<!-- 文件上传预览 -->
-				<div v-if="index">
+				<div v-if="isUploading">
 					<h3 class="container-h" v-if="!success"><span>上传失败，请重试</span></h3>
 					<img src="#" alt="图片预览" class="view" ref="imageView">
 					<button class="blue-Btn" @click.prevent="uploadImage">上传</button>
-					<button class="blue-Btn" @click.prevent="SET_PERSON_INDEX({index:0, className:'person'})">取消</button>
+					<button class="blue-Btn" @click.prevent="SET_PERSON_INDEX({ index:0, id:0, className:'person',isUploading:false })">取消</button>
 				</div>
 				<!-- 文件上传预览 -->
 			</section>
@@ -124,6 +124,8 @@ export default{
 		userInfo: store => store.Login.userInfo,
 		people: store => store.PersonInfo.people,
 		index: store => store.PersonInfo.index,
+		id: store => store.PersonInfo.id,
+		isUploading: store => store.PersonInfo.isUploading,
 		isChange: store => store.PersonInfo.isChange,
 		srcIsChange: store => store.PersonInfo.srcIsChange,
 		changeSuccess: store => store.PersonInfo.changeSuccess,
@@ -145,7 +147,7 @@ export default{
 		    preViewImg(this.$refs.file.files[0], this.$refs.imageView);
 		},
 		uploadImage(){
-			this.UPLOAD_PERSON_IAMGE({data: this.$refs.file.files[0], index: this.index, className: this.className, id: this.people.id});
+			this.UPLOAD_PERSON_IAMGE({data: this.$refs.file.files[0], index: this.index, className: this.className, id: this.id});
 		},
 
 		next(page){
@@ -161,6 +163,12 @@ export default{
 			}
 		}
 	},
+
+	watch:{
+        isUploading: function() {
+			
+		}
+    },
 	created(){
 		if (!this.userInfo.admin) {
 			this.$router.replace("login");

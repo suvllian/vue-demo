@@ -14,8 +14,8 @@
 				<ul>
 					<li class="teacher-list-item" v-for="(item, index) in teachers">
 						<div class="teacher-item-box">
-							<div class="teacher-img" @click="showMask(item.id)">
-								<img class="teacher-pic" :src="'./static/img/teacher-' + (index+1) + '.jpg'">
+							<div class="teacher-img" @click="showMask(index)">
+								<img class="teacher-pic" :src="'./static/img/' + item.imgsrc ">
 							</div>
 							<div class="teacher-intro">
 								<h4 class="teacher-intro-h">{{item.name}}</h4>
@@ -91,9 +91,11 @@ export default{
 
 		showMask(imgIndex) {
 			let index = parseInt(imgIndex);
+			let teachers = this.teachers;
+
 			let html = '<div class="mask-contain">\
 							<div class="mask-image" id="mask-image">\
-								<img src="./static/img/teacher-content-'+ index + '.jpg">\
+								<img src="./static/img/'+ teachers[index].smallsrc + '">\
 							</div>\
 							<div class="slide-action">\
 								<div class="slide-action-left">\
@@ -114,23 +116,24 @@ export default{
 			let rightBtn = document.querySelector("#right");
 			let img = document.querySelector("#mask-image img");
 			let length = this.teachers.length;
-
+			let $that = this;
+			
 			function prev(){
-				if (index == 1) {
-					index = length;
+				if (index == 0) {
+					index = length - 1;
 				} else {
 					index = index - 1;
 				}
-				img.src = './static/img/teacher-content-'+ index + '.jpg';
+				img.src = './static/img/'+ teachers[index].smallsrc;
 			}
 
 			function next() {
-				if (index == length) {
-					index = 1;
+				if (index == (length-1)) {
+					index = 0;
 				} else {
 					index = index + 1;
 				}
-				img.src = './static/img/teacher-content-'+ index + '.jpg';
+				img.src = './static/img/'+ teachers[index].smallsrc;
 			}
 
 			leftBtn.addEventListener("click", prev);

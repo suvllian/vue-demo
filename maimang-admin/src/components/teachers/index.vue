@@ -23,9 +23,9 @@
 							<td>{{ index + 1 }}</td>
 							<td>{{ item.name }}</td>
 							<td>{{ item.intro }}</td>
-							<td @click="SET_TEACHERS_INDEX({index:item.id, className:'teacher'})"><label for="uploadBtn"><img :src="'./static/img/teacher-' + item.id + '.jpg'"></label></td>
-							<td @click="SET_TEACHERS_INDEX({index:item.id, className:'content'})"><label for="uploadBtn"><img :src="'./static/img/teacher-content-' + item.id + '.jpg'"></label></td>
-							<td><span class="change-left" @click="CHANGE_TEACHERS_INFO({index:index, isChange:true})">修改</span><span class="delete-right" @click="deteteItem({id:item.id, index:index})">删除</span></td>
+							<td @click="SET_TEACHERS_INDEX({ index:index, id:item.id, className:'imgsrc', isUploading:true })"><label for="uploadBtn"><img :src="'./static/img/' + item.imgsrc "></label></td>
+							<td @click="SET_TEACHERS_INDEX({ index:index, id:item.id, className:'smallsrc', isUploading:true})"><label for="uploadBtn"><img :src="'./static/img/' + item.smallsrc "></label></td>
+							<td><span class="change-left" @click="CHANGE_TEACHERS_INFO({index:index, isChange:true})">修改</span><span class="delete-right" @click="deteteItem({ id:item.id, index:index })">删除</span></td>
 						</tr>
 
 						<!-- 修改栏 -->
@@ -33,8 +33,8 @@
 							<td>{{ item.id }}</td>
 							<td><input type="text" v-model="item.name"></td>
 							<td><input type="text" v-model="item.intro"></td>
-							<td><img :src="'./static/img/teacher-' + item.id + '.jpg'"></td>
-							<td><img :src="'./static/img/teacher-content-' + item.id + '.jpg'"></td>
+							<td><img :src="'./static/img/' + item.imgsrc "></td>
+							<td><img :src="'./static/img/' + item.smallsrc "></td>
 							<td>
 								<span class="change" @click="SUBMIT_TEACHERS_INFO(item)">确定</span>
 								<span class="change" @click="CHANGE_TEACHERS_INFO({index:0, isChange:false})">取消</span>
@@ -48,8 +48,8 @@
 							<td>添加</td>
 							<td><input type="text" v-model="addItem.name"></td>
 							<td><input type="text" v-model="addItem.intro"></td>
-							<td @click="SET_TEACHERS_INDEX({index:newId, className:'teacher'})"><label for="uploadBtn">上传图片</label></td>
-							<td @click="SET_TEACHERS_INDEX({index:newId, className:'content'})"><label for="uploadBtn">上传图片</label></td>
+							<td>先添加再上传图片</td>
+							<td>先添加再上传图片</td>
 							<td>
 								<span class="change" @click="SUBMIT_ADD_TEACHERS_INFO(addItem)">确定</span>
 								<span class="change" @click="ADD_TEACHERS_INFO({isAdd:false})">取消</span>
@@ -62,11 +62,11 @@
 				</table>
 
 				<!-- 文件上传预览 -->
-				<div v-if="index">
+				<div v-if="isUploading">
 					<h3 class="container-h" v-if="!success"><span>上传失败，请重试</span></h3>
 					<img src="#" alt="图片预览" class="view" ref="imageView">
 					<button class="blue-Btn" @click.prevent="uploadImage">上传</button>
-					<button class="blue-Btn" @click.prevent="SET_TEACHERS_INDEX({index:0, className:'teacher'})">取消</button>
+					<button class="blue-Btn" @click.prevent="SET_TEACHERS_INDEX({ index:0, className:'teacher', isUploading:false })">取消</button>
 				</div>
 				<!-- 文件上传预览 -->
 			</section>
@@ -88,6 +88,8 @@ export default{
 	computed: mapState({ 
 		teachers: store => store.TeachersInfo.teachers,
 		index: store => store.TeachersInfo.index,
+		id: store => store.TeachersInfo.id,
+		isUploading: store => store.TeachersInfo.isUploading,
 		className: store => store.TeachersInfo.className,
 		success: store => store.TeachersInfo.success,
 		isChange: store => store.TeachersInfo.isChange,
@@ -107,7 +109,7 @@ export default{
 		    preViewImg(this.$refs.file.files[0], this.$refs.imageView);
 		},
 		uploadImage(){
-			this.UPLOAD_TEACHERS_IAMGE({data: this.$refs.file.files[0], index: this.index, className: this.className});
+			this.UPLOAD_TEACHERS_IAMGE({ data:this.$refs.file.files[0], id:this.id, className:this.className });
 		},
 		deteteItem(data){
 			if (confirm("确认删除？")) {

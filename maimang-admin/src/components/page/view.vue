@@ -19,8 +19,8 @@
 				<tbody>
 					<tr v-for="(item, index) in articles">
 						<td>{{ index + 1 }}</td>
-						<td><a :href="'http://mymovement.com/article?id=' + item.id" target="_blank">{{item.title}}</a></td>
-						<td>{{ 'http://mymovement.com/article?id=' + item.id }}</td>
+						<td><a :href="'http://maimangyinyue.com/#/article/' + item.id" target="_blank">{{item.title}}</a></td>
+						<td>{{ 'http://maimangyinyue.com/#/article/' + item.id }}</td>
 						<td><span class="delete" @click="deteteItem({index:index,id:item.id})">删除</span></td>
 					</tr>
 				</tbody>

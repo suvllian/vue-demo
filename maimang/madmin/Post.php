@@ -1,9 +1,6 @@
 <?php
 header('Content-Type:application/json');
 
-session_save_path(dirname(__FILE__).'/sess/');
-@session_start();
-
 class Post extends Handler 
 {
 	public function setSuccessor($nextService)
@@ -98,7 +95,7 @@ class Post extends Handler
 		$src = addslashes($_POST["src"]);
 
 		if (isset($id)){
-			$sql = "UPDATE content SET intro='$intro', src='$src' WHERE cId='$id'";
+			$sql = "UPDATE content SET intro='$intro', src='$src' WHERE id='$id'";
 			$result = $this->dataBaseHandle->query($sql);
 			echo $result;
 		}	
@@ -163,12 +160,14 @@ class Post extends Handler
 		$id    = addslashes($_POST["id"]);
 		$intro = addslashes($_POST["intro"]);
 		$name  = addslashes($_POST["name"]);
-		$src   = "./static/teacher-".$id.".jpg";
+		$src   = "./static/teacher-1.jpg";
 
 		if (isset($id)){
-			$sql = "INSERT INTO teachers(id, name, intro, src) VALUES($id, '$name', '$intro', '$src')";
+			$sql = "INSERT INTO teachers(id, name, intro, imgsrc, smallsrc) VALUES($id, '$name', '$intro', '$src', '$src')";
 			$result = $this->dataBaseHandle->query($sql);
 			echo $result;
+		} else {
+			echo 0;
 		}	
 	}
 
@@ -191,7 +190,6 @@ class Post extends Handler
 			$sql = "SELECT pass FROM admin WHERE name='$name'";
 			$result = $this->dataBaseHandle->fetchOne($sql);
 			if (md5($password) === $result["pass"]) {
-				$_SESSION['maimang'] = 'admin';
 				$result = array("name"=>"success");
 				echo json_encode($result);
 			} else{
@@ -203,6 +201,8 @@ class Post extends Handler
 	public function uploadImage(){
 		$image = $_POST["image"];
 		$name  = $_POST["name"];
+		$id  = $_POST["id"];
+		$table  = $_POST["table"];
 
 		list($type, $data) = explode(',', $image);
 		
@@ -216,18 +216,31 @@ class Post extends Handler
 			$extend = '.png';
 		}
 
-		$photo = $name.$extend;
+		$photoName = $name.$extend;
+		$sql = "";
+
+		if (strpos($photoName, "tcontent") !== false) {
+			$sql = "UPDATE $table SET smallsrc = '$photoName' WHERE id = $id";
+			
+		} else {
+			$sql = "UPDATE $table SET imgsrc = '$photoName' WHERE id = $id";
+		}
+		
+		$sqlResult = $this->dataBaseHandle->query($sql);
 
 		// 文件路径及文件名
-		$relaPath = "./../static/img/";
+		$relaPath = "./../img/";
+		if(!file_exists($relaPath)){
+			mkdir($relaPath);
+		}
 
 		// 生成文件  
-		$result = file_put_contents($relaPath.$photo, base64_decode($data), true);
+		$result = file_put_contents($relaPath.$photoName, base64_decode($data), true);
 		if ($result > 0) { 
-			echo 1;
+			echo json_encode($photoName);
 		}
 		else { 
-			echo 2;
+			echo 0;
 		}
 	}
 }

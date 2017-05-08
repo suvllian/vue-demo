@@ -65,7 +65,7 @@ class Get extends Handler
 
 	public function getInfor(){
 		$tableName = $_GET["table"];
-		$sql = "SELECT * FROM $tableName";
+		$sql = "SELECT * FROM $tableName ORDER BY id DESC";
 		$result = $this->dataBaseHandle->fetchAll($sql);
 		echo json_encode($result);
 	}
@@ -91,6 +91,7 @@ class Get extends Handler
 			"id"    => $personList["id"],
 			"name"  => $personList["name"],
 			"intro" => $personList["intro"],
+			"imgsrc" => $personList["imgsrc"],
 			"pic"   => $personPicList
 		);	
 

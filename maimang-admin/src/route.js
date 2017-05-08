@@ -13,8 +13,6 @@ import Page from './components/page/index';
 import PageView from './components/page/view';
 
 const router = new VueRouter({
-  mode: 'history',
-  base: __dirname,
   routes: [
     { path: '/', component: Login },
 
@@ -30,7 +28,7 @@ const router = new VueRouter({
     { path: '/page', component: Page },
     { path: '/pageview', component: PageView },
 
-	  { path: '*', component: Login }
+	{ path: '*', component: Login }
   ]
 });
 

@@ -19,24 +19,24 @@
 					<tbody>
 						<tr v-for="(item, index) in albums">
 							<td>{{ index + 1 }}</td>
-							<td @click="SET_ALBUM_IMAGE_INDEX(index+1)"><label for="uploadBtn"><img :src="'./static/img/album-' + (index+1) + '.jpg'"></label></td>
+							<td @click="SET_ALBUM_IMAGE_INDEX({ index:index, id:item.id, isUploading:true})"><label for="uploadBtn"><img :src="'./static/img/' + item.imgsrc"></label></td>
 							<td>{{ item.intro }}</td>
 							<td>{{ item.src }}</td>
-							<td><span class="change" @click="CHANGE_ALBUM_INFO({index:index, isChange:true})">修改</span></td>
+							<td><span class="change" @click="CHANGE_ALBUM_INFO({ index:index, id:item.id, isChanging:true})">修改</span></td>
 						</tr>
 
 						<!-- 修改栏 -->
-						<tr v-if="isChange" class="tr-change">
-							<td>{{ item.cId }}</td>
-							<td><img :src="'./static/img/album-' + item.cId + '.jpg'"></td>
+						<tr v-if="isChanging" class="tr-change">
+							<td>{{ item.id }}</td>
+							<td><img :src="'./static/img/' + item.imgsrc"></td>
 							<td>
-								<input type="text" v-model="item.intro" v-if="item.cId==1">
+								<input type="text" v-model="item.intro" v-if="item.id==1">
 								<input type="text" v-model="item.intro" disabled="true" v-else>
 							</td>
 							<td><input type="text" v-model="item.src"></td>
 							<td>
 								<span class="change" @click="SUBMIT_ALBUM_INFO(item)">确定</span>
-								<span class="change" @click="CHANGE_ALBUM_INFO({index:0, isChange:false})">取消</span>
+								<span class="change" @click="CHANGE_ALBUM_INFO({ index:0, id:0, isChanging:false })">取消</span>
 							</td>
 						</tr>
 						<h3 class="container-h" v-if="!changeSuccess"><span>修改失败，请重试</span></h3>
@@ -45,11 +45,11 @@
 				</table>
 
 				<!-- 文件上传预览 -->
-				<div v-if="index">
+				<div v-if="isUploading">
 					<h3 class="container-h" v-if="!success"><span>上传失败，请重试</span></h3>
 					<img src="#" alt="图片预览" class="view" ref="imageView">
 					<button class="blue-Btn" @click.prevent="uploadImage">上传</button>
-					<button class="blue-Btn" @click.prevent="SET_ALBUM_IMAGE_INDEX(0)">取消</button>
+					<button class="blue-Btn" @click.prevent="SET_ALBUM_IMAGE_INDEX({ index:0, id:0, isUploading:false })">取消</button>
 				</div>
 				<!-- 文件上传预览 -->
 			</section>
@@ -71,8 +71,10 @@ export default{
 	computed: mapState({ 
 		albums: store => store.albumInfo.albums,
 		index: store => store.albumInfo.index,
+		id: store => store.albumInfo.id,
+		isUploading: store => store.albumInfo.isUploading,
 		success: store => store.albumInfo.success,
-		isChange: store => store.albumInfo.isChange,
+		isChanging: store => store.albumInfo.isChanging,
 		item: store => store.albumInfo.item,
 		changeSuccess: store => store.albumInfo.changeSuccess,
 		userInfo: store => store.Login.userInfo
@@ -84,7 +86,7 @@ export default{
 		    preViewImg(this.$refs.file.files[0], this.$refs.imageView);
 		},
 		uploadImage(){
-			this.UPLOAD_ALBUM_IMAGE({data: this.$refs.file.files[0], index: this.index});
+			this.UPLOAD_ALBUM_IMAGE({data: this.$refs.file.files[0], id: this.id});
 		}
 	},
 	created(){

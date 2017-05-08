@@ -3,7 +3,7 @@
 		<div class="section-bg album-bg">
 			<ul class="album-bg-list">
 				<li class="bg-item" v-for="(item,index) in data">
-					<img class="bg-pic" :src="'./static/img/album-' + (index+1) + '.jpg'">
+					<img class="bg-pic" :src="'./static/img/' + item.imgsrc ">
 				</li>
 			</ul>
 		</div>
@@ -12,7 +12,7 @@
 			<div class="album-content">
 				<ul class="album-content-list">
 					<li class="content-item" v-for="(item, index) in data">
-						<a href="http://suvllian.com" target="_blank" class="album-link">
+						<a :href="item.src" target="_blank" class="album-link">
 							<div>
 								<h1 class="content-h">{{ item.intro }}</h1>
 							</div>
@@ -137,7 +137,7 @@ export default{
 		}
 		
 		album.style.height = height + 'px';
-		albumInner.style.height = height - 70 + 'px';
+		albumInner.style.height = height - 25 + 'px';
 	}
 }
 </script>

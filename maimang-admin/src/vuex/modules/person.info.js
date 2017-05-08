@@ -1,4 +1,5 @@
 import api from './../../api';
+import router from './../../route.js'
 import { GET_PERSON_INFO, SET_PERSON_INDEX, CHANGE_PERSON_INFO,
 		CHANGE_PERSON_INFO_SUCCESS, CHANGE_PERSON_INFO_FAIL, DELETE_PERSON_INFO,	
 		SUBMIT_PERSON_INFO, UPLOAD_PERSON_IAMGE, UPLOAD_PERSON_IAMGE_SUCCESS,
@@ -14,6 +15,10 @@ export default {
 
 		// 图片的索引
 		index:0,
+
+		id: 0,
+
+		isUploading: false,
 
 		// 上传成功
 		success: true,
@@ -47,6 +52,8 @@ export default {
 
 		// 添加的内容
 		addItem: {},
+
+		newId: 0
 	},
 
 	mutations: {
@@ -58,14 +65,21 @@ export default {
 
 		// 设置被点击图片索引。包括大图和小图
 		[SET_PERSON_INDEX](state, action) {
+			state.id = action.id;
 			state.index = action.index;
 			state.className = action.className;
+			state.isUploading = action.isUploading;
 		},
 
 		// 上传成功
 		[UPLOAD_PERSON_IAMGE_SUCCESS](state, action) {
-			state.index = 0;
+			state.isUploading = false;
 			state.success = true;
+			if (state.className == "person") {
+				state.people.imgsrc = action.name;
+			} else {
+				state.people.pic[state.index].imgsrc = action.name;
+			}
 		},
 
 		// 上传图片失败
@@ -114,8 +128,8 @@ export default {
 		// 点击添加按钮，出现添加栏，点击取消隐藏
 		[ADD_PERSON_INFO](state, action) {
 			state.isAdd = action.isAdd;
-			state.addItem.id = action.index;
-			state.newId = action.index;
+			state.addItem.id = action.id;
+			state.newId = action.id;
 		},
 
 		// 添加成功
@@ -124,6 +138,7 @@ export default {
 			state.addSuccess = true;
 			state.index = 0;
 			state.addItem = {};
+			router.go("/person");
 		},
 
 		// 添加失败
@@ -133,7 +148,7 @@ export default {
 		},
 
 		[DELETE_PERSON_INFO](state, action) {
-			
+
 		},
 
 	},
@@ -154,10 +169,12 @@ export default {
 		},
 
 		// 点击图片，设置被点击图片的索引，显示或隐藏
-		[SET_PERSON_INDEX]({ commit }, info) {
+		[SET_PERSON_INDEX]({ commit }, item) {
 			commit(SET_PERSON_INDEX,{
-				index: info.index,
-				className: info.className
+				index: item.index,
+				id: item.id,
+				className: item.className,
+				isUploading: item.isUploading
 			})
 		},
 
@@ -208,7 +225,7 @@ export default {
 				api.getNumber("person").then(res => {
 					commit(ADD_PERSON_INFO, {
 						isAdd: add.isAdd,
-						index:(parseInt(res.data[0].id) + 1)
+						id: (parseInt(res.data[0].id) + 1)
 					})
 				}).catch(err => {
 					commit(ADD_PERSON_INFO_FAIL);
@@ -251,17 +268,17 @@ export default {
 			fileReader.readAsDataURL(file.data);
 
 			let className = file.className;
-			let fileName = "person";
-			if (className == 'person') {
-				fileName = 'person-' + file.index + '-big';
-			} else {
-				fileName = 'person-' + file.id + '-' + file.index;
-			}
+			let time = Date.now();
+			let id = file.id;
+
+			let fileName = 'person-' + id + '-' + time;	
 
 			fileReader.onload = e => {
-				api.uploadImage(e.target.result, fileName).then(res => {
-					if (res.data == 1){
-						commit(UPLOAD_PERSON_IAMGE_SUCCESS);
+				api.uploadImage(e.target.result, fileName, id, className).then(res => {
+					if (res.data != 0){
+						commit(UPLOAD_PERSON_IAMGE_SUCCESS, {
+							name: res.data
+						});
 					} else{
 						commit(UPLOAD_PERSON_IAMGE_FAIL);
 					}   
