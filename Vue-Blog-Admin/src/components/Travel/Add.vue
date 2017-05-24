@@ -1,17 +1,19 @@
 <template>
   <section>
-      <h3>添加城市</h3>
-      <form @submit.prevent="submit">
-         <div>
-            <div class="label">
-              <label><span>城市名：</span></label>
-            </div>
-            <div class="input">
-              <input type="text" v-model="city">    
-            </div>
-         </div> 
-         <button type="submit" class="submit">提交</button>
-      </form>
+      <h3 class="section-h"><span>添加城市</span></h3>
+      <section class="section">
+        <form class="form" @submit.prevent="submit">
+           <div>
+              <div class="label">
+                <label><span>城市名：</span></label>
+              </div>
+              <div class="input">
+                <input type="text" v-model="city">    
+              </div>
+           </div> 
+           <button type="submit" class="blue-Btn">提交</button>
+        </form>
+      </section>
   </section>
 </template>
 

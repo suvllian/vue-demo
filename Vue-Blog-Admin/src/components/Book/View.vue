@@ -1,7 +1,7 @@
 <template>
   <div class="right">
-    <section>
-       <h3>图书列表</h3>
+    <h3 class="section-h"><span>图书列表</span></h3>
+    <section class="section">  
        <table>
          <thead>
            <tr>

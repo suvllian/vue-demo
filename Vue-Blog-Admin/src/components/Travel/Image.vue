@@ -1,9 +1,8 @@
 <template>
   <div class="right">
-    <section>
-        <h3>{{ infor }}</h3>
-
-        <form @submit.prevent="submit">
+    <h3 class="section-h"><span>{{ infor }}</span></h3>
+    <section class="section">
+        <form class="form" @submit.prevent="submit">
            <div v-for="item in formItem">
 
               <div class="label">
@@ -17,7 +16,7 @@
               <div class="input" v-if="item.isFile">
                 <input type="file" @change="selectImage" ref="file">  
               </div>
-              <button @click.prevent="uploadImage" v-if="item.isFile">上传</button>
+              <button class="blue-Btn" @click.prevent="uploadImage" v-if="item.isFile">上传</button>
 
               <div class="input" v-if="item.isSelect">
                 <select v-model="formValue[item.name]">
@@ -33,11 +32,11 @@
 
            </div> 
 
-           <button type="submit" class="submit">提交</button>
+           <button type="submit" class="blue-Btn">提交</button>
         </form>
 
         <div class="view">
-          <img src="#" alt="上传预览" ref="imageView">
+          <img class="view-img" src="#" alt="上传预览" ref="imageView">
         </div>
     </section>
 
@@ -59,13 +58,13 @@ export default{
         {title:"图片名：",name:"imageName",isText:true},
         {title:"图片：",name:"file",isFile:true},
         {title:"分类：",name:"city",isSelect:true},
-        {title:"简介：",name:"content",isTextarea:true},     
+        {title:"简介：",name:"intro",isTextarea:true},     
       ],
       formValue:{
         topic:"",
         imageName:"",
         city:"",
-        content:"",
+        intro:"",
       },
       options:[],
     }
@@ -79,7 +78,6 @@ export default{
         }
       },res => {
           this.infor = "添加失败";
-          console.log(res.data);
       });
     },
 
@@ -113,7 +111,6 @@ export default{
           }
         },res => {
             $this.infor = "上传失败";
-            console.log(res.data);
         });
       }
     },
@@ -132,79 +129,3 @@ export default{
   }
 }
 </script>
-
-<style lang="scss">
-  h3{
-    font-weight: bold;
-    padding:12px 16px;
-    background-color: #eee;
-    font-size: 16px;
-    border-bottom: 1px solid #ddd;
-  }
-
-  section{
-    border:2px solid #eee;
-    margin:6px;
-    padding-bottom:16px;
-    border-radius:5px;
-    position: relative;
-  }
-
-  form{
-    display: inline-block;
-    width: 55%;
-
-    >div{
-      margin:20px 0px;
-    }
-
-    input,textarea,option{
-      border:1px solid #ddd;
-      font-size: 14px;
-      line-height: 20px;
-      padding: 10px;
-      border-radius:3px;
-      width: 300px;
-    }
-
-    textarea{
-      width: 360px;
-    }
-
-    button{
-      padding:8px 16px;
-      font-size: 18px;
-      background-color: #00adb5;
-      border:0px;
-      color: #fff;
-      letter-spacing: 2px;
-      border-radius:6px;
-    }
-
-    $left:120px;
-    .submit{
-      margin-left: $left;
-    }
-
-    .label{
-      width: $left;
-      display: inline-block;
-      text-align: right;
-    }
-
-    .input{
-      display: inline-block;
-    }
-  }
-
-  // 图片预览
-  .view{
-    display: inline-block;
-    position:relative;
-    
-    img{
-      max-height: 400px;
-      max-width: 400px;
-    }
-  }
-</style>

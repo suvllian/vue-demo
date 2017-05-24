@@ -53,7 +53,9 @@ export default {
 		// 添加的内容
 		addItem: {},
 
-		newId: 0
+		newId: 0, 
+
+		reload: 1
 	},
 
 	mutations: {
@@ -138,7 +140,7 @@ export default {
 			state.addSuccess = true;
 			state.index = 0;
 			state.addItem = {};
-			router.go("/person");
+			state.reload = state.reload + 1;
 		},
 
 		// 添加失败
@@ -148,7 +150,7 @@ export default {
 		},
 
 		[DELETE_PERSON_INFO](state, action) {
-
+			state.reload = state.reload + 1;
 		},
 
 	},

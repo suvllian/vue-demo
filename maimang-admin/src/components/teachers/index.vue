@@ -99,7 +99,8 @@ export default{
 		addSuccess: store => store.TeachersInfo.addSuccess,
 		addItem: store => store.TeachersInfo.addItem,
 		newId: store => store.TeachersInfo.newId,
-		userInfo: store => store.Login.userInfo
+		userInfo: store => store.Login.userInfo,
+		reload: store => store.TeachersInfo.reload,
 	}),
 	methods:{
 		...mapActions([GET_TEACHERS_INFO, SET_TEACHERS_INDEX, UPLOAD_TEACHERS_IAMGE,
@@ -117,6 +118,13 @@ export default{
 			}
 		}
 	},
+
+	watch:{
+        reload: function() {
+			this.GET_TEACHERS_INFO();
+		}
+    },
+
 	created(){
 		if (!this.userInfo.admin) {
 			this.$router.replace("login");

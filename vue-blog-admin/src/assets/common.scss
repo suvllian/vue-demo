@@ -1,0 +1,82 @@
+*{
+    padding:0;
+    margin: 0;
+    list-style: none;
+    box-sizing:border-box;
+}
+
+.right{
+	width:100%;
+    min-width: 1500px;
+	height:100vh;
+	padding:64px 0 0 0;
+    background-color:#f2f4f8;
+}
+
+.section-h{
+	padding:12px 16px;
+	font-size: 20px;
+	font-weight:400;
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+
+	span{
+		text-decoration: underline;
+		color: #00adb5;
+	}
+}
+
+.section{
+	background-color:#fff;
+}
+
+.form{
+	display: inline-block;
+	width: 50%;
+	margin:10px;
+
+	>div{
+ 		margin:20px 0px;
+	}
+
+	input,textarea,option{
+		border:1px solid #ddd;
+		font-size: 14px;
+		line-height: 20px;
+		padding: 10px;
+		border-radius:3px;
+		width: 300px;
+	}
+
+	$left:120px;
+	.submit{
+		margin-left: $left;
+	}
+
+	.label{
+		width: $left;
+		display: inline-block;
+		text-align: right;
+	}
+
+	.input{
+	  display: inline-block;
+	}
+}
+
+// 图片预览
+.view{
+	display: inline-block;
+	position:relative;
+
+	.view-img{
+		max-height: 400px;
+		max-width: 400px;
+	}
+}
+
+.item{
+  width: 560px;
+  padding:12px 0;
+  margin:0 auto;
+  text-align: center;
+}

@@ -137,6 +137,7 @@ export default{
 		isAdd: store => store.PersonInfo.isAdd,
 		addSuccess: store => store.PersonInfo.addSuccess,
 		addItem: store => store.PersonInfo.addItem,
+		reload: store => store.PersonInfo.reload
 	}),
 	methods:{
 		...mapActions([GET_PERSON_INFO, SET_PERSON_INDEX, CHANGE_PERSON_INFO,
@@ -165,8 +166,8 @@ export default{
 	},
 
 	watch:{
-        isUploading: function() {
-			
+        reload: function() {
+			this.GET_PERSON_INFO(1);
 		}
     },
 	created(){

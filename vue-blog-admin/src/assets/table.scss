@@ -1,0 +1,52 @@
+/*
+ * 表格样式
+ *
+ */
+
+table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%; 
+    margin:16px auto;
+
+    // 设置隔行背景色
+    tr{
+        text-align: center;
+
+        &:nth-child(2n+1){
+            background-color:#eee;
+        }
+    }
+
+    td{
+        padding: 6px;
+        max-width: 300px;
+        min-width: 40px;
+        max-height: 100px;
+
+        img{
+            max-height:50px;
+            max-width: 180px; 
+        }
+    }
+
+    th{
+        padding: 12px;
+        background-color:#fff;
+    }
+
+    input, textarea{
+        width: 100%;
+        padding:6px 3px;
+        border:1px solid #ccc;
+        border-radius:3px;
+    }
+
+    input[type=radio]{
+        width: 5px;
+    }
+
+    textarea{
+        height: 32px;
+    } 
+}

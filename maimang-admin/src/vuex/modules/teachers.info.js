@@ -19,7 +19,8 @@ export default {
 		isAdd: false,
 		addSuccess: true,
 		addItem: {},
-		newId: 0
+		newId: 0,
+		reload: 1
 	},
 
 	mutations: {
@@ -92,6 +93,7 @@ export default {
 			state.addSuccess = true;
 			state.index = 0;
 			state.addItem = {};
+			state.reload = state.reload + 1;
 		},
 
 		// 添加失败

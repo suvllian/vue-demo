@@ -1,7 +1,7 @@
 <template>
   <div class="right">
-    <section>
-       <h3>图片列表</h3>
+    <h3 class="section-h"><span>图片列表</span></h3>
+    <section class="section">  
        <table>
          <thead>
            <tr>
@@ -13,7 +13,7 @@
              <th>标题</th>
              <th>简介</th>
              <th>热度</th>
-             <th>显示</th>
+             <th>发布状态</th>
              <th>操作</th>
            </tr>
          </thead>
@@ -28,7 +28,7 @@
              <td>{{item.iTopic}}</td>
              <td>{{item.iContent}}</td>
              <td>{{item.iLike}}</td>
-             <td>{{parseInt(item.iShow)?"是":"否"}}</td>
+             <td>{{parseInt(item.iShow)?"发布":"未发布"}}</td>
              <td><span class="change" @click="change(item,index)">修改</span><span class="delete" @click="deleteItem(item,index)">删除</span></td>
            </tr>
 
@@ -37,7 +37,7 @@
              <td>{{changeForm.cName}}</td>
              <td>{{new Date(parseInt(changeForm.iDate) * 1000).toLocaleString().slice(0,11)}}</td> 
              <td><input type="text" v-model="changeForm.iImage"></td>
-             <td><img v-bind:src=" 'http://suvllian.com/V/images/travel/' + changeForm.iImage + '.jpg' "></td>
+             <td><img v-bind:src=" 'http://suvllian.com/static/images/travel/' + changeForm.iImage + '.jpg' "></td>
              <td><input type="text" v-model="changeForm.iTopic"></td>
              <td><textarea v-model="changeForm.iContent"></textarea></td>
              <td>{{changeForm.iLike}}</td>
@@ -45,7 +45,7 @@
                 显示<input class="radio" type="radio" v-model="changeForm.iShow" value="1">
                 隐藏<input class="radio" type="radio" v-model="changeForm.iShow" value="0">
              </td>
-             <td><span class="submit" @click="submit()">确认</span></td>
+             <td><span class="submit" @click="submit()">确认</span><span class="submit" @click="isChange = false">取消</span></td>
            </tr>
          </tbody>
 
@@ -133,119 +133,3 @@ export default{
   }
 }
 </script>
-
-
-<style lang="scss">
-    h3{
-      font-weight: bold;
-      padding:12px 16px;
-      background-color: #eee;
-      font-size: 16px;
-      border-bottom: 1px solid #ddd;
-    }
-
-    section{
-      border:2px solid #eee;
-      margin:6px;
-      border-radius:5px;
-    }
-
-    .item{
-      width: 560px;
-      padding:12px 0;
-      margin:0 auto;
-      text-align: center;
-    }
-
-    .submit{
-      border:1px solid #00adb5;
-      border-radius:5px;
-      padding:6px 12px;
-      cursor: pointer;
-
-      &:hover{
-        background-color:#00adb5;
-        color: #fff;
-      }
-    }
-
-    table{
-      border-collapse: collapse;
-      border-spacing: 0;
-      width: 100%; 
-      margin:16px auto;
-      margin-bottom: 0;
-
-      span{
-        cursor: pointer;
-        display: inline-block;
-        padding:6px 8px;
-      }
-
-      .change{
-        border:1px solid #00adb5;
-        border-right:0;
-        border-top-left-radius:5px;
-        border-bottom-left-radius:5px;
-
-        &:hover{
-          background-color:#00adb5;
-          color: #fff;
-        }
-      }
-
-      .delete{
-        border:1px solid red;
-        border-top-right-radius:5px;
-        border-bottom-right-radius:5px;
-
-        &:hover{
-          background-color:red;
-          color: #fff;
-        }
-      }
-       
-      td{
-        border-bottom: 2px solid #ddd;
-        padding: 8px 23px;
-        margin: 0;
-        max-width: 400px;
-        min-width: 40px;
-        text-align: center;
-
-        img{
-          max-height:50px;
-          max-width: 180px; 
-        }
-      }
-
-      input{
-        width: 62px;
-        padding:6px 3px;
-        border:1px solid #ccc;
-        border-radius:5px;
-      }
-
-      input[type=radio]{
-        width: 5px;
-      }
-
-      textarea{
-        width: 100%;
-        height: 32px;
-        padding:6px 3px;
-        border:1px solid #ccc;
-        border-radius:5px;
-      }
-
-      th{
-        border-bottom: 2px solid #ddd;
-        vertical-align: bottom;
-        line-height: 1.42857;
-        text-align: center;
-        padding: 6px;
-        padding-top: 0;
-        margin: 0;
-      }
-    }
-</style>

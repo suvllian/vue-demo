@@ -1,4 +1,4 @@
-import {getResource,postResource} from './resources';
+import {getResource, postResource} from './resources';
 
 export default{
 
@@ -28,6 +28,10 @@ export default{
 	addArticle: content => { return postResource.save({do:"article", concrete:"addArticle", name:content.name,
 								image:content.image, intro:content.intro, date:content.date, content:content.content, 
 								class:content.class})},
+
+	getAllArticle: page => { return getResource.get({do:"article", concrete:"allArticle", page:page}); },
+
+	changeArticle: content => { return postResource.save({do:"article", concrete:"changeArticle", content:content})},
 
 	// Image
 	addImage: content => { return postResource.save({do:"image", concrete:"addImage", content:content})},

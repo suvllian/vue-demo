@@ -1,9 +1,8 @@
 <template>
   <div class="right">
-    <section>
-        <h3>{{ infor }}</h3>
-
-        <form @submit.prevent="submit">
+    <h3 class="section-h"><span>{{ infor }}</span></h3>
+    <section class="section">
+        <form class="form" @submit.prevent="submit">
            <div v-for="item in formItem">
 
               <div class="label">
@@ -21,7 +20,7 @@
               <div class="input" v-if="item.isFile">
                 <input type="file" @change="selectImage" ref="file">  
               </div>
-              <button @click.prevent="uploadImage" v-if="item.isFile">上传</button>
+              <button class="blue-Btn" @click.prevent="uploadImage" v-if="item.isFile">上传</button>
 
               <div class="input" v-if="item.isSelect">
                 <select v-model="formValue[item.name]">
@@ -37,11 +36,11 @@
 
            </div> 
 
-           <button type="submit" class="submit">提交</button>
+           <button type="submit" class="blue-Btn">提交</button>
         </form>
 
         <div class="view">
-          <img src="#" alt="上传预览" ref="imageView">
+          <img class="view-img" src="#" alt="上传预览" ref="imageView">
         </div>
     </section>
 
