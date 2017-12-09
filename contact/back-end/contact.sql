@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS contact (
+	id INT(16) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(32) NOT NULL,
+	phone INT(16) NOT NULL,
+  describe_text TEXT NOT NULL,
+  corproation TEXT NOT NULL,
+  address TEXT NOT NULL,
+  email TEXT NOT NULL,
+  tag INT(16) NOT NULL,
+  advice_times INT(16) NOT NULL,
+  remark TEXT NOT NULL
+)  DEFAULT CHARACTER SET gbk COLLATE gbk_chinese_ci;

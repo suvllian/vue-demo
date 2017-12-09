@@ -1,0 +1,96 @@
+html {
+  font-size: 25px;
+  font-family: STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑";
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+
+  &-nav {
+    width: 20%;
+    padding: 0.46rem 0.72rem;
+  
+    &:nth-child(2n) {
+      text-align: right;
+    } 
+  }
+
+  &-icon {
+    max-width: 1rem;
+    max-height: 1rem;
+  }
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 0.6rem;
+  background-color: #233e79;
+  color: #fff;
+
+  &-img {
+    max-width: 4.2rem;
+    margin-right: 0.3rem;
+  }
+
+  &-title {
+    font-size: 1.12rem;
+    padding: 0.32rem 0;
+  }
+
+  &-p {
+    line-height: 0.92rem;
+    font-size: 0.48rem;
+  }
+}
+
+.form-field {
+  padding: 1rem 0.72rem;
+
+  .tags {
+    border-bottom: 0.02rem solid #d8dce5;
+  }
+  .el-form-item {
+    margin-bottom: 0.62rem;
+    border-bottom: 0.02rem solid #e5e5e5;
+    &__label {
+      padding-right: 0;
+      font-family: Microsoft YaHei;
+      &::before {
+        display: none;
+      }
+    }
+    &__content {
+      padding-left: 0;
+    }
+  }
+  .el-form-item__label, .el-radio,.el-textarea__inner {
+    color: #b8b8b8;
+  }
+  .el-textarea__inner {
+    border: none;
+  }
+  .el-input__inner {
+    border-radius: 0px;
+    border: none;
+    color: #000;
+    &:focus {
+      border-color: none;
+    }
+  }
+}
+
+.friend-name {
+  .el-input__inner {
+    height: auto;
+    padding-bottom: 0.48rem;
+    padding-left: 0;
+    font-size: 1.6rem;
+    font-weight:600;
+  }
+}
+
+.el-radio__label {
+  font-family: Microsoft YaHei;
+}
