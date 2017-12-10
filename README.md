@@ -11,5 +11,6 @@
 |-- [maimang](http://maimangyinyue.com)  // 麦芒音乐
 |-- maimang-admin                        // 麦芒音乐
 |-- learn vue source                     // 学习Vue源码
+|-- vue templete                         // vue.js项目基础脚手架
 .
 ```
