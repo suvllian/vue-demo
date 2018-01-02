@@ -107,7 +107,6 @@ export default {
     },
     getData () {
       const id = this.id
-      if (!id) { return false }
 
       const params = {
         do: 'contact',

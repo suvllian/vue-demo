@@ -22,7 +22,7 @@ class Request
 	}
 
 	public function getDataBaseHandle(){
-		$this->dataBaseHandle = new DB("localhost","","","","utf8");
+		$this->dataBaseHandle = new DB("localhost","root","","contact","utf8");
 		return $this->dataBaseHandle;
 	}
 }

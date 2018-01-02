@@ -18,8 +18,8 @@
       </form>
     </div>
     <div class="login-bottom">
-      <img src="./../../assets/login_bottom.png" alt="" class="login-bottom-img">
-      <p class="login-copyright">SUVLLIAN</p>
+      <img src="./../../assets/login_bottom.png" alt="" class="login-bottom-img"  @click="this.login">
+      <p class="login-copyright">YUNXINNIAO/PENGHUAN</p>
     </div>
   </div>
 </template>
@@ -43,10 +43,15 @@ export default {
         password: this.password
       }
       api.postMethod('', params).then(res => {
-        const { csrf_token, success } = res.data
+        const { csrf_token, success, errMsg = '系统错误' } = res.data
         if (success) {
           document.cookie = `csrf_token=${csrf_token}`
           this.$router.push('list')
+        } else {
+          this.$alert(errMsg, '错误', {
+            confirmButtonText: '确定',
+            callback: () => {}
+          });
         }
       })
     }

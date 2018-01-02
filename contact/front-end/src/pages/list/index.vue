@@ -25,9 +25,6 @@
       </div>
     </section>
   </div>
-</mt-header>
-
-  </div>
 </template>
 
 <script>
@@ -55,8 +52,7 @@ export default {
         const { data = [], success = false } = res.data
         if (success) {
           this.contactList = data
-        } 
-        else {
+        } else {
           this.$router.push('/')
         }
       })

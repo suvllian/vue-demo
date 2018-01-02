@@ -61,7 +61,7 @@ class Contact extends Handler
 		if (empty($username) || empty($password)) {
 			$result = array("errMsg" => "账号密码不完整", "success" => false);
 		} else {
-			if ($username === "" && $password === "") {
+			if ($username === "penghuan" && $password === "159357") {
 				$csrfToken = md5($username.$password.time());
 				$_SESSION["csrf_token"] = $csrfToken;
 				$result = array("success" => true, "csrf_token" => $csrfToken);
@@ -87,7 +87,7 @@ class Contact extends Handler
 
 		$result = array();
 
-		if ( $_SESSION["csrf_token"] === $csrfToken) {
+		if (@$_SESSION["csrf_token"] === $csrfToken) {
 			$sql = "INSERT INTO contact (name, phone, describe_text, corproation, address, email, tag, advice_times, remark) 
 		      VALUES('$name', '$phone', '$describeText', '$corproation', '$address', '$email', '$tag', '$adviceTimes', '$remark')";
 			$dbResult = $this->dataBaseHandle->IDA($sql);
@@ -117,7 +117,7 @@ class Contact extends Handler
 		$remark = addslashes(trim($_POST["remark"]));
 		$csrfToken = addslashes(trim(@$_POST["csrf_token"]));
 
-		if ( $_SESSION["csrf_token"] === $csrfToken) {
+		if (@$_SESSION["csrf_token"] === $csrfToken) {
 			$sql = "UPDATE contact SET name='$name', phone='$phone', describe_text='$describeText', corproation='$corproation', address='$address', email='$email', tag='$tag', advice_times='$adviceTimes', remark='$remark' WHERE id = $id";
 			$dbResult = $this->dataBaseHandle->IDA($sql);
 			$result = array();
@@ -142,7 +142,7 @@ class Contact extends Handler
 
 		$result = array();
 
-		if ( $_SESSION["csrf_token"] === $csrfToken) {
+		if (@$_SESSION["csrf_token"] === $csrfToken) {
 			// $sql = "SELECT id, name FROM contact LIMIT $pageStart, $pageSize";
 			$sql = "SELECT id, name FROM contact";
 			$dbResult = $this->dataBaseHandle->fetchAll($sql);
@@ -165,7 +165,7 @@ class Contact extends Handler
 
 		$result = array();
 
-		if ( $_SESSION["csrf_token"] === $csrfToken) {
+		if (@$_SESSION["csrf_token"] === $csrfToken) {
 			$sql = "SELECT * FROM contact WHERE id = $id";
 			$dbResult = $this->dataBaseHandle->fetchOne($sql);
 
@@ -192,7 +192,7 @@ class Contact extends Handler
 
 		$result = array();
 
-		if ( $_SESSION["csrf_token"] === $csrfToken) {
+		if (@$_SESSION["csrf_token"] === $csrfToken) {
 			$sql = "SELECT * FROM contact WHERE name LIKE '%$infor%' OR tag = $tag";
 			$dbResult = $this->dataBaseHandle->fetchAll($sql);
 
